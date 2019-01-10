@@ -1,0 +1,18 @@
+text2json parser component
+
+	Sample parser work
+		14:24 15:00 8.1.2019
+		14:45 ~ 17:00 9.*
+		10:30 ~ 10.*: Peeling layers of code process, from hierarchy on
+
+
+
+TODO:
+
+	Parser functions
+	- makeRegex, getFirstWord, getBeforeFirstComma, divideExpressions (tokenizer function)
+	- parsing function should involve guesswork (wait for a distinct pattern to expose itself in a non-ambigous form)
+	- 
+	- take in ...
+		filesystem.js: expectedFolderHierarchies
+		string.js: 
