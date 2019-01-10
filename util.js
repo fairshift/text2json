@@ -7,13 +7,22 @@
 // hookney: '${self:firstKey.secondKey}'
 
 
-
 import hashids from 'hashids'
 
 import { path, join } from 'path'
 const { readdir, stat } = require('fs').promises
 
+
+
+// Initialization
+
 export const parserList = fs.readFileSync("parsers.json");
+export const config = fs.readFileSync("config.json");
+
+export function allowLocalFolders = () => {
+  return config.localDatasetsIn;
+}
+
 
 
 /*
@@ -60,19 +69,33 @@ export function getNumberType(n){
   }
 }
 
+export const getBeforeFirstComma = (string) => {
+  let arr = string.split(',');
+  return arr[0];
+}
+
 
 export const passThroughRegex = (string, regexArray, returnBeforeEmpty = true) => {
   if( _.isArray(regexArray) && string.length ){
 
     var result = string;
+    var stepNumber = 0;
 
     forEach(regexArray, (rule) => {
+      i++;
+
       var temp = result.Match(rule);
 
       if(temp){
         result = temp; // !!! revisit: temp[0] or temp[1]?
       } else {
-        return result;
+        if(returnBeforeEmpty == true){
+          return result;
+        } else {
+          return {
+            emptyAt: stepNumber, lastRegexRule: rule
+          }
+        }
       }
     });
     
@@ -128,7 +151,7 @@ export const fileExists = (path) => {
 
 
 
-// Additional code examples (to tidy up and tie into flow, if necessary)
+// A pile of ... additional code examples (to tidy up and tie into flow, if necessary)
 /*
 
 // 1: Get list of directories

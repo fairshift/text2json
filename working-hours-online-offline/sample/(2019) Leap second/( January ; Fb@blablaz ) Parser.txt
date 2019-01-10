@@ -3,16 +3,26 @@ text2json parser component
 	Sample parser work
 		14:24 15:00 8.1.2019
 		14:45 ~ 17:00 9.*
-		10:30 ~ 10.*: Peeling layers of code process, from hierarchy on
+		10:30 4h 10.*: In works: Peeling layers of code process, from hierarchy on ; markdown-it package implementation
 
 
 
 TODO:
 
-	Parser functions
+	Parser functions ( ./parser )
+
+	Tokenization functions ( ./tokenization )
+	- divideExpressions: 
+
+	Utility functions ( ./util )
 	- makeRegex, getFirstWord, getBeforeFirstComma, divideExpressions (tokenizer function)
+
+
 	- parsing function should involve guesswork (wait for a distinct pattern to expose itself in a non-ambigous form)
-	- 
-	- take in ...
-		filesystem.js: expectedFolderHierarchies
-		string.js: 
+
+	Custom-parser-specific onion-like procedure
+
+		1. Filesystem functions ( ./{{ parserName }}/filesystem )
+		- expectedFolderHierarchies()
+			
+		2. String ( ./{{ parserName }}/string )

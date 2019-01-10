@@ -10,11 +10,9 @@ const extrapolateFilenamePatterns = (filename) => {
   (11.2018) MIKK [culture_centre]
   (11.'18) [culture_centre] Kino Šiška
   (November 18th, 2018 ; November 15th, 2012 · Something)
-  (Working my way through. November 15th, 2012)*/
+  (Working my way through. November 15th, 2012)
+  */
 
-
-  var inParentheses = filename.Match(/^.*(\(.*\)).*(\(.*\)*)/gm);
-  var inBrackets = filename.Match(/^.*(\[.*\]).*/gm)
 
 
 
@@ -22,9 +20,13 @@ const extrapolateFilenamePatterns = (filename) => {
   return true
 }
 
+
 const expectedHierarchies = [
   {
     1: Y 
+  },
+  {
+    1: Y_Category
   },
   { 
     1: YM 
@@ -66,6 +68,92 @@ const Y = (input) => {
   }
 }
 
+const Y_Category = (input) => {
+
+  var arr = input.Match(/^([0-9]+)\ *(?=\;|\,)\ *(.*)/gmi);
+
+  
+  var arr = input.Match(/^(\(.*\)) (.*) *$/gm);
+
+
+  // This part will likely be generalized within "../tokenization.js"
+
+  var rules = {
+  // ('19) Daily ; (2012 — 2019) Domain purchases
+    parentheses_l: "/^(\(-?'?[0-9].*\)) (.*) *$/gm", // ([year]) [category], ...
+
+  // Prototyping (2013, 2014, 2015) ; Freelancing (2009 - 2016)
+    parentheses_r: "^(.*) (\(.*\)) *$ /gm",
+
+  // '19, '18, '19 — Daily arrants, 
+    3: "^([0-9]+) (?:\-|\-|\—) (.*) *$",    // [year] [- , - , —] [category], ...
+
+  // 2018 - Daily
+    3: "^([0-9]+) (?:\-|\-|\—) (.*) *$",    // [year] [- , - , —] [category], ...
+
+  // 2018 - Daily
+    3: "^([0-9]+) (?:\-|\-|\—) (.*) *$",    // [year] [- , - , —] [category], ...
+
+  // Testing — 2015)
+    4: "^([0-9]+) (?:\-|\-|\—) (.*) *$",    // [year] [- , - , —] [category], ...
+
+  // 2015: Collaborating, Prototyping, Testing
+    5: "^([0-9]+): (.*) *$/gm"              // [year]: [category]
+
+  // Conceptualizing: 2013, 2014
+    5: "^([0-9]+): (.*) *$/gm"              // [year]: [category]
+  }
+
+  var match = passThroughRegex({
+    rules: [ rules[1], rules[2], rules[3], rules[4] ]
+  });
+
+  if(match){
+
+  }  
+}
+
+const expectedHierarchies = [
+  {
+    1: Y 
+  },
+  { 
+    1: YM 
+  },
+  { 
+    1: Y,
+    2: M 
+  },
+  { 
+    1: Y,
+    2: M_String 
+  }
+]
+
+const date = (input) => {
+
+}
+
+// Year variations
+const Y = (input) => {
+
+  if( isInt(input)  ){
+
+    return ( numberType(input) == 'int' ) ? { year: input } : null
+  } else {
+
+    var apostrophe = "\u0027";
+
+    if( input.charAt(0) == decodeURI(apostrophe) &&
+        numberType( input.substr(1) ) == 'int' ){
+
+      return { year: input.substr(1) }
+    } else {
+      return null
+    }
+  }
+}
+
 // Year and month variations
 const YM = (input) => {
   input = input.trim();
@@ -74,16 +162,12 @@ const YM = (input) => {
   return ()
 }
 
-const 
 
-const contextProvider = {
-  fileaddress: ['^.*(?=d\.d\.|d\.o\.o)', 'remove', 'sl_SL']
-  },
-  receipts: {
 
-  },
-  resources: []
-}
+
+/* const contextProvider = {
+
+} */
 
 
 //
@@ -91,15 +175,6 @@ const contextProvider = {
 /*
 — 	Root folder
 	- Year number (full number, since AD): contains single files
-*/
-
-
-import _ from 'lodash'
-import {  diff_match_patch as dmp } from 'diff_match_patch' /*
-
-          To compare two strings for similarity:
-
-          dmp.levenshtein( dmp.diff_main( diff_main(text1, text2) ) )
 */
 
 

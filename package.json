@@ -1,0 +1,13 @@
+{
+  "name": "text2json",
+  "description": "text2json — customizable parser with an optional Markdown capability",
+  "version": "0.0.1",
+  "private": true,
+  "dependencies": {
+    "markdown-it": "8.4.2",
+    "lodash": "*",
+    "diff_match_patch": "*",
+    "hashids": "*",
+    "jsonld": "*"
+  }
+}

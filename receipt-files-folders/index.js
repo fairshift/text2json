@@ -34,7 +34,6 @@ export const guidedInputTemplates = {
 
 
 
-
 export const parserMappings = {
 
   parserConfig: {

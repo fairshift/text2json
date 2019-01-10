@@ -1,15 +1,13 @@
 import parser from './parser'
-import { parserList } from './util'
+import { parserList, allowLocalFolders } from './util'
 
 import { initParserKeywords_byCategory, fileExists, getDirs, getDirectories } from './util'
 
 import _ from 'lodash'
 
-// Dummy data sets — root folder
-const dataRoot = './datasets'
-
 
 const exposeParsables = (args = {}) => {
+
 // Input params
 /*
  — args: {
