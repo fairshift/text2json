@@ -1,0 +1,64 @@
+{
+  "$schema": "http://json-schema.org/draft-06/schema#",
+	"@context": "https://schema.org/docs/tree.jsonld",
+
+  "title": "Gestures tree",
+  "type": "object",
+
+  "properties": {
+  	"gestures": {
+  		"title": "List of gestures",
+	  	"type": "object",
+	  	"properties": {
+        "users": {
+        		"title": "Normalized list of usernames, referenced with a gesture",
+            "description": "https://stackoverflow.com/questions/35545812/how-do-i-do-a-nested-list-array-of-schema-references-in-json-schema",
+            "type": "array",
+            "items": {
+              "type": "object",
+              "maxProperties": 1,
+              "minProperties": 1,
+              "additionalProperties" : {
+                  "$ref" : "#/users"
+              }
+            },
+            "minItems": 0,
+            "uniqueItems": true
+        },
+        "events": {
+
+        }
+		  }
+	  },
+  	"users": {
+  		"title": "Usernames or pseudonyms (normalized)",
+  		"description": "!!! revisit: JSON-LD schema.org types",
+  		"type": "object",
+  		"properties": {
+  			"id__temporary": { "type": "string" },
+  			"username": { "type": "string" }
+  		}
+  	},
+  	"events": {
+  		"title": "Events (normalized)",
+  		"description": "!!! revisit: JSON-LD schema.org types",
+  		"type": "object",
+  		"properties": {
+	  		"title": { "type": "string" },
+	  		"date": { "type": "integer" },
+	  		"timeframes": {
+	  			"type": "array",
+	  			"items": {
+	  				"title": "",
+	  				"description": "!!! revisit referencing there",
+	  				"type": "object",
+	  				"properties": {
+	  					"$ref": "https://example.com/schema.json#something"
+	  				}
+	  			}
+	  		}
+  		}
+  	}
+  	"required": ["gestures"]
+ 	}
+}

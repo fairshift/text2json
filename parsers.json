@@ -1,4 +1,5 @@
 {
-	receipts: ['receipt-files-folders'],
-	measuring_time: ['working-hours-online-offline']
+	"behaviour": ["gestures-tree"],
+	"measuring_time": ["working-hours-online-offline"],
+	"receipts": ["receipt-files-folders"]
 }

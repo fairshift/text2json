@@ -3,12 +3,24 @@ import _ from 'lodash'
 import md from 'markdown-it'
 
 
+const parseCollection_steps = 
+[
+	'createArrayOfObjects',
+		'createArrayOfObjects': [
+			'receiveObjectsFromParser', 'objectsRecreateByDelimiters', 
+			'receivePropsFromParser', 'addToContext'
+		],
+		'*',
+		'*__temporary',
+		'js',
+	'databaseTasks'
+];
+
 const parser = (parserName, args) => {
 
 	var config = {};
 	var context = {};
-	var objectsMap = {};
-	var objectsCache = {};
+	var mapObjects = {};
 	var jsonDataObject = {};
 
 	// args: caption, text, ...
@@ -31,24 +43,25 @@ const parser = (parserName, args) => {
    			return obj;
    		}
     });
-  	
+  
+
+// This process can be understood in context of document flow — decomposed to paragraphs or others units of expression
+//
+// Persistent data sets should be informing functions: 
+// - mapObjects (collections & objects to parse)
+// - jsonDataObject (dataset to return)
+// - databaseTasks (list of tasks to perform in wider application container, outside of text2json package)
+//
+/*
+
   	objectsMap = _.map(schema.createObjects, function(collection, Regex){
 
   		var obj[collection] = Regex.Match(args.text);
   		return obj;
   	});
 
-  	var parseCollection_steps = [
-  		'createArrayOfObjects', 
-	  			'receiveObjectsFromParser', 'objectsRecreateByDelimiters', 
-	  			'receivePropsFromParser', 'addToContext', 
-  			'js'
-	  		'id__createTemporaryId', '*__temporary',
-	  		'*', 
-  		'databaseTasks'
-  	];
-
 		objectsCache = _.map(schema, function(collection, toRender){ // !!!
+			
 			if(reserved.indexOf(collection) == -1){
 
 				var cache = {};
@@ -57,66 +70,47 @@ const parser = (parserName, args) => {
 				_.forEach(parseCollection_steps, (step) => {
 				  switch (step) {
 
-				    case (step == 'createArrayOfObjects'):
-				      cache[collection].push( createArrayOfObjects(objectsMap, collection, toRender[step]) )
-				      return
-
-				    case (step == 'id__createTemporaryId'):
-				    	// cache[collection].push( createTemporaryId(objectsMap, toRender[step], config.createTemporaryId) )
-				    	return
-
-				    case (step == 'databaseTasks' && toRender.indexOf(step) > -1)
-				    	cache[step] = mergeDatabaseTasks(cache[step], collection, toRender[step])
-				    	return
-
 				    default:
-				    	cache[collection].push( );
 				    	return
-					}
-				})
+				}
 
 				return buildCollections;
 			}
   	})
+
+*/
 
   } catch(ex){
   	return null
   }
 }
 
-//
 
+// Function creates IDs, depending on configuration
+export const createArrayOfObjects = (collection, object, config, context, objectsMap) => {
 
-
-
-const createArrayOfObjects_steps = [
-	'receiveObjectsFromParser', 
-	'objectsRecreateByDelimiters', 
-	'receivePropsFromParser', 
-	'js',
-	'*'
-];
-
-export const createArrayOfObjects = (objectsMap, collection, value) => {
-
-	_.map(value, (key, arr) => {
+	_.map(object, (key, arr) => {
 
 		var obj = {};
 
 
 	  switch (key) {
 
-	    case 'receiveObjectsFromParser':
+	    case 'addToContext':
+	      cache[collection].push( createArrayOfObjects(objectsMap, collection, toRender[step]) )
+	      return
 
+	    case 'receiveObjectsFromParser':
+	      cache[collection].push( createArrayOfObjects(objectsMap, collection, toRender[step]) )
+	      return
 
 	    case 'objectsRecreateByDelimiters':
-	    	return true
+	      cache[collection].push( createArrayOfObjects(objectsMap, collection, toRender[step]) )
+	      return
 
 	    case 'receivePropsFromParser':
-	    	return true
-
-	    case 'js':
-	    	return true
+	      cache[collection].push( createArrayOfObjects(objectsMap, collection, toRender[step]) )
+	      return
 
 	    default:
 	    	return true

@@ -6,6 +6,16 @@ import { initParserKeywords_byCategory, fileExists, getDirs, getDirectories } fr
 import _ from 'lodash'
 
 
+// Objects, derived from parsing process, further on passing through mapping functions
+export const defaultState = {
+  object: null,       // one specific object, supplied by parser() function, which loops through objectsMap
+  objectsMap: null,   // objects to map to schema
+  context: null,      // contexts available in string.js: application context (index.js), filesystem(.js)
+  config: null        // parser configuration
+}
+// const parserArgs_schema = { caption: '', text: '', diff = '' }
+
+
 const exposeParsables = (args = {}) => {
 
 // Input params
@@ -39,25 +49,27 @@ const exposeParsables = (args = {}) => {
       var match = _.intersection(parserList_category, args.parsers[parserList_category]);
       if( !_.isEmpty(match) == true ){
 
-        retrieveKeywords[ parserList_category ].push( initParserKeywords_byCategory(parserList_category, match) );
+        invokingKeywords[ parserList_category ].push( initParserKeywords_byCategory(parserList_category, match) );
       }
     }
 
     if( typeof args.categories === 'undefined' && typeof args.parsers === 'undefined' ){
 
       forEach(parserList_category, function(categoryName, parsers){
-        retrieveKeywords[ parserList_category ].push( initParserKeywords_byCategory(parserList_category) );
+        invokingKeywords[ parserList_category ].push( initParserKeywords_byCategory(parserList_category) );
       });
     }
   }
 
   return invokingKeywords;
-/*
 
-  Output object:
+  /*
+
+    Output object:
+    
+    keyword
+  */
   
-  keyword
-*/
 }
 // Search loops scenario in this function (efficiency being main concern)
 // Better to use native JavaScript forEach function than lodash's _.map or _.merge, which are not aware of steps taken priorly
@@ -73,16 +85,7 @@ Test maths: {'¹n': 3, '²n': 4, '³n': 5, '⁴n': 6} ‹ [²n, ³n, ⁴n]: aver
 12 + 90 = 102 steps                                                                                                              */
 
 
-
-const parserArgs_schema = {
-  caption: '',
-  text: '',
-  diff = ''
-}
-
-const parserProcessText = (categoryName, parserName, args = parserArgs_schema) => {
-
-  var n = parserName.split('-');
+const parseText = (categoryName, parserName, args = parserArgs_schema) => {
 
   if( typeof parserList[ categoryName ] !== 'undefined' ){
     if( typeof parserList[ categorName ][ parserName ] !== 'undefined' )
@@ -92,25 +95,31 @@ const parserProcessText = (categoryName, parserName, args = parserArgs_schema) =
   return false
 }
 
-const parserProcessFile = (parserName, pathToFile) => {
+const parseFile = (parserName, pathToFile) => {
 
-  /*if(fileExists(pathToFile)){
+  /*
+  if(fileExists(pathToFile)){
     fs.readFile(pathToFile, 'utf8', readData);
   }
 
-  return jsonObjects*/
+  return jsonObjects
+  */
+
   return true
 }
 
-const parserProcessFolder = (parserName, pathToFolder) => {
+const parseFolder = (parserName, pathToFolder) => {
 
-  /*if(typeof args.pathToFolder !== 'undefined'){
-    args.
+  /*
+  if(typeof args.pathToFolder !== 'undefined'){
+    args...
   }
 
-  return jsonObjects*/
+  return jsonObjects
+  */
+
   return true
 }
 
 
-export { exposeParsables, parserProcessText, parserProcessFile, parserProcessFolder }
+export { exposeParsables, parseText, parseFile, parseFolder }

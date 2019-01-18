@@ -4,18 +4,14 @@ import { getNumberType } from '../util'
 
 const extrapolateFilenamePatterns = (filename) => {
 
-  /*
+/*
   (5.) [gas_station] Petrol
   (12. 12. 2018)
   (11.2018) MIKK [culture_centre]
   (11.'18) [culture_centre] Kino Šiška
   (November 18th, 2018 ; November 15th, 2012 · Something)
   (Working my way through. November 15th, 2012)
-  */
-
-
-
-
+*/
 
   return true
 }
@@ -227,7 +223,6 @@ const stores = new RegExp('^(?:¹|²|³|⁴|⁵|⁶|⁷|⁸|⁹)\s.* *$')
 const resources = new RegExp('(?:^— \[.*(\s+\+.*)+\s.*|^— \[.*)')
 const receipts = new RegExp('^— \(.*')
 
-const 
 
 export const parseReceiptFiles = (paths = {}) => {
 

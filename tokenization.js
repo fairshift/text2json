@@ -6,142 +6,93 @@
 */
 
 
+import { removeMarginalOccurence } from 'util'
 
-// Working through delimiters from larger to smaller structural differences
-export const divideExpressions = (string) => {
 
+// Delimiting by breaking input into a flat array
+export const delimitingFlat = ( args ) => {
+
+  var input = args.input,
+      delimiters = args.delimiters,
+      returnBoolean = args.returnBoolean,
+
+      round = 0,
+      buffer = [],
+
+      results = [];
+
+  input = input.trim();
+
+  delimiters.forEach( (key_delimiter, delimiter) => {
+
+    r++;
+
+    for ( i = 1; i <= linebreaks; i++ ){
+      delimiters[key] += value;
+    }
+
+    input = removeMarginalOccurence( input, delimiters[key] );
+
+    if( returnBoolean == true ){
+      if( input.indexOf( delimiters[key] )){
+
+        buffer[ delimiters[key] ] = true;
+      }
+
+    } else {
+
+      if( r == 1 ){
+
+        results = input.split( delimiters[key] );
+
+      } else {
+
+        i = 0;
+        results.forEach( (key, element) => {
+
+          i++;
+          if(element.length){
+
+            buffer.push( element.split( delimiters[delimiter] )); // chemistry & physics
+          }
+        });
+
+        results = buffer;
+        buffer = [];
+      }
+    }
+  });
+
+  if( returnBoolean == true ){
+
+    return (results.length) ? results.length : false;
+  } else {
+
+    return results;
+  }
+}
+
+
+// Working through delimiters from a larger to a smaller structural differences
+export const delimitingHierarchical = (args) => {
+
+  var condition_lineStart = args.condition_lineStart,
+      condition_lineEnd = args.condition_lineEnd;
 
   // » · « (middle dot, interpunct) or »∙« (bullet operator)
   //  ... isn't multiplication (= a·b)
 
-
   // Equality
 
-
-
-  // 
-
-
-
-  var arr = string.split(". ");
-  if(string.charAt(". ")){
-
-  }
-
-
-  if( )
   // » : « is present: what comes before is describing type, after comes a list
   // » ; « is present: » , « is not a string delimiter
-}
 
-
-export const passThroughRegex = (string, regexArray, returnBeforeEmpty = true) => {
-  if( _.isArray(regexArray) && string.length ){
-
-    var result = string;
-
-    forEach(regexArray, (rule) => {
-      var temp = result.Match(rule);
-
-      if(temp){
-        result = temp; // !!! revisit: temp[0] or temp[1]?
-      } else {
-        return result;
-      }
-    });
-    
-    return result;
-  }
-
-  return null;
-}
-
-
-export const getBeforeFirstComma = (string) => {
-  let arr = string.split(',');
-  return arr[0];
-}
-
-
-export const Equality = (input) => {
-
-// [expression_1] = [expression_2] or
-// [expression_1] (= [expression_2])
-
-}
-
-
-export const Colon = (input) => {
-
-// [expression_1]: [expression_2]
-//  expression_1 describes type
-//  expression_2 is a list or a citation
-// ... isn't a comparison (= a : b) or division (= a:b)
-
-}
-
-
-export const Dating = (input) => {
-
-/*
-  "12. 12. 2018"
-  "11.2018"
-  "11.12"
-  "11/9"
-  "11/9/2018"
-*/
-
-// May produce ambiguous or un-ambiguous result
-
-}
-
-
-export const Comment = (input) => {
-
-/*
-  Version 1:
-  [Expression] // [Comment]
-
-  (spaces are optional)
-*/
-
-// Version 2:
-// /* [Comment] */
-// (spaces are optional)
-
-/*
-  Version 3:
-  # [Comment] 
-
-  (leading space is mandatory)
-*/
-
-// Version 3:
-// ( [Comment] )
-// (spaces are optional)
-// new RegExp('/\(([^)]+)\)/')
-
+  return true
 }
 
 
 
-/*
-
-  Standard types
-
-*/
-
-export const months = [
-  'jan', 'feb', 'mar', 'apr', 'jun', 'jul', 'a*g', 'sep', 'o*t', 'nov', 'dec'
-]
-
-
-
-/*
-
-  
-
-export const regexParentheses = new RegExp('/\(([^)]+)\)/')
+// export const regexParentheses = new RegExp('/\(([^)]+)\)/')
 /* Breakdown:
 
     \( : match an opening parentheses
@@ -151,4 +102,4 @@ export const regexParentheses = new RegExp('/\(([^)]+)\)/')
     \) : match closing parentheses
 */
 
-export const regexSquareBrackets = new RegExp('\[(.*?)\]')
+// export const regexSquareBrackets = new RegExp('\[(.*?)\]')

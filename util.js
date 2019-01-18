@@ -19,7 +19,7 @@ const { readdir, stat } = require('fs').promises
 export const parserList = fs.readFileSync("parsers.json");
 export const config = fs.readFileSync("config.json");
 
-export function allowLocalFolders = () => {
+export const allowLocalFolders = () => {
   return config.localDatasetsIn;
 }
 
@@ -75,34 +75,28 @@ export const getBeforeFirstComma = (string) => {
 }
 
 
-export const passThroughRegex = (string, regexArray, returnBeforeEmpty = true) => {
-  if( _.isArray(regexArray) && string.length ){
 
-    var result = string;
-    var stepNumber = 0;
+export const asterixStringToRegex = (string, replaceWith) => {
 
-    forEach(regexArray, (rule) => {
-      i++;
+  string = string.replace(string, replaceWith);
+  return "/.*(" + ").*/gm"
+}
 
-      var temp = result.Match(rule);
 
-      if(temp){
-        result = temp; // !!! revisit: temp[0] or temp[1]?
-      } else {
-        if(returnBeforeEmpty == true){
-          return result;
-        } else {
-          return {
-            emptyAt: stepNumber, lastRegexRule: rule
-          }
-        }
-      }
-    });
-    
-    return result;
+
+export const removeMarginalOccurence = (input, pattern, args = {first: true, last: true}) => {
+
+  if( args.first == true && input.firstIndexOf(pattern) == (input.length - pattern.length) ){
+
+    input = input.substr(0, input.length - pattern.length)
   }
 
-  return null;
+  if( args.last == true && input.lastIndexOf(pattern) == (input.length - pattern.length) ){
+
+    input = input.substr(0, input.length - pattern.length)
+  }
+
+  return input;
 }
 
 

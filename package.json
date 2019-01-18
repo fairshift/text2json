@@ -8,6 +8,8 @@
     "lodash": "*",
     "diff_match_patch": "*",
     "hashids": "*",
-    "jsonld": "*"
+    "jsonld": "*",
+    "ajv": "*",
+    "react-intl": "*"
   }
 }
