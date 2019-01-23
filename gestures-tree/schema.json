@@ -11,22 +11,36 @@
 	  	"type": "object",
 	  	"properties": {
         "users": {
-        		"title": "Normalized list of usernames, referenced with a gesture",
-            "description": "https://stackoverflow.com/questions/35545812/how-do-i-do-a-nested-list-array-of-schema-references-in-json-schema",
-            "type": "array",
-            "items": {
-              "type": "object",
-              "maxProperties": 1,
-              "minProperties": 1,
-              "additionalProperties" : {
-                  "$ref" : "#/users"
-              }
+      		"title": "Normalized list of usernames, referenced with a gesture",
+          "description": "https://stackoverflow.com/questions/35545812/how-do-i-do-a-nested-list-array-of-schema-references-in-json-schema",
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id__temporary": { "type": "string" }
             },
-            "minItems": 0,
-            "uniqueItems": true
+            "additionalProperties": {
+              "$ref": "#/users"
+            }
+          },
+          "minItems": 0,
+          "uniqueItems": true
         },
         "events": {
-
+          "title": "Normalized list of events, referenced with a gesture",
+          "description": "https://stackoverflow.com/questions/35545812/how-do-i-do-a-nested-list-array-of-schema-references-in-json-schema",
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id__temporary": { "type": "string" }
+            },
+            "additionalProperties" : {
+              "$ref" : "#/users"
+            }
+          },
+          "minItems": 0,
+          "uniqueItems": true
         }
 		  }
 	  },
@@ -58,7 +72,7 @@
 	  			}
 	  		}
   		}
-  	}
+  	},
   	"required": ["gestures"]
  	}
 }

@@ -3,8 +3,10 @@
 import { passField } from '../parser'
 import { generateId_hashids, regexParentheses, regexSquareBrackets } from '../util'
 
-import { date } from '../tokenTypes'
+// import { date } from '../tokenTypes'
 
+
+export { invoke, config, parser }
 
 
 /*
@@ -13,22 +15,24 @@ Start-up: initializing parser
 
 */
 
-export const invokeConfig = {
-	caseSensitive: false,
-  nearbyParagraphs: { before: -1, after: 1 },
-  parseText: { plugin: "markdown-it" }
-}
-
-export const invokeKeywords = {
+const invoke = {
   'gestures': {
     nearbyParagraphs: [ invokeConfig.nearbyParagraphs.before, invokeConfig.nearbyParagraphs.after ], // [-]
     sl_SL: [
-    	[{s: 'Lep* gest*', '*_': '[Aa-Zz]'}]
+    	{ s: 'Lep* gest*', '*_': '[Aa-Zz]' }
     ],
     en_EN: [
-      [{s: 'Leap gesture'}]
+      { s: ['Fine', '||', 'Leap', 'gesture'] }
     ]
   }
+}
+
+const config = {
+  caseSensitive: false,
+  nearbyParagraphs: { 
+    before: -1, after: 1 
+  },
+  parseText: { plugin: "markdown-it" }
 }
 
 
@@ -39,8 +43,7 @@ Run-time: parsing process definitions
 
 */
 
-
-export const parserMappings = {
+const parser = {
 
   config: {
     createTemporaryId__fn: generateId_hashids,

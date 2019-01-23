@@ -14,12 +14,24 @@ const { readdir, stat } = require('fs').promises
 
 
 
+export {
+  parserList, initPhrases_byCategory,
+  config, allowLocalFolders, 
+  generateId_hashids,
+  getNumberType,
+  getBeforeFirstComma,
+  asterixStringToRegex,
+  removeMarginalOccurence,
+  getDirs, getDirectories, fileExists };
+  
+
+
 // Initialization
 
-export const parserList = fs.readFileSync("parsers.json");
-export const config = fs.readFileSync("config.json");
+const parserList = fs.readFileSync("parsers.json");
+const config = fs.readFileSync("config.json");
 
-export const allowLocalFolders = () => {
+const allowLocalFolders = () => {
   return config.localDatasetsIn;
 }
 
@@ -33,20 +45,20 @@ export const allowLocalFolders = () => {
 
 */
 
-export function initParserKeywords_byCategory(category, parsers = null){
+function initPhrases_byCategory(category, parsers = null){
 
-  var invokeKeywords_perParser = [];
+  var invokePhrases_perParser = [];
   var parsers = (_.isArray(parsers)) ? parsers : parserList[category];
 
   forEach(parsers, (parserName) => {
-    invokeKeywords_perParser[ category ].push( fetchKeywords(parserName) );
+    invokePhrases_perParser[ category ].push( fetchPhrases(parserName) );
   })
 }
 
-function fetchKeywords(moduleName){
+function fetchPhrases(moduleName){
 
   try {
-    return require('./'+moduleName)(invokeKeywords)
+    return require('./'+moduleName)(invoke)
 
   } catch (ex) {
     return null;
@@ -54,13 +66,13 @@ function fetchKeywords(moduleName){
 }
 
 
-export const generateId_hashids = (string, salt = [1,2,3]) => {
+const generateId_hashids = (string, salt = [1,2,3]) => {
   var hashids = new Hashids(string);
   return hashids.encode(salt);
 }
 
 
-export function getNumberType(n){
+function getNumberType(n){
   if( Number(n) === n ){
 
     return (n % 1 === 0) ? 'int' : 'float';
@@ -69,14 +81,14 @@ export function getNumberType(n){
   }
 }
 
-export const getBeforeFirstComma = (string) => {
+const getBeforeFirstComma = (string) => {
   let arr = string.split(',');
   return arr[0];
 }
 
 
 
-export const asterixStringToRegex = (string, replaceWith) => {
+const asterixStringToRegex = (string, replaceWith) => {
 
   string = string.replace(string, replaceWith);
   return "/.*(" + ").*/gm"
@@ -84,7 +96,7 @@ export const asterixStringToRegex = (string, replaceWith) => {
 
 
 
-export const removeMarginalOccurence = (input, pattern, args = {first: true, last: true}) => {
+const removeMarginalOccurence = (input, pattern, args = {first: true, last: true}) => {
 
   if( args.first == true && input.firstIndexOf(pattern) == (input.length - pattern.length) ){
 
@@ -108,7 +120,7 @@ export const removeMarginalOccurence = (input, pattern, args = {first: true, las
 */
 
 // Async getDirs function
-export const getDirs = function(rootDir, cb) { 
+const getDirs = function(rootDir, cb) { 
   fs.readdir(rootDir, function(err, files) { 
       var dirs = []; 
       for (var index = 0; index < files.length; ++index) { 
@@ -129,7 +141,7 @@ export const getDirs = function(rootDir, cb) {
 }
 
 // Async getDirectories function
-export const getDirectories = async path => {
+const getDirectories = async path => {
   let dirs = []
   for (const file of await readdir(path)) {
     if ((await stat(join(path, file))).isDirectory()) {
@@ -139,7 +151,7 @@ export const getDirectories = async path => {
   return dirs
 }
 
-export const fileExists = (path) => {
+const fileExists = (path) => {
   return fs.existsSync(path)
 }
 

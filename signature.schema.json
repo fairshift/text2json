@@ -1,0 +1,55 @@
+{
+  "$schema": "http://json-schema.org/draft-06/schema#",
+	"@context": "https://schema.org/docs/tree.jsonld",
+
+  "title": "Author, timestamp and cryptography appendix to a given data node",
+  "type": "object",
+
+  "properties": {
+    "signature": {
+      "type": "object",
+      "properties": {
+        "createdBy__properties": { 
+          "type": "object",
+          "properties": {
+            "agentId": { "type": "string" }
+            "agentType": { "type": "string" },
+          }
+        },
+        "timestamp__properties": {
+          "type": "object",
+          "properties": {
+            "createdAt": { "type": "number" },
+            "editedAt": { "type": "number" }
+          }
+        },
+        "hash__properties": {
+          "type": "object",
+          "properties": {
+            "md5": {
+              "type": "string",
+              "minLength": 32,
+              "maxLength": 32
+            },
+            "sha1": { 
+              "type": "string",
+              "minLength": 29,
+              "maxLength": 40
+            },
+            "includes_keys": { "type": "array" },
+            "excludes_keys": { "type": "array" }
+          }
+        }
+        "agent__normalize": {
+          "title": "List of signing agents",
+          "type": "object",
+          "properties": {
+            "agentId": { "type": "string" },
+            "agentType": { "type": "string" }
+          }
+        }
+      },
+      "required": ["createdBy", "timestamp"]
+    },
+ 	}
+}

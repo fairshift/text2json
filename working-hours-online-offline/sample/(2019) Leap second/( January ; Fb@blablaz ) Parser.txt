@@ -8,9 +8,17 @@ text2json parser component
 		11:00 ~ 13:00 *: Parser functions
 		16:30 ~ 18:30 *: *
 		14:00 ~ 14:30 17.*: Presentation papers (literally)
+		14:00 ~ 15:00 21.*: Transcribing receipts from January and February 2018
+
+	Parser function(alitie)s
 		20:00 ~ 21:30 *: Parsing gestures (simple example); Translations; Reworking flow (taking in consideration: paragraphs and other basic units of expression; filesystem and document content similarities etc)
 		11:00 ~ 13:30 18.*: JSON schema and JSON-LD integrations
 		14:00 ~ 15:30 *: *; Cleaning up code; Setting up validation functions
+		14:15 - 15:18 23.*: Data node signature JSON schema definitions
+		15:25 - 16:00: Tree-of-gestures parser JSON schema definitions
+		19:45 - 19:50: Delimiting function - pairs of enclosing brackets
+		21:25 - ?: *
+
 
 TODO:
 

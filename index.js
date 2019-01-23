@@ -1,13 +1,18 @@
+
 import parser from './parser'
-import { parserList, allowLocalFolders } from './util'
-
-import { initParserKeywords_byCategory, fileExists, getDirs, getDirectories } from './util'
-
+import { parserList, allowLocalFolders, initPhrases_byCategory, fileExists, getDirs, getDirectories } from './util'
 import _ from 'lodash'
 
 
+export { 
+  exposeParsables, 
+  parseText, parseFile, parseFolder, 
+  defaultState
+}
+
+
 // Objects, derived from parsing process, further on passing through mapping functions
-export const defaultState = {
+const defaultState = {
   object: null,       // one specific object, supplied by parser() function, which loops through objectsMap
   objectsMap: null,   // objects to map to schema
   context: null,      // contexts available in string.js: application context (index.js), filesystem(.js)
@@ -28,7 +33,7 @@ const exposeParsables = (args = {}) => {
    }
 */
 
-  var invokingKeywords = {}; // Function's output data container
+  var invokingPhrases = {}; // ... which may be used to recommend a specific parser to user
 
   // Loop and return categories and parsers 
   forEach(parserList, function(parserList_category){
@@ -38,7 +43,7 @@ const exposeParsables = (args = {}) => {
     if( typeof args.categories !== 'undefined' ){
       if( parserList_category in args.categories ){
 
-        _.merge(invokingKeywords[ parserList_category ].push( initParserKeywords_byCategory(parserList_category) );
+        _.merge(invokingPhrases[ parserList_category ].push( initPhrases_byCategory(parserList_category) );
         thisCategoryIsIn = true;
       }
     }
@@ -49,19 +54,19 @@ const exposeParsables = (args = {}) => {
       var match = _.intersection(parserList_category, args.parsers[parserList_category]);
       if( !_.isEmpty(match) == true ){
 
-        invokingKeywords[ parserList_category ].push( initParserKeywords_byCategory(parserList_category, match) );
+        invokingPhrases[ parserList_category ].push( initPhrases_byCategory(parserList_category, match) );
       }
     }
 
     if( typeof args.categories === 'undefined' && typeof args.parsers === 'undefined' ){
 
       forEach(parserList_category, function(categoryName, parsers){
-        invokingKeywords[ parserList_category ].push( initParserKeywords_byCategory(parserList_category) );
+        invokingPhrases[ parserList_category ].push( initPhrases_byCategory(parserList_category) );
       });
     }
   }
 
-  return invokingKeywords;
+  return invokingPhrases;
 
   /*
 
@@ -120,6 +125,3 @@ const parseFolder = (parserName, pathToFolder) => {
 
   return true
 }
-
-
-export { exposeParsables, parseText, parseFile, parseFolder }

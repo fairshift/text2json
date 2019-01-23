@@ -4,19 +4,25 @@ import { delimitingFlat, delimitingHierarchical } from 'tokenization'
 
 /*
 
-  Standard types
+  Standard type definitions
 
 */
 
-export const monthsCaseInsensitive = [
-  'jan', 'feb', 'mar', 'apr', 'jun', 'jul', 'a*g', 'sep', 'o*t', 'nov', 'de*'
-]
+export const monthsCaseInsensitive = {
+  latin: [ 'jan', 'feb', 'mar', 'apr', 'jun', 'jul', 'a*g', 'sep', 'o*t', 'nov', 'de*' ],
+  cyrilic: [ ]
+}
 
 export const dashExtended = [
   '-', '-', '—'
 ];
 
 
+/*
+
+  Functionable types (test or split)
+
+*/
 
 const Paragraphs = (input, linebreaks = 2, returnBoolean = false) => {
 
@@ -41,7 +47,11 @@ const Paragraphs = (input, linebreaks = 2, returnBoolean = false) => {
     returnBoolean: returnBoolean
   });
 */
-
+  return {
+    inside: null,
+    pre: null,
+    post: null
+  }
 }
 
 const BulletPoints = (input) => {
@@ -56,7 +66,12 @@ const BulletPoints = (input) => {
     returnBoolean: returnBoolean
   });
 */
-
+  
+  return {
+    inside: null,
+    pre: null,
+    post: null
+  }
 }
 
 const Colon = (input) => {
@@ -66,9 +81,14 @@ const Colon = (input) => {
 //  expression_2 is a list or a citation
 // ... isn't a comparison (= a : b) or division (= a:b)
 
+  return {
+    inside: null,
+    pre: null,
+    post: null
+  }
 }
 
-const Date = (input) => {
+const DateTime = (input) => {
 
 /*
   "12. 12. 2018"
@@ -80,6 +100,11 @@ const Date = (input) => {
 
 // May produce ambiguous or un-ambiguous result
 
+  return {
+    inside: null,
+    pre: null,
+    post: null
+  }
 }
 
 const Comment = (input) => {
@@ -107,6 +132,11 @@ const Comment = (input) => {
 // (spaces are optional)
 // new RegExp('/\(([^)]+)\)/')
 
+  return {
+    inside: null,
+    pre: null,
+    post: null
+  }
 }
 
 

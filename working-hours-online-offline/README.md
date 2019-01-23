@@ -1,1 +1,1 @@
-This folder is mostly incomplete... See '../gestures/' (its neighbour folder)
+This folder is mostly incomplete... See '../gestures-tree/' for a simple example (its neighbour folder)

@@ -1,4 +1,9 @@
 
+import { removeMarginalOccurence } from 'util'
+
+import { Paragraphs, BulletPoints, Colon, DateTime, Comment } from 'types'
+const bindings = [ Paragraphs, BulletPoints, Colon, DateTime, Comment]
+
 /*
 
   Tokenization functions
@@ -6,11 +11,48 @@
 */
 
 
-import { removeMarginalOccurence } from 'util'
+export {
+  delimitingFlat, delimitingTree
+}
+
+
+
+
+// Document flow - top level function
+
+const tokenize = ( document, bindings ) => {
+
+  var tokens = {};
+
+  forEach(bindings, (fn) => {
+
+    tokens.push( fn(document) )
+  })
+
+  // Informed by... ["beer", "Grimes - Genesis", "Brief glimpse into a game; reference @JeKe"]
+  tokens = _.sort(tokens, [(o) => {
+
+    // How the document is structured...
+    /*
+      if( element.delimiting == '3' ){ // hierarchical
+
+        
+      } else { // default: flat
+
+
+      }
+    */
+
+    var rank = {
+      ...
+    }
+    return rank[element]
+  }]);
+}
 
 
 // Delimiting by breaking input into a flat array
-export const delimitingFlat = ( args ) => {
+const delimitingFlat = ( args ) => {
 
   var input = args.input,
       delimiters = args.delimiters,
@@ -24,6 +66,17 @@ export const delimitingFlat = ( args ) => {
   input = input.trim();
 
   delimiters.forEach( (key_delimiter, delimiter) => {
+
+
+    // Consider delimiter array (such as parentheses,  brackets)
+
+    if( delimiter.isArray ){
+
+      buffer['pre'] = input.split(delimiter[0])
+      buffer['post'] = input.split(delimiter[1])
+
+      buffer 
+    }
 
     r++;
 
@@ -74,7 +127,7 @@ export const delimitingFlat = ( args ) => {
 
 
 // Working through delimiters from a larger to a smaller structural differences
-export const delimitingHierarchical = (args) => {
+const delimitingTree = (args) => {
 
   var condition_lineStart = args.condition_lineStart,
       condition_lineEnd = args.condition_lineEnd;

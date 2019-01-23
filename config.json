@@ -1,7 +1,6 @@
 {
 	"localDatasetsIn": [
 		"../datasets",
-		"./receipt-files-folders/"
-		"./working-hours-online-offline/"
+		"./working-hours-online-offline/sample/"
 	]
 }
