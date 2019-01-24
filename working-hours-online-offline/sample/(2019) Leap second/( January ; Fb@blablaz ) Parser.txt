@@ -18,6 +18,7 @@ text2json parser component
 		15:25 - 16:00: Tree-of-gestures parser JSON schema definitions
 		19:45 - 19:50: Delimiting function - pairs of enclosing brackets
 		21:25 - ?: *
+		12:45 - 13:02: Tokenization implementation in custom parser
 
 
 TODO:

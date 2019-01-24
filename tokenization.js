@@ -2,7 +2,7 @@
 import { removeMarginalOccurence } from 'util'
 
 import { Paragraphs, BulletPoints, Colon, DateTime, Comment } from 'types'
-const bindings = [ Paragraphs, BulletPoints, Colon, DateTime, Comment]
+export const bindings = [ Paragraphs, BulletPoints, Colon, DateTime, Comment]
 
 /*
 

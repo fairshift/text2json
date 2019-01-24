@@ -3,6 +3,8 @@ import { defaultState, passField } from '../parser'
 import { generateId_hashids, regexParentheses, regexSquareBrackets } from '../util'
 import { OrganizationTypeAbbr } from './regex'
 
+import { Paragraphs, BulletPoints, Colon, DateTime, Comment } from '../types'
+
 
 export const parserMappings = {
 
@@ -10,13 +12,17 @@ export const parserMappings = {
 
   createObjects: {
 
-    // First line: 
-    // main service provider's organization name (%1),
-    // organization seat address (%2)
-    'gestures': new RegExp('/^(?:\-|\-|\—) (.*) *$/gm'),
+    // Rows of gestures - simplest anonymous structure
+    /*
+    'gesture': new RegExp('/^(?:\-|\-|\—) (.*) *$/gm'),
+    */
+
+    'gesture': [
+      { tokenize: [Paragraphs], regex: new RegExp('/^(?:\-|\-|\—) (.*) *$/gm') }
+    ],
 
     createTemporaryId: {
-      gestures: ['username', 'gesture'],
+      gesture: ['username', 'gesture'],
     }
   },
 
