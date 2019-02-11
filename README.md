@@ -177,3 +177,59 @@ objectMap__toReduce: [
 parsers__autodetect: {
 ...dontParseSameFileTwice()
 } }
+
+## Parser config schema conceptualization (expressions, simplified)
+
+export { invoke, config, parser }
+
+
+/*
+
+Start-up: initializing parser
+
+*/
+
+const invoke = {
+  sl_SL: {
+    'formal:_': [
+  	 { s: 'lep*' },
+     { s: 'gest+' }
+    ],
+    'prekmurščina:|': [
+      {s: 'le*p+' },
+      { s: 'ge*st+' }
+
+    ]
+  },
+  en_EN: {
+    'leap:|': [
+      { s: ['Leap'], caseSensitive: true },
+      { s: ['gesture+'] }
+    ],
+    'fine:3': [
+      { l: ['fine', 'gesture+'] },
+      { x: ['don\'t parse'] },
+      { s: ['gesture+'] }
+    ]
+  },
+  '*': {
+    '#leapgest:|': [
+      { s: ['#leapgest*'], '*_': '[a-z]'}
+    ]
+  }
+// nearby: [ invokeConfig.nearby.flat, invokeConfig.nearby.tree ], // [-]
+}
+
+const config = {
+  caseSensitive: false,
+  nearby: { 
+    flat: [-1, 1],
+    left: [-1, 1]
+  },
+  charReplacements: {
+    '*_': '[Aa-Zz]',
+    '+_': '[Aa-Zz]'
+  }
+  parseText: { plugin: "markdown-it" }
+}
+
