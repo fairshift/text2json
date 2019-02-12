@@ -8,7 +8,7 @@ import { Paragraphs, BulletPoints, Colon, DateTime, Comment } from '../types'
 
 export const parserMappings = {
 
-  receiveContext: ['userId'],
+  receiveContext: ['userId', ''],
 
   createObjects: {
 
@@ -18,12 +18,12 @@ export const parserMappings = {
     */
 
     'gesture': [
-      { tokenize: [Paragraphs], regex: new RegExp('/^(?:\-|\-|\—) (.*) *$/gm') }
+      { tokenize: [Paragraphs, BulletPoints] }
     ],
+  },
 
-    createTemporaryId: {
-      gesture: ['username', 'gesture'],
-    }
+  createTemporaryId: {
+    gesture: ['username', 'gesture'],
   },
 
 /*

@@ -16,28 +16,52 @@ Start-up: initializing parser
 */
 
 const invoke = {
-  'gestures': {
-    nearbyParagraphs: [ invokeConfig.nearbyParagraphs.before, invokeConfig.nearbyParagraphs.after ], // [-]
-    sl_SL: [
-    	{ s: 'Lep* gest*', '*_': '[Aa-Zz]' }
+  sl_SL: {
+    'formal:_': [
+  	 { s: 'lep*' },
+     { s: 'gest*' }
     ],
-    en_EN: [
-      { s: ['Fine', '||', 'Leap', 'gesture'] }
+    'prekmurščina:|': [
+      {s: 'le*p*' },
+      { s: 'ge*st*' }
     ]
-  }
+  },
+  en_EN: {
+    'leap:|': [
+      { s: ['Leap'], caseSensitive: true },
+      { s: ['gesture+'] }
+    ],
+    'fine:3': [
+      { l: ['fine', 'gesture+'] },
+      { x: ['don\'t parse'] },
+      { s: ['gesture+'] }
+    ]
+  },
+  '*': {
+    '#leapgest:|': [
+      { s: ['#leapgest*'], '*_': '[a-z]' }
+    ]
+  },
+//nearby: [ invokeConfig.nearby.flat, invokeConfig.nearby.tree ], // [-]
 }
 
 const config = {
   caseSensitive: false,
-  nearbyParagraphs: { 
-    before: -1, after: 1 
+  nearby: { 
+    flat: [-1, 1],
+    left: [-1, 1]
   },
+  charReplacements: {
+    '*_': '[Aa-Zz]',
+    '+_': '[Aa-Zz]'
+  }
   parseText: { plugin: "markdown-it" }
 }
 
 
 
 /*
+
 
 Run-time: parsing process definitions
 
@@ -48,12 +72,7 @@ const parser = {
   config: {
     createTemporaryId__fn: generateId_hashids,
     delimiters: {
-      flat: ['|', ';', '⋅', '·', '·', '・'],
-      tree: {
-        option_1: {
-          'key': '{{delimiter}}'
-        }
-      }
+      filename: { tree: [';', '-'] }
     }
     trim: 'auto' // otherwise use .trim() on output in 'js' objects, and __trim on keys left to parser
   },

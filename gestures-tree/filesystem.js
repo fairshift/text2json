@@ -1,67 +1,55 @@
 
-import { defaultState } from '../parser'
-
-import { tokenize } from '../tokenization'
-import { getNumberType } from '../util'
+import { DateTime, GMapsAddressMatch, LanguageISO639, StringType, FileExtensionType } from '../types'
 
 
 
-export const parserMappings = {
 
-  createObjects: {
+export const expressions = {
 
-    // First line: 
-    // main service provider's organization name (%1),
-    // organization seat address (%2)
-    'events': new RegExp('/^(?:\-|\-|\—) (.*) *$/gm'), // This will need a custom function
+  // Shorthand syntax to parse filename and provide context for its contents
+  createObjects: [
 
-    createTemporaryId: {
-      events: ['name', 'timestamp']
+    /*
+      Example of a filename, containing an event:
+     (22.4.2015 - Dan zemlje; Kino Šiška, Ljubljana; sl_SL) Kaj bo tvoja Lepa gesta zemlji?.txt
+    */
+
+    { 'filename': { regex: new RegExp('/^\((.*\) (.*) *$/gm') },
+      'filename.2': { 'title': StringType, required: true, strip: [ExtensionType] },
+      'filename.1': {
+        delimiters: 'filename',
+        tokenize: [
+          { try: { 'timestamp': DateTime, 'annualEvent': StringType, required: ['timestamp'] } },
+          { 'place': GMapsAddressMatch, required: true },
+          { 'language': LanguageISO639 },
+          { 'occasion': StringType }
+        ] 
+      } 
+    },
+
+    { 
+      // Temporary entry ID for each one event record (in shape of "eventId__temporary")
+      createTemporaryId: { 'eventId': ['title', 'timestamp'] }, // using provided hashing function with 'title' and 'timestamp' data field contents}
+    },
+
+    {
+      'userId': { receiveContext: 'userId' }
+    },
+
+    {
+      object: 'event',
+      properties: ['title', '']
     }
-  },
 
-/*
-  Start of data structure mappings
-*/
-
-  events: {
-    createArrayOfObjects: {
-      receiveObjectsFromParser: ['events'],
-      objectsRecreateByDelimiters: [ {'events.1': [';']} ]
-    },
-
-    js: (args = defaultState) => {
-
-////////////////////////////////////////
-	
-	return { }
-
-////////////////////////////////////////
-
-    },
-  }
+  ]
 }
 
-
+/*
+  Reserved object keys: regex, required, strip, try
+*/
 
 //
 //  Folder structure (tree elements)
 /*
-—   Root folder
-  - Subfolder named as: Year number (full number, since AD) ‹ contains files, only
-*/
-
-
-//
-//  Form of a single file (which contains a month of receipts)
-/*  
-
-    Filename: "(11.'18) [pub, restaurant] Place (disambiguation).txt"
-    — "(First parentheses)": Month and year of transcript
-      — "First number.": [Number of month in a year].
-      — "'Second number": '[Number of a year after 2000 (20 omitted / 2000 substracted)]
-    — "[square_brackets]": Types of services provided, comma separated tags (in camelCase or low_dash)
-    — "What isn't enclosed in any brackets": Name of place
-    — "(Second parentheses)" optional: Declaration of disambiguation (eg. city, )
-
+—   Root folder (containing files)
 */

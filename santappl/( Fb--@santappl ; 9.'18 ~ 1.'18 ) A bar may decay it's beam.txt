@@ -1,0 +1,84 @@
+Sant Applause Copy-paste: Citrine for the little stone and rutilated quartz
+
+{
+	tunes: [
+		{ 	
+			title: "#bristolmixsessions #drumandbass Keeno - Bristol Mix Sessions - Episode 24"
+			src: ""youtube.com/watch?v=EVco_OJ2yuU&t=38m3s"",
+			tokens: [
+				["<Keeno_BMS24>", "</Keeno_BMS24>"],
+				"<Keeno_BMS24/>"
+			]
+		},
+		{ 	
+			title: "#bristolmixsessions #drumandbass Keeno - Bristol Mix Sessions - Episode 23"
+			src: ""youtube.com/watch?v=EVco_OJ2yuU&t=38m3s"",
+			tokens: [
+				["<Keeno_BMS23>", "</Keeno_BMS23>"],
+				"<Keeno_BMS23/>"
+			]
+		},
+		"youtube.com/watch?v=gEPB5_EV1UA&t=28m54s"
+		{ 	
+			title: "#bristolmixsessions #drumandbass Keeno - Bristol Mix Sessions - Episode 20"
+			src: "youtube.com/watch?v=g78J7tMs8ko&t=31m32s",
+			tokens: [
+				["<Keeno_BMS20>", "</Keeno_BMS20>"],
+				"<Keeno_BMS20/>"
+			]
+		},
+		{ 	
+			title: "#bristolmixsessions #drumandbass Keeno - Bristol Mix Sessions - Episode 19"
+			src: "youtube.com/watch?v=Mk-ot65XHA0&t=61m",
+			tokens: [
+				["<Keeno_BMS19>", "</Keeno_BMS19>"],
+				"<Keeno_BMS19/>"
+			]
+		},
+		
+	]	
+}
+
+Align to a rhythm (twisting it with Keeno Bristol sessions ep. 19 at 1:00:59
+... update: he seems to have been mixing his Fading Fast VIP track on almost every episode
+
+Keeno pause markup xml: <Keeno_BMS${Episode}/>
+Keeno overlay markup xml: <Keeno_BMS${Episode}><Keeno_BMS${Episode}/>
+Longer pause: <Pause/>
+
+-------------------
+
+A bar may decay its beam,
+Into a peculiar steaming mix
+Aquest if fortunately in a team
+
+Dimming the underlying kicks,
+A haystack of quirky nature's tricks,
+Sound to see in a wavy texture
+
+Picks what one will know at best,
+!! a possibility to attest to,
+Before laying rest, nesting !! a <Keeno>form in a scripture</Keeno>
+
+Long before knowing it grows,
+<Keeno/> too far ahead for !!today's sense not to roast
+Some to envy and the rest to host!!
+As creatures !!turn into dust, it becomes a must to know!!
+For some to hold and gold for others to adore
+
+God no, <Pause/> he wants more
+Get him to sedation,
+as one can see but it's not in vain to ask
+Is this an innocent innovation, revelation
+
+Attention it slips, slips and skips what it should not,
+Creating one more loop like this to know,
+Too hot to search, to cherish and the worse, to adore
+<Keeno/> !!-!!
+
+T's just words to us who want it done in an open manner,
+until we all learn to see it through, else it's gone, <Pause/> for me, <Pause/> too
+
+-----------------
+
+Seems to work out with Keeno's intermezzos and some pauses, too. Thank you and good night

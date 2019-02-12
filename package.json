@@ -6,10 +6,14 @@
   "dependencies": {
     "markdown-it": "8.4.2",
     "lodash": "*",
+    "lowdb": "*",
     "diff_match_patch": "*",
     "hashids": "*",
     "jsonld": "*",
     "ajv": "*",
-    "react-intl": "*"
+    "react-intl": "*",
+    "audio-extensions": "*",
+    "video-extensions": "*",
+    "shortid": "*"
   }
 }

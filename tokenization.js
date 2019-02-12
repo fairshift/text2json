@@ -1,32 +1,44 @@
 
-import { removeMarginalOccurence } from 'util'
+import { replaceKeys, removeMarginalOccurence } from 'util'
 
-import { Paragraphs, BulletPoints, Colon, DateTime, Comment } from 'types'
-export const bindings = [ Paragraphs, BulletPoints, Colon, DateTime, Comment]
+import { Paragraphs, Colon, DateTime, Comment } from 'expressions'
+import { BulletPoints } from 'expressions.bulletpoints'
+
+
 
 /*
 
   Tokenization functions
   ... stackoverflow.com/questions/27331819/whats-the-difference-between-a-character-a-code-point-a-glyph-and-a-grapheme
+
 */
-
-
 export {
+  tokenizeStr,
   delimitingFlat, delimitingTree
+}
+
+// Default token types/expressions
+const expressions = { 
+  p: Paragraphs,
+  ul: BulletPoints,
+  colon: Colon,
+  t: DateTime,
+  comment: Comment
 }
 
 
 
+// Document flow — top level function
 
-// Document flow - top level function
+const tokenizeStr = ( string, customBindings = {}, db ) => {
 
-const tokenize = ( document, bindings ) => {
-
-  var tokens = {};
+  bindings = replaceKeys(expressions, customBindings)
 
   forEach(bindings, (fn) => {
 
-    tokens.push( fn(document) )
+    db.get('tokens')
+    .push({ id: 1, title: 'lowdb is awesome'})
+    .write()
   })
 
   // Informed by... ["beer", "Grimes - Genesis", "Brief glimpse into a game; reference @JeKe"]

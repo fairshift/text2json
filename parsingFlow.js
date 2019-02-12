@@ -3,20 +3,53 @@ import _ from 'lodash'
 import md from 'markdown-it'
 
 
-const parseCollection_steps = 
+const parseCollection_fns = 
 [
-	'createArrayOfObjects',
-		'createArrayOfObjects': [
+	'mapExpressions',			// expressions from all parsers in one array (with references to parser components)
+	'receiveContext',			// receive context from application container
+
+	'forEach(documents)',		// parse one document or loop through documents in filesystem
+		'filesystem',			// custom parser filesystem.js script
+			'tokenize',			// run through string and expressions, using context when so defined (in expressions)
+			'toContext',		// add tokens to context (= mapping some tokens in a more accessible object)
+		'document',				// custom parser document.js script
+			'tokenize'			// 
+
+	// Tokenize flow
+	'tokenize', 				// string splitting wrapper function — match sequence of conditions and build an array of potential matches
+		'matchExpressions',		// loop …
+			'nextMatch',		// find 1st following match for any potential expressions (1st conditions first …)
+								// remove expressions without a match
+								// create array of potentially matching expressions
+								// sort array by occurence
+								// repeat
+			'scoop',			// push content to tokens (with optional nearby content)
+		'createTokens',			// create tokens where there's no ambiguities
+		'createScenarios',		// create various scenarious where there's multiple possibilities 
+								//(to resolve by user / admin input)
+		'parserSignatures',		// append signatures of active parsers (??? think through validation)
+
+	// Mapping flow — run to reduce schema-validated scenarios, then run again with user or admin input
+	'mapTokensToSchema',		// token to JSON schema mapping wrapper function
+		'loadSchema',			// load schemas for each parser
+		'findTokens',			// find tokens in array of objects for each schema (top-most property is collection/table) 
+		'tokensToSchema',		// loop through matching tokens for each schema
+			'transform',		// transform functions
+			'map',				// to schema
+			'validate',			// which scenarios match schema
+
+	/*	'createArrayOfObjects': [
 			'receiveObjectsFromParser', 'objectsRecreateByDelimiters', 
 			'receivePropsFromParser', 'addToContext'
 		],
 		'*',
 		'*__temporary',
 		'js',
-	'databaseTasks'
+	'databaseTasks',
+	'validate'*/
 ];
 
-const parser = (parserName, args) => {
+const parse = (parserName, args) => {
 
 	var config = {};
 	var context = {};

@@ -1,0 +1,8 @@
+text2json parser component
+
+	Documentation
+		16:30 ~ 20:30 10.2.2018: Refactoring through commentary — elementaries
+
+	Parser function(alitie)s
+		13:00 ~ 15:20 11.2.2018: initExpressions functions ; simplifying gesture-tree parser init expressions
+		17:00 ~ 17:30 *: lowdb implementation ; parser object with exposed functions and DB

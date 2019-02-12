@@ -6,54 +6,77 @@
   "type": "object",
 
   "properties": {
-  	"gestures": {
+  	"gesture": {
   		"title": "List of gestures",
-	  	"type": "object",
-	  	"properties": {
-        "users": {
-      		"title": "Normalized list of usernames, referenced with a gesture",
-          "description": "https://stackoverflow.com/questions/35545812/how-do-i-do-a-nested-list-array-of-schema-references-in-json-schema",
-          "type": "array",
-          "items": {
-            "type": "object",
-            "properties": {
-              "id__temporary": { "type": "string" }
-            },
-            "additionalProperties": {
-              "$ref": "#/users"
-            }
+	  	"type": "array",
+	  	"items": {
+        "type": "object",
+        "properties": {
+          "id__temporary": { "type": "string" },
+          "gesture": {
+            "type": "string",
+            "minLength": 3
           },
-          "minItems": 0,
-          "uniqueItems": true
-        },
-        "events": {
-          "title": "Normalized list of events, referenced with a gesture",
-          "description": "https://stackoverflow.com/questions/35545812/how-do-i-do-a-nested-list-array-of-schema-references-in-json-schema",
-          "type": "array",
-          "items": {
-            "type": "object",
-            "properties": {
-              "id__temporary": { "type": "string" }
+          "additionalProperties"
+          "user": {
+        		"title": "Referenced list of usernames (normalized)",
+            "description": "https://stackoverflow.com/questions/35545812/how-do-i-do-a-nested-list-array-of-schema-references-in-json-schema",
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id__temporary": { "type": "string" }
+              },
+              "additionalProperties": {
+                "$ref": "#/users"
+              }
             },
-            "additionalProperties" : {
-              "$ref" : "#/users"
-            }
+            "minItems": 0,
+            "uniqueItems": true
           },
-          "minItems": 0,
-          "uniqueItems": true
+          "event": {
+            "title": "Referenced list of events (normalized)",
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id__temporary": { "type": "string" }
+              },
+              "additionalProperties" : {
+                "$ref" : "#/events"
+              }
+            },
+            "minItems": 0,
+            "uniqueItems": true
+          },
+          "place": {
+            "title": "Referenced list of places (normalized)",
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id__temporary": { "type": "string" }
+              },
+              "additionalProperties" : {
+                "$ref" : "#/events"
+              }
+            },
+            "minItems": 0,
+            "uniqueItems": true
+          }
         }
 		  }
 	  },
-  	"users": {
-  		"title": "Usernames or pseudonyms (normalized)",
+  	"user": {
+  		"title": "Usernames or pseudonyms",
   		"description": "!!! revisit: JSON-LD schema.org types",
   		"type": "object",
   		"properties": {
   			"id__temporary": { "type": "string" },
-  			"username": { "type": "string" }
+  			"username": { "type": "string" },
   		}
   	},
-  	"events": {
+  	"event": {
   		"title": "Events (normalized)",
   		"description": "!!! revisit: JSON-LD schema.org types",
   		"type": "object",
@@ -64,7 +87,6 @@
 	  			"type": "array",
 	  			"items": {
 	  				"title": "",
-	  				"description": "!!! revisit referencing there",
 	  				"type": "object",
 	  				"properties": {
 	  					"$ref": "https://example.com/schema.json#something"
@@ -73,6 +95,26 @@
 	  		}
   		}
   	},
+    "place": {
+      "title": "Places",
+      "description": "!!! revisit: JSON-LD schema.org types",
+      "type": "object",
+      "properties": {
+        "title": { "type": "string" },
+        "date": { "type": "integer" },
+        "timeframes": {
+          "type": "array",
+          "items": {
+            "title": "",
+            "description": "!!! revisit referencing there",
+            "type": "object",
+            "properties": {
+              "$ref": "https://example.com/schema.json#something"
+            }
+          }
+        }
+      }
+    },
   	"required": ["gestures"]
  	}
 }

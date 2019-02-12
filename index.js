@@ -1,25 +1,157 @@
 
-import parser from './parser'
-import { parserList, allowLocalFolders, initPhrases_byCategory, fileExists, getDirs, getDirectories } from './util'
+import parse from './parsingFlow'
+
+import { 
+  initExpressions_byCategory, parserModules,
+  allowLocalFolders,
+  fileExists, getDirs, getDirectories,
+  replaceKeys } from './util'
+
 import _ from 'lodash'
+import lowdb from 'lowdb' // simplistic database (lodash enabled)
 
 
-export { 
-  exposeParsables, 
-  parseText, parseFile, parseFolder, 
-  defaultState
-}
+
+export { parser }
 
 
 // Objects, derived from parsing process, further on passing through mapping functions
-const defaultState = {
+/*const defaultState = {
   object: null,       // one specific object, supplied by parser() function, which loops through objectsMap
-  objectsMap: null,   // objects to map to schema
+  objectsMap: null,   // objects   objectsMap: null,   // objects to map to schema
+to map to schema
   context: null,      // contexts available in string.js: application context (index.js), filesystem(.js)
   config: null        // parser configuration
-}
+}*/
 // const parserArgs_schema = { caption: '', text: '', diff = '' }
 
+
+
+// Parser object, exposing database and top-level functions
+const parser = (args, dbAdapter = "Memory", dbSource = null, parsers = parserModules) => {
+
+  // lowdb initialization
+  switch (dbAdapter) {
+
+    case "Memory":
+      var Memory = require('lowdb/adapters/Memory')
+      dbAdapter = new Memory()
+      break
+
+    case "LocalStorage": // Browser
+      var LocalStorage = require('lowdb/adapters/LocalStorage')
+      dbAdapter = new LocalStorage(dbSource)
+      break
+
+    case "FileAsync": // Server-side
+      var FileAsync = require('lowdb/adapters/FileAsync')
+      dbAdapter = new FileAsync(dbSource)
+      break
+  
+    default:
+      break
+  }
+
+  db = lowdb( dbAdapter )
+  db.defaults({ tokens: [], context: {} }).write()
+
+  initExpressions()
+
+  return {
+    init: initExpressions,
+    db: db,
+    dbFlush: () => {
+      db.set('tokens', [])
+        .write()
+    },
+    parseText: parseText,
+    parseFile: parseFile,
+    parseFolder: parseFolder
+  }
+}
+
+
+const initExpressions = (args = {}, parserModules = parserModules) => {
+  
+  // Set arguments
+  defaultArgs = {
+    select: {
+      categories: null,
+      parsers: null,
+      languages: null
+    }
+  }
+
+  args = _.merge(defaultArgs, args)
+
+
+  // Set function variables
+  var parsers = {},           // active parser modules
+      expressionHeader = {},  // process
+      result = []             // output
+  
+
+  switch (parse)
+
+  forEach(parsers, (parserName) => {
+
+     expressionHeader = {
+        parser: parser,
+        category: category
+      };
+
+    expr = _.map( getExpressions_parserInit(parserName), (key, object) => {
+
+      switch (key) {
+
+        case ( // Config params
+          'nearby' // , …
+        ):
+
+          if(!parserConfig[parserName]){
+            parserConfig[parserName].push({ key: expressions })
+          }
+          return
+
+        default: // Language key or expression
+
+          // Language key (ISO) or * (global)
+          if( key.Match("/^(?=[a-z]{2,3}_[A-Z]{2,3}|\*) *$/gm") ){
+
+            if(typeof args.select.languages !== 'undefined'){
+
+              invokeExpressions = structExpressions_byLanguage( invokeExpressions,  )
+
+            } else {
+
+              invokeExpressions = structExpressions_byLanguage( invokeExpressions, key, object, exprHeader )
+            }
+
+          // Catch invalid parameters
+          } else { return null }
+
+          return
+      }
+    })
+  })
+
+  return
+}
+
+// Get a list of parsers (and possibly load them):
+/*
+  — all available parsers
+  — by either of, or intersection of: args.select.categories x args.select.parsers
+const getParsers = (args = {}, ) => {
+
+  var parsersBy = (_.isArray(args.select.categories)) ? { 
+        categories: _.filter(parserModules, args.select.categories)
+      } : null
+
+  var parsersByName = (_.isArray(args.select.parsers)) ? {
+    _.filter(parserModules, args.select.parsers) : null
+  }
+}
 
 const exposeParsables = (args = {}) => {
 
@@ -33,7 +165,7 @@ const exposeParsables = (args = {}) => {
    }
 */
 
-  var invokingPhrases = {}; // ... which may be used to recommend a specific parser to user
+  var invokingExpressions = {}; // … which may be used to recommend a specific parser to user
 
   // Loop and return categories and parsers 
   forEach(parserList, function(parserList_category){
@@ -43,7 +175,7 @@ const exposeParsables = (args = {}) => {
     if( typeof args.categories !== 'undefined' ){
       if( parserList_category in args.categories ){
 
-        _.merge(invokingPhrases[ parserList_category ].push( initPhrases_byCategory(parserList_category) );
+        _.merge(invokingExpressions[ parserList_category ].push( initExpressions_byCategory(parserList_category) );
         thisCategoryIsIn = true;
       }
     }
@@ -54,19 +186,19 @@ const exposeParsables = (args = {}) => {
       var match = _.intersection(parserList_category, args.parsers[parserList_category]);
       if( !_.isEmpty(match) == true ){
 
-        invokingPhrases[ parserList_category ].push( initPhrases_byCategory(parserList_category, match) );
+        invokingExpressions[ parserList_category ].push( initExpressions_byCategory(parserList_category, match) );
       }
     }
 
     if( typeof args.categories === 'undefined' && typeof args.parsers === 'undefined' ){
 
       forEach(parserList_category, function(categoryName, parsers){
-        invokingPhrases[ parserList_category ].push( initPhrases_byCategory(parserList_category) );
+        invokingExpressions[ parserList_category ].push( initExpressions_byCategory(parserList_category) );
       });
     }
   }
 
-  return invokingPhrases;
+  return invokingExpressions;
 
   /*
 
@@ -88,6 +220,8 @@ Function "exposeParsables": loops through parserList array (count: ¹n)
 
 Test maths: {'¹n': 3, '²n': 4, '³n': 5, '⁴n': 6} ‹ [²n, ³n, ⁴n]: average counts of items in arrays
 12 + 90 = 102 steps                                                                                                              */
+
+
 
 
 const parseText = (categoryName, parserName, args = parserArgs_schema) => {
@@ -125,3 +259,6 @@ const parseFolder = (parserName, pathToFolder) => {
 
   return true
 }
+
+
+// A thing or two about UTF-8 characters: informit.com/articles/article.aspx?p=30893&seqNum=9

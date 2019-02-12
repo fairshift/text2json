@@ -7,7 +7,12 @@
 // hookney: '${self:firstKey.secondKey}'
 
 
-import hashids from 'hashids'
+// Async file read/write adapters (used by lowdb package)
+import fs from 'graceful-fs'
+import pify from 'pify'   // read
+import steno from 'steno' // write
+
+import hashids from 'hashids' // !!! ???
 
 import { path, join } from 'path'
 const { readdir, stat } = require('fs').promises
@@ -15,21 +20,53 @@ const { readdir, stat } = require('fs').promises
 
 
 export {
-  parserList, initPhrases_byCategory,
-  config, allowLocalFolders, 
+  config,
+  parserModules, requireModule,
+  allowLocalFolders, 
+
   generateId_hashids,
   getNumberType,
+
+  replaceKeys,
+
   getBeforeFirstComma,
   asterixStringToRegex,
   removeMarginalOccurence,
-  getDirs, getDirectories, fileExists };
+
+  readFile, getDirs, getDirectories, fileExists // … writeFile
+}
   
+
+// Filesystem
+const fn_readFile = pify(fs.readFile);
+const fn_writeFile = pify(steno.writeFile);
+
+// Async readFile function taken from lowdb package
+const function readFile(source) {
+
+  // fs.exists is deprecated but not fs.existsSync
+  if (fs.existsSync(source)) {
+    // Read file
+    return fn_readFile(source, 'utf-8').then(function (data) {
+      return data
+    }).catch(function (e) {
+      e.message = `Err (readFile): ${e.message}`;
+      throw e;
+    });
+  } else {
+    return null
+    /* Initialize file …
+    return writeFile(this.source, this.serialize(this.defaultValue)).then(function () {
+      return _this2.defaultValue;
+    });*/
+  }
+}
 
 
 // Initialization
 
-const parserList = fs.readFileSync("parsers.json");
-const config = fs.readFileSync("config.json");
+const parserModules = readFile("parsers.json");
+const config = readFile("config.json");
 
 const allowLocalFolders = () => {
   return config.localDatasetsIn;
@@ -45,20 +82,24 @@ const allowLocalFolders = () => {
 
 */
 
-function initPhrases_byCategory(category, parsers = null){
 
-  var invokePhrases_perParser = [];
-  var parsers = (_.isArray(parsers)) ? parsers : parserList[category];
+const structExpressions_byLanguage = ( object, language, expression, exprHeader ) => {
 
-  forEach(parsers, (parserName) => {
-    invokePhrases_perParser[ category ].push( fetchPhrases(parserName) );
-  })
+  var expr = exprHeader.push( expression )
+  return object[language].push( expr ) 
 }
 
-function fetchPhrases(moduleName){
+
+
+const requireModule = (path, variable = null) => {
 
   try {
-    return require('./'+moduleName)(invoke)
+
+    if(variable){
+      return require(path)(component)
+    } else {
+      return require(path)
+    }
 
   } catch (ex) {
     return null;
@@ -70,6 +111,20 @@ const generateId_hashids = (string, salt = [1,2,3]) => {
   var hashids = new Hashids(string);
   return hashids.encode(salt);
 }
+
+
+
+// Where to plug in validation functions (???)
+const replaceKeys = (state, replace) => {
+  _.each(state, (key, value) => {
+    if(!args[key]){
+      args[key] = value
+    }
+  })
+
+  return args
+}
+
 
 
 function getNumberType(n){
