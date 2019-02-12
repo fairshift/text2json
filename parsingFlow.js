@@ -22,7 +22,7 @@ export {
 }
 
 
-const parseCollection_steps = {
+const parsingFlow_steps = {
 
 	// When to include user or admin input to resolve ambiguities? After …
 	// — parseText function: tokens are more native to content itself (enabling representation/overlay)
@@ -42,8 +42,6 @@ const parseCollection_steps = {
 																	// … using context when so defined
 
 		// Returns: list of tokens with references ( relative to other tokens ; position in originating content )
-		//				 ()
-
 
 	],
 
@@ -57,7 +55,7 @@ const parseCollection_steps = {
 			'map',							// to schema
 			'validate',					// which scenarios match schema
 
-		// Returns: 
+		// Returns: validated datasets, structured according to a schema (either in SQL or NoSQL shape)
 		//				 (object could optionally return results which didn't pass validation against JSON schema)
 	],
 
