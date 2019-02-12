@@ -9,3 +9,5 @@ text2json parser component
 		14:00 ~ 15:30 12.*: Code clarity and proper file structure — commenting export functions (first position in file)
 		16:15 ~ 17:15 *: Restructuring expressions and defining a common input schema @KinoŠiška
 		17:45 ~ 18:55 *: Defining parser flow @Pritličje
+		21:30 - 21:58 *: Defining parser flow // When to include user or admin input to resolve ambiguities — after parseText or mapTokensToSchema?
+		21:58 - 22:09 *: *
