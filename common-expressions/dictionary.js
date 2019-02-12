@@ -10,17 +10,15 @@ import { expressionArgs_schema } from 'expressions'
 export { DictionaryMatch }
 
 
-const DictionaryMatch = (args, expressionArgs_schema) => {
+const DictionaryMatch = (args, schema = expressionArgs_schema) => {
 
-  let argsSchema = {
-    expectedData: null,
-    test: false,
-    linebreaks: 2,
-    inputs: null
-  }
+  schema.push({
+    // …
+  })
 
-  args = typeSetInputOrDefault(args, defaultState);
-  
+  args = _.merge(schema, args);
+
+/*
   if(args.expectedData){
 
     // medium.com/quick-code/data-structures-traversing-trees-9473f6d9f4ef
@@ -48,4 +46,5 @@ const DictionaryMatch = (args, expressionArgs_schema) => {
     pre: null,
     post: null
   }
+*/
 }

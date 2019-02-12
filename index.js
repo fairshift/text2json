@@ -122,7 +122,7 @@ const initExpressions = (args = {}, parserModules = parserModules, config = ) =>
         default: // Language key or expression
 
           // Language key (ISO) or * (global)
-          if( key.Match("/^(?=[a-z]{2,3}_[A-Z]{2,3}|\*) *$/gm") ){
+          if(  ){
 
             if(typeof args.select.languages !== 'undefined'){
 
@@ -136,12 +136,12 @@ const initExpressions = (args = {}, parserModules = parserModules, config = ) =>
           // Catch invalid parameters
           } else { return null }
 
-          return
+          return null
       }
     })
   })
 
-  return
+  return null
 }
 
 // Get a list of parsers (and possibly load them):
@@ -213,7 +213,6 @@ const exposeParsables = (args = {}) => {
     keyword
   */
   
-}
 // Search loops scenario in this function (efficiency being main concern)
 // Better to use native JavaScript forEach function than lodash's _.map or _.merge, which are not aware of steps taken priorly
 /*

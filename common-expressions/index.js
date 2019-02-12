@@ -20,10 +20,13 @@ import shortid from 'shortid'
 const expressionArgs_schema = {
   parserName: null,
   parserAbbr: null,
-  exprAbbreviation: null,
+  exprAbbr: null,
+
   conditions: [],
   inputs: {},
+
   test: false,
+  
   generateTokenId: (documentId, parserAbbr, parserPckgVersion, exprAbbr, sequentialNum = 1, nonDefaultParams = {}) => {
     return
       shortid.seed(

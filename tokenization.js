@@ -42,24 +42,28 @@ const tokenizeStr = ( string, customBindings = {}, db ) => {
   })
 
   // Informed by... ["beer", "Grimes - Genesis", "Brief glimpse into a game; reference @JeKe"]
-  tokens = _.sort(tokens, [(o) => {
+  tokens = _.sort(tokens, [
+    (o) => {
 
-    // How the document is structured...
-    /*
-      if( element.delimiting == '3' ){ // hierarchical
+      // How the document is structured...
+      /*
+        if( element.delimiting == '3' ){ // hierarchical
 
-        
-      } else { // default: flat
+          
+        } else { // default: flat
 
 
+        }
+      */
+
+      var rank = {
+        // …
       }
-    */
 
-    var rank = {
-      ...
+      return rank[element]
     }
-    return rank[element]
-  }]);
+  ])
+
 }
 
 

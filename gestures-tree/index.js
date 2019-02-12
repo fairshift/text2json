@@ -22,7 +22,7 @@ const invokeExpr = [
     args: {
       conditions: {
         sl_SL: {
-          'formal:_': [
+          'formal:—': [
            { s: 'lep*' },
            { s: 'gest*' }
           ],

@@ -12,7 +12,7 @@
         "createdBy__properties": { 
           "type": "object",
           "properties": {
-            "agentId": { "type": "string" }
+            "agentId": { "type": "string" },
             "agentType": { "type": "string" },
           }
         },
@@ -39,7 +39,7 @@
             "includes_keys": { "type": "array" },
             "excludes_keys": { "type": "array" }
           }
-        }
+        },
         "agent__normalize": {
           "title": "List of signing agents",
           "type": "object",
