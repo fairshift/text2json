@@ -17,13 +17,13 @@ Readme.txt (which is updated more often than this repository)
 
 
 *From './parserFlow.js' (clarity of documentation to achieve in top-level code/documents)*
-```json
+```js
 
 const parsingFlow_steps = {
 
 	// When to include user or admin input to resolve ambiguities? After …
 	// — parseText function: tokens are more native to content itself (enabling representation/overlay)
-	// — mapTokensToSchena function: validation is an important part of structuring data
+	// — mapTokensToSchema function: validation is an important part of structuring data
 
 	parseText: [
 
