@@ -3,6 +3,19 @@ import _ from 'lodash'
 import md from 'markdown-it'
 
 
+export default parse
+export {
+	parse,
+
+	// From previous disposition of code
+	createArrayOfObjects,
+		receiveObjectsFromParser, receivePropsFromParser, objectsRecreateByDelimiters,
+	createTemporaryId,
+	passField,
+	mergeDatabaseTasks
+}
+
+
 const parseCollection_fns = 
 [
 	'mapExpressions',			// expressions from all parsers in one array (with references to parser components)
@@ -80,7 +93,7 @@ const parse = (parserName, args) => {
 
 // This process can be understood in context of document flow — decomposed to paragraphs or others units of expression
 //
-// Persistent data sets should be informing functions: 
+// Persistent data sets should be informingreceivePropsFromParser functions: 
 // - mapObjects (collections & objects to parse)
 // - jsonDataObject (dataset to return)
 // - databaseTasks (list of tasks to perform in wider application container, outside of text2json package)
@@ -191,6 +204,3 @@ export const mergeDatabaseTasks = (dbTasksCache, collection, tasks) => {
 	_.merge(dbTasksCache, {});
 }
 
-
-
-export default parser

@@ -1,11 +1,32 @@
 
 
+export {
+  // Parser utility functions
+  config,
+  parserModules, requireModule,
+  allowLocalFolders, 
+
+  // Type and formatting
+  generateId_hashids,
+  getNumberType,
+  getBeforeFirstComma,
+  asterixStringToRegex,
+  removeMarginalOccurence,
+
+  // Array / object utility fns
+  structExpressions_byLanguage
+  replaceKeys,
+
+  // Fileystem functions (sync / async)
+  readFile, getDirs, getDirectories, fileExists // … writeFile
+}
+
+
 // !!!
 // Self-referencing JSON in values? (npmjs.com: hookney ; jsonplus ; json-expand)
 // jsonplus: '{{ key1 }} {{ key2 }}' ; 'firstKey.secondKey[thirdKey].fourthKey' ; '@self.key'
 // json-expand: '{{ key }}' ; '{{ firstKey.secondKey }}'
 // hookney: '${self:firstKey.secondKey}'
-
 
 // Async file read/write adapters (used by lowdb package)
 import fs from 'graceful-fs'
@@ -17,24 +38,6 @@ import hashids from 'hashids' // !!! ???
 import { path, join } from 'path'
 const { readdir, stat } = require('fs').promises
 
-
-
-export {
-  config,
-  parserModules, requireModule,
-  allowLocalFolders, 
-
-  generateId_hashids,
-  getNumberType,
-
-  replaceKeys,
-
-  getBeforeFirstComma,
-  asterixStringToRegex,
-  removeMarginalOccurence,
-
-  readFile, getDirs, getDirectories, fileExists // … writeFile
-}
   
 
 // Filesystem
@@ -179,7 +182,7 @@ const getDirs = function(rootDir, cb) {
   fs.readdir(rootDir, function(err, files) { 
       var dirs = []; 
       for (var index = 0; index < files.length; ++index) { 
-        var file = files[index]; 
+          var file = files[index]; 
         if (file[0] !== '.') { 
           var filePath = rootDir + '/' + file; 
           fs.stat(filePath, function(err, stat) {

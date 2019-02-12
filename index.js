@@ -1,9 +1,16 @@
 
-import parse from './parsingFlow'
+export default parser
+export {
+  parser,                             // main parser wrapping function
+  initExpressions,                    // a subset of expressions to parse client-side
+  parseText, parseFile, parseFolder   // lower level functions
+}
 
+
+
+import parse from './parsingFlow'
 import { 
-  initExpressions_byCategory, parserModules,
-  allowLocalFolders,
+  parserModules, getExpressions_parserInit, allowLocalFolders,
   fileExists, getDirs, getDirectories,
   replaceKeys } from './util'
 
@@ -11,8 +18,6 @@ import _ from 'lodash'
 import lowdb from 'lowdb' // simplistic database (lodash enabled)
 
 
-
-export { parser }
 
 
 // Objects, derived from parsing process, further on passing through mapping functions
@@ -61,7 +66,7 @@ const parser = (args, dbAdapter = "Memory", dbSource = null, parsers = parserMod
     init: initExpressions,
     db: db,
     dbFlush: () => {
-      db.set('tokens', [])
+      db.set('tokens': [], 'context': {})
         .write()
     },
     parseText: parseText,
@@ -71,7 +76,7 @@ const parser = (args, dbAdapter = "Memory", dbSource = null, parsers = parserMod
 }
 
 
-const initExpressions = (args = {}, parserModules = parserModules) => {
+const initExpressions = (args = {}, parserModules = parserModules, config = ) => {
   
   // Set arguments
   defaultArgs = {
@@ -79,7 +84,8 @@ const initExpressions = (args = {}, parserModules = parserModules) => {
       categories: null,
       parsers: null,
       languages: null
-    }
+    },
+    config: null
   }
 
   args = _.merge(defaultArgs, args)
@@ -164,7 +170,7 @@ const exposeParsables = (args = {}) => {
     }
    }
 */
-
+/*
   var invokingExpressions = {}; // … which may be used to recommend a specific parser to user
 
   // Loop and return categories and parsers 

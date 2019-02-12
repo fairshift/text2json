@@ -6,3 +6,4 @@ text2json parser component
 	Parser function(alitie)s
 		13:00 ~ 15:20 11.2.2018: initExpressions functions ; simplifying gesture-tree parser init expressions
 		17:00 ~ 17:30 *: lowdb implementation ; parser object with exposed functions and DB
+		14:00 ~ ??:?? 12.*: Code clarity and proper file structure — commenting export functions (first position in file)
