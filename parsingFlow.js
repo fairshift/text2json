@@ -48,8 +48,13 @@ const parsingFlow_steps = {
 	// Mapping flow — run to reduce schema-validated scenarios, then run again with user or admin input
 	mapTokensToSchema: [,		// token to JSON schema
 
-		'loadSchemas',				// for each parser, which created tokens
-		'findTokens',					// find tokens in array of objects for each schema (top-most property is collection/table) 
+		'loadSchemas',				// for each parser, which created tokens … (provided in three ways, in this sequence):
+													// — url, collectionOrTable
+													// — schema.${collectionOrTable}.json in parser directory
+													// — in schema.json file: top-most property is ${collectionOrTable}
+		// Saves all related schemas in a temporary folder, for JSON references functionality
+
+		'findTokens',					// find tokens in array of objects for each schema
 		'tokensToSchema',			// loop through matching tokens for each schema
 			'transform',				// transform functions
 			'map',							// to schema

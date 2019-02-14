@@ -1,72 +1,9 @@
 {
   "$schema": "http://json-schema.org/draft-06/schema#",
-	"@context": "https://schema.org/docs/tree.jsonld",
-
-  "title": "Gestures tree",
+  "@context": "https://schema.org/docs/tree.jsonld",
+  "title": "List of auxiliary schemas",
   "type": "object",
-
   "properties": {
-  	"gesture": {
-  		"title": "List of gestures",
-	  	"type": "array",
-	  	"items": {
-        "type": "object",
-        "properties": {
-          "id__temporary": { "type": "string" },
-          "gesture": {
-            "type": "string",
-            "minLength": 3
-          },
-          "additionalProperties"
-          "user": {
-        		"title": "Referenced list of usernames (normalized)",
-            "description": "https://stackoverflow.com/questions/35545812/how-do-i-do-a-nested-list-array-of-schema-references-in-json-schema",
-            "type": "array",
-            "items": {
-              "type": "object",
-              "properties": {
-                "id__temporary": { "type": "string" }
-              },
-              "additionalProperties": {
-                "$ref": "#/users"
-              }
-            },
-            "minItems": 0,
-            "uniqueItems": true
-          },
-          "event": {
-            "title": "Referenced list of events (normalized)",
-            "type": "array",
-            "items": {
-              "type": "object",
-              "properties": {
-                "id__temporary": { "type": "string" }
-              },
-              "additionalProperties" : {
-                "$ref" : "#/events"
-              }
-            },
-            "minItems": 0,
-            "uniqueItems": true
-          },
-          "place": {
-            "title": "Referenced list of places (normalized)",
-            "type": "array",
-            "items": {
-              "type": "object",
-              "properties": {
-                "id__temporary": { "type": "string" }
-              },
-              "additionalProperties" : {
-                "$ref" : "#/events"
-              }
-            },
-            "minItems": 0,
-            "uniqueItems": true
-          }
-        }
-		  }
-	  },
   	"user": {
   		"title": "Usernames or pseudonyms",
   		"description": "!!! revisit: JSON-LD schema.org types",
@@ -114,7 +51,6 @@
           }
         }
       }
-    },
-  	"required": ["gestures"]
- 	}
+    }
+  }
 }

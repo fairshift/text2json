@@ -2,13 +2,34 @@
 
 export {
   expressionArgs_schema,
-  monthsCaseInsensitive, dashSymbols, bulletPoints
+
+  Line,
+  Paragraph,
+  Brackets,
+  BulletPoint,
+  Colon, 
+  SemiColon,
+  Comment,
+  DictionaryMatch,
+
+  std_dashSymbols,
+  std_bulletPoints,
+  std_monthsCaseInsensitive,
 }
+
+
+import Paragraph from './paragraph'
+import Brackets from './brackets'
+import BulletPoint from './bulletpoint'
+import Colon from './colon'
+import SemiColon from './semicolon'
+import Comment from './comment'
+import DictionaryMatch from './dictionary'
+import DateTime from './datetime'
 
 
 
 import shortid from 'shortid'
-
 
 
 /*

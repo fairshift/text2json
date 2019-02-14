@@ -1,10 +1,10 @@
 
-export { invokeExpr, config }
+export { match, invokeExpr, tokenize, map, config }
 
 
 // 
 
-import { DictionaryMatch } from '../expressions'
+import { DictionaryMatch, Paragraph, DateTime, Heading, Line, Sentence } from '../common-expressions'
 import { generateId_hashids, regexParentheses, regexSquareBrackets } from '../util'
 
 
@@ -15,9 +15,18 @@ Start-up: initializing parser ( using word)
 
 */
 
-const invokeExpr = [
 
-  {
+const transforms = {
+  'user': [
+    { 'context.user.userId':  },
+    { from: }
+  ]
+}
+
+
+const match = {
+
+  'gesture': {
     expr: DictionaryMatch,
     args: {
       conditions: {
@@ -29,7 +38,7 @@ const invokeExpr = [
           'prekmurščina:|': [
             { s: 'le*p*' },
             { s: 'ge*st*' }
-          ]
+          ],
         },
         en_EN: {
           'leap:|': [
@@ -40,18 +49,67 @@ const invokeExpr = [
             { l: ['fine', 'gesture+'] },
             { x: ['don\'t parse'] },
             { s: ['gesture+'] }
-          ]
+          ],
         },
         '*': {
           '#leapgest:|': [
             { s: ['#leapgest*'], '*_': '[a-z]' }
           ]
-        },
-      //nearby: [ invokeConfig.nearby.flat, invokeConfig.nearby.tree ], // [-]
+        }
+      }
+    }
+  },
+
+  'resource': {
+    expr: DictionaryMatch,
+    args: {
+      conditions: {
+        sl_SL: [''] // import dictionaries by array (should support RDF-JS ontologies)
+      }
     }
   }
+}
 
-]
+const invokeExpr = [ match['gesture'] ]
+
+const tokenize = {
+
+  'gesture': {
+    keys: ['sl_SL.formal', 'sl_SL.prekmurščina:|', 'en_EN', '#leapgest'],
+    extend: { 
+      tree: [0, 1],
+      flat: [-2, 2],
+      expr: [Paragraph, BulletPoints],
+      inBetween: {
+        keys: ['']
+      }
+    },
+    inBetween: {
+
+    },
+    'title': {
+      // from: 'this', // may be omitted
+      expr: [ Heading['topmost'], Line['1st'] ]
+    },
+    'description': {
+      extend: { key: 'gesture.title', flat: [0, 1], expr: [Sentence] },
+    }
+  },
+  'user': {
+    from: ['context.user', 'gesture.description'],
+  },
+  'event.timestamp': {
+    keys: [ 'gesture.description' ],
+    expr: [ DateTime ]
+  }
+}
+
+const map: = {
+  'gesture': {
+    // schema: 'gesture', // schema with same name may be omitted
+
+  }
+}
 
 
 const config = {
@@ -65,7 +123,7 @@ const config = {
     delimiters: {
       filename: { tree: [';', '-'] }
     },
-    plugins: { parseText: "markdown-it" }
+    plugins: [ "markdown-it" ]
   },
 
   expressions: { // Expression default definitions
@@ -78,7 +136,7 @@ const config = {
     charReplacements: {
       '*_': '[Aa-Zz]',
       '+_': '[Aa-Zz]'
-    } 
+    }
   },
 
   map: {
