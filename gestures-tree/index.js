@@ -16,14 +16,6 @@ Start-up: initializing parser ( using word)
 */
 
 
-const transforms = {
-  'user': [
-    { 'context.user.userId':  },
-    { from: }
-  ]
-}
-
-
 const match = {
 
   'gesture': {
@@ -151,4 +143,11 @@ const config = {
   }
 
   */
+}
+
+const transforms = {
+  'user': [
+    { 'context.user.userId': '' },
+    { from: '' }
+  ]
 }

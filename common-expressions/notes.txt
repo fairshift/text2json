@@ -1,0 +1,66 @@
+// Notes to revisit, clean-up and reposition after more work is done
+
+// Currently, "markdown-it" package does it better, for the most part
+/*
+
+  export Paragraphs, BulletPoints, Colon, Date, Comment, Equality
+  
+*/
+
+
+
+
+
+/*
+
+Short excercise... Bulletpoint parsing
+
+      createObjects: [
+        { regex: new RegExp('/^\((.*)\) (.*) *$/gmi') },
+        {
+          'parseTree': {o} // type or string, limit, structure pointer, sequential condition
+        }
+      },
+      tree: {
+        left: 2,
+        right: 2,
+        previous: 2,
+        next: 1
+      }
+
+*/
+
+// Here's the example content
+/*
+
+# Headline
+- bulletpoint
+  - indented bulletpoint
+  - indented bulletpoint 1
+
+    with paragraph
+- bulletpoint
+  with a paragraph
+
+- bulletpoint
+
+  with a paragraph
+
+  - see how this is another level
+  - or this
+
+    with a paragraph
+
+Paragraph without a bulletpoint
+  - bulletpoint at a different indentation
+- what is this?
+
+*/
+
+// Logic
+/*
+
+Indentation of first bulletpoint is 
+
+
+*/

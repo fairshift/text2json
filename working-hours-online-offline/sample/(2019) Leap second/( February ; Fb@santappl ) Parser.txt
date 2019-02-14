@@ -11,4 +11,5 @@ text2json parser component
 		17:45 ~ 18:55 *: Defining parser flow @Pritličje
 		21:30 - 21:58 *: Defining parser flow // When to include user or admin input to resolve ambiguities — after parseText or mapTokensToSchema?
 		21:58 - 22:09 *: *
-		13:55 - 16:45 14.*: Parser input schema through custom parser declaration ("gestures-tree") ; Updating expressions
+		13:55 - 16:45 14.*: Parser input schema through custom parser declaration ("gestures-tree") ; Updating expressions @Pritličje
+		17:05 - 19:15 *: Expression wrapper with validation and shortcut extensions (with additional arguments) @Pritličje
