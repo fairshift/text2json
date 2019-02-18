@@ -13,3 +13,4 @@ text2json parser component
 		21:58 - 22:09 *: *
 		13:55 - 16:45 14.*: Parser input schema through custom parser declaration ("gestures-tree") ; Updating expressions @Pritličje
 		17:05 - 19:15 *: Expression wrapper with validation and shortcut extensions (with additional arguments) @Pritličje
+		13:00 ~ 22:30 (4h) 18.*: * ; Testing JavaScript object of functions, wrapped functions and passing arguments from various sourcecs

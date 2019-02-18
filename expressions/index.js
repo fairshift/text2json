@@ -1,11 +1,6 @@
 
 
 export {
-  // From './util.js'
-  expressionWrapper, 
-  evaluateArgs, 
-  generateTokenId,
-
   // List of expressions
   Line,
   Paragraph,
@@ -33,12 +28,6 @@ import SemiColon from './semicolon'
 import Comment from './comment'
 import DictionaryMatch from './dictionary'
 import DateTime from './datetime'
-
-
-// Utilities
-import { expressionWrapper, evaluateArgs, generateTokenId } from './util'
-import shortid from 'shortid'
-
 
 
 
