@@ -2,8 +2,6 @@
 export { match, invokeExpr, tokenize, map, config }
 
 
-// 
-
 import { DictionaryMatch, Paragraph, DateTime, Heading, Line, Sentence } from '../common-expressions'
 import { generateId_hashids, regexParentheses, regexSquareBrackets } from '../util'
 
@@ -11,9 +9,30 @@ import { generateId_hashids, regexParentheses, regexSquareBrackets } from '../ut
 
 /*
 
-Start-up: initializing parser ( using word)
+Start-up: initializing parser
 
 */
+
+
+/////////////////////////////////////
+
+
+/*
+
+ Reconsidering the below style of defining expression's conditions, scoop and mapping declaration structure
+
+*/
+
+// … could it be better founded with XML trees? (intuitive design)
+//   » github.com/nitin42/Making-a-custom-React-renderer/blob/master/part-one.md
+
+// … could parsing be more efficient when conditions into Trie data structure (extended with necessary runtime data)?
+//   » medium.freecodecamp.org/regex-was-taking-5-days-flashtext-does-it-in-15-minutes-55f04411025f
+//   » johnresig.com/blog/javascript-trie-performance-analysis/
+
+// … initially, could Regular Expressions match a list of declared expressions in string/text/document and extend upon?
+//   » github.com/devongovett/regexgen (merging Trie lists of sequences into  processed in one pass)
+//   » npmjs.com/package/triejs
 
 
 const match = {

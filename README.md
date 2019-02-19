@@ -16,7 +16,7 @@ Anyway, it's nice to know there's a way to do work while not having computer on 
 Readme.txt (which is updated more often than this repository)
 
 
-*From './parserFlow.js' (clarity of documentation to achieve in top-level code/documents)*
+*From './parsingFlow.js' (clarity of documentation to achieve in top-level code/documents — don't mind the gaps by difference of indentation, eg. 2 spaces vs. 4 spaces)*
 ```js
 
 const parsingFlow_steps = {
@@ -77,4 +77,26 @@ const parsingFlow_steps = {
 		// Returns: singular streams of tokens and unresolved possible scenarios
 	]
 };
+```
+
+
+
+*From './parsers/gestures-tree/index.js' (clarity of documentation to achieve in top-level code/documents)*
+```js
+/*
+
+ Reconsidering the below style of defining expression's conditions, scoop and mapping declaration structure
+
+*/
+
+// … could it be better founded with XML trees? (intuitive design)
+//   » github.com/nitin42/Making-a-custom-React-renderer/blob/master/part-one.md
+
+// … could parsing be more efficient when conditions into Trie data structure (extended with necessary runtime data)?
+//   » medium.freecodecamp.org/regex-was-taking-5-days-flashtext-does-it-in-15-minutes-55f04411025f
+//   » johnresig.com/blog/javascript-trie-performance-analysis/
+
+// … initially, could Regular Expressions match a list of declared expressions in string/text/document and extend upon?
+//   » github.com/devongovett/regexgen (merging Trie lists of sequences into  processed in one pass)
+//   » npmjs.com/package/triejs
 ```

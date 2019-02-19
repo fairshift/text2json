@@ -9,7 +9,11 @@ import { BulletPoints } from 'expressions.bulletpoints'
 /*
 
   Tokenization functions
-  ... stackoverflow.com/questions/27331819/whats-the-difference-between-a-character-a-code-point-a-glyph-and-a-grapheme
+
+  Researching at the moment:
+  — trie data structures with "triejs" package (unresolved how-to and why: export a trie data structure, generated)
+  — parallel regex with "regexgen" from trie data structures
+  … stackoverflow.com/questions/27331819/whats-the-difference-between-a-character-a-code-point-a-glyph-and-a-grapheme
 
 */
 export {
