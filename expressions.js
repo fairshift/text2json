@@ -35,29 +35,6 @@ Common functionalities (with token database access)
 */
 
 
-
-const expressionWrapper = (expressionFn, args_fromExpression = []) => {
-
-	var wrappedExpr = {},
-		runtimeFn = function( args_runtime = [] ) {
-
-	  		return expressionFn( args_fromExpression, [], args_runtime )
-	}
-
-	// Wrapped this way, insides of the following function won't run immediately, 
-	// persisting references to "expressionFn" and additional "args_" until launched: ()
-  	wrappedExpr = runtimeFn
-	wrappedExpr.addArgs = (args_fromParser) => {
-
-  		return function( args_runtime = [] ){
-
-	  		return expressionFn( args_fromExpression, args_fromParser, args_runtime )
-		}
-  	}
-
-  	return wrappedExpr
-}
-
 const expressionWrapper = ( expressionFn, args_fromExpression = [] ) => {
 
 	var wrappedExpr = {},
@@ -73,7 +50,7 @@ const expressionWrapper = ( expressionFn, args_fromExpression = [] ) => {
 	// Wrapped this way, insides of the following function won't run immediately, 
 	// persisting references to "expressionFn" and "additionalArgs" until launched with ()
   	wrappedExpr = runtimeFn
-	wrappedExpr.addArgs = (args_fromParser) => {
+	wrappedExpr.addArgs = ( args_fromParser ) => {
 
 		// This is the same "runtimeFn" function, calling expression function
 		// … would copy-paste it, if that functioned for the purpose of wrapping (doesn't)

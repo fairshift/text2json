@@ -80,22 +80,32 @@ const parsingFlow_steps = {
 ```
 
 
-*From './parsers/gestures-tree/index.js' (clarity of documentation to achieve in top-level code/documents)*
+*From './parsers/gestures-tree/index.jsx'*
 ```js
+
 /*
 
- Reconsidering the below style of defining expression's conditions, scoop and mapping declaration structure
+Reconsidering the style of defining expression's conditions, scoop and mapping declaration structure
+… in relation to './index.js'
 
 */
 
 // … could it be better founded with XML trees? (intuitive design)
 //   » github.com/nitin42/Making-a-custom-React-renderer/blob/master/part-one.md
 
-// … could parsing be more efficient when conditions into Trie data structure (extended with necessary runtime data)?
+// … could parsing gain efficiency with conditions and boundaries transpiled in Trie data structure (with runtime data)?
 //   » medium.freecodecamp.org/regex-was-taking-5-days-flashtext-does-it-in-15-minutes-55f04411025f
 //   » johnresig.com/blog/javascript-trie-performance-analysis/
 
-// … initially, could Regular Expressions match a list of declared expressions in string/text/document and extend upon?
-//   » github.com/devongovett/regexgen (merging Trie lists of sequences into  processed in one pass)
+// … w/ thin "dictionaries", can Regular Expressions match declared expressions in string/text/document, efficiently (enough)?
+//   » github.com/devongovett/regexgen (merging Trie lists of sequences, processed in one pass)
 //   » npmjs.com/package/triejs
+
+
+import React from 'react';
+import {Triejs} from 'triejs'
+import {Trie} from 'regexgen'
+import _ from 'lodash'
+const Reconciler = require('react-reconciler');
+
 ```

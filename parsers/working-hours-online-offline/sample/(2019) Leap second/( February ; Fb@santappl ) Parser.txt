@@ -14,4 +14,4 @@ text2json parser component
 		13:55 - 16:45 14.*: Parser input schema through custom parser declaration ("gestures-tree") ; Updating expressions @Pritličje
 		17:05 - 19:15 *: Expression wrapper with validation and shortcut extensions (with additional arguments) @Pritličje
 		13:00 ~ 22:30 (4h) 18.*: * ; Testing JavaScript object of functions, wrapped functions and passing arguments from various sources
-		10:45 ~ 13:45 19.*: Researching "trie" data structure packages and "parallel regex" (found on npmjs.com: "triejs", "regexgen") ; Researching intuitive ways of declaring the conditions to find/match content (find what is expected) and scoop/extract insides or context (what is contained or surrounding it) with "react-reconciler" in XML/React style
+		10:45 ~ 13:45 19.*: Researching 'trie' data structure packages and 'parallel regex' (found on npmjs.com: 'triejs', 'regexgen') ; Researching intuitive ways of declaring the conditions to find/match content (find what is expected) and scoop/extract insides or context (what is contained or surrounding it) with 'react-reconciler' in XML/React style
