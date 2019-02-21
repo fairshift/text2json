@@ -46,7 +46,7 @@ const Reconciler = require('react-reconciler');
 
 const ExpressionsMap = (props) => {
 	return (
-		<CustomParser_RootStructure>
+		<CustomParser>
 			…
 			<ScenarioRoute {...props} >
 				…
@@ -55,7 +55,7 @@ const ExpressionsMap = (props) => {
 				…
 			</ScenarioRoute>
 			…
-		</CustomParser_RootStructure>
+		</CustomParser>
 	)
 }
 
