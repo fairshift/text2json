@@ -101,7 +101,7 @@ b) a number of characters are read from string directly (perhaps sliced away to 
 // Function returns a reduced list of expressions
 // … and calculates bufferLength, if necessary
 ///
-function pickFromExpressions(	expressionList, 
+function pickExpressions(	expressionList, 
 								select = {}, 
 								bufferLength = expressionList_minBufferLength ){
 
