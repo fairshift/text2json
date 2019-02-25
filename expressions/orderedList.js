@@ -1,7 +1,7 @@
 
 
 import React from 'react'
-import { Scenario, MatchOneOf as OneOf, ExpressionChain as Chain, Trie } from '../logic' // Logical operators
+import { Scenario, MatchOneOf as OneOf, ExpressionChain as Chain, Trie, Scoop } from '../logic' // Logical operators
 import { SOF, EOF } from '../blocks' // Layout blocks
 
 import { escapeExpression as e } from '../util' // [!!!] function not existing yet
@@ -39,10 +39,15 @@ const orderedList = (props) => {
 				__fn: ["numberedListItemSupposition", numberedListItemSupposition],
 				__fnArgs: { 
 					get: "tokens.index",
-					find: [
-						{ key: {{value}} },
-						{ key: {{regex}} }, // _.filter(result, obj => /^[a-zA-Z]/.test(obj.name));
-					]
+					find: {
+						any: [
+							{ key: {{value}} },
+						],
+						all: [
+							{ key: {{regex}} },
+							// _.filter(result, obj => /^[a-zA-Z]/.test(obj.name));
+						]
+					}
 				}
 			},
 			"[Aa-Zz]+\s*": {
@@ -60,7 +65,7 @@ const orderedList = (props) => {
 
 			<Scenario>
 				<ExpressionChain src="{this.expressions}" >
-
+					<Incomplete ...props />
 				</ExpressionChain>
 			</Scenario>
 

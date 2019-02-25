@@ -20,7 +20,6 @@ text2json parser component
 		19:45 - 19:50: Delimiting function - pairs of enclosing brackets
 		21:25 - 21:45: *
 		12:45 - 13:02: Tokenization implementation in custom parser
-		16:15 ~ 18:30: [messy] Consolidating React (XML) and JSON datatypes with Trie expression parsing function (in conceptualization) @Pritličje
 
 
 TODO:

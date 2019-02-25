@@ -25,3 +25,7 @@ text2json parser component
 		9:00 ~ 12:30 20.*: Having fun with github.com/jeresig/trie-js implementation (build-trie file only), where a freshly assigned variable named "trie", which should be empty by expectations, contains the result expected after the for loops building the data tree are run (without any scripts referencing to it or assigning value to it — screenshots and witty comments found on Facebook.com/santappl in a today's post)
 		13:30 ~ 16:15 (1h 30min): Working on a buildTrie function 'ground-up', to allow embedding of custom data nodes for each keyword or keyphrase, and to allow for nesting custom longer patterns in between
 		17:00 ~ 18:00: Drafting React-based content block patterns and scenarios ; Drafting main runtime parsing functions (matchExpressions, buildTrie_fromObject) and auxiliary ones (pickExpressions, minBufferLength_calculate) ; Drafting a subset of regex-based matchingConditions
+
+		16:15 ~ 18:30: [messy] Consolidating React (XML) and JSON datatypes with Trie expression parsing function (in conceptualization) @Pritličje
+
+		18:40: Drafting a walkthrough in README.md

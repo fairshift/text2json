@@ -1,7 +1,5 @@
 
-import React from 'react'
 import { Scenarios, Pattern, Optional } from '../logic'
-
 
 //
 // Playing with a standard form of structuring content
