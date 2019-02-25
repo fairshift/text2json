@@ -1,6 +1,173 @@
 
 
-function matchExpressions(string, conditionsTrie){
+// [InDevelopment]
+//
+// Process compass: code from examples — found in a flow
+
+// — (parser.ReactWrapper)(customParser) loads the compilation of React building blocks
+// — (parser.ReactWrapper)(jsonReconciler): React into JSON chains conditions (… './parsingFlow.js')
+//		— (./logic/{{…}}) are definitions of 
+//		… {{example}} [!!!]
+
+// 		— (./expressions/{{…}})(${blocks}) form layout
+//		… 'orderedList.js' has a proposition of component and expression chain integration 
+//
+
+
+import _ from 'lodash'
+
+
+const exampleTrie = {
+	"wor": {
+		"d": { 
+			$: 0,
+			"ing": { $: 0 }
+		},
+		"k": {
+			$: 0
+			"ing": { 
+				$: 0,
+				""
+			}
+		}
+	}
+}
+
+
+
+
+/*
+intoTrie( trieObj, expressions = [ "word", "work",  ], setIndex: boolean, appendObj, 
+			keepAsString = buildTrie( flattenMatchingConditions( […] ) )
+
+
+	expressions.sort()
+
+	forEach( expresssions, (expr)
+
+		
+		… step 1: letterByLetter( expr["word"] ) = [ "w", "o", "r", "d" ]
+		… step 2: letterByLetter( expr["work"] ) = [ "w", "o", "r", "k" ]
+		
+
+		forEach( letterByLetter (= [ "w", "o", "r", "k" ]), (letter)
+
+			letters += letter
+			keepAsString = 
+
+
+			( typeof trieObj === 'object' 	forEach( letterByLetter (= [ "w", "o", "r", "k" ]), (letter)
+
+			&& trieObj[ letters ] ) ? 
+				intoTrie( null, ["d", "k"], appendObj )
+			:
+				( !letters.length ) ? 
+
+
+		)
+	)
+)*/
+
+
+
+/*
+
+//
+// Trie object stores
+// — optimization of storage space: parts of words or full words where there's no divergences
+// — 
+// — 
+//
+
+*/
+
+
+//
+// A recurring function, placed into context of an extensible parser
+// … Trie input arguments: trieObject.match, .dictionary, .expressions
+//
+const matchExpressions = peelTrie__fn__expr = ( trieObjects, insert = false, sort = true ) => {
+
+	_.each( trieObjects.match, (expressionBranch) => {
+
+		_.each( trieObjects.dictionary, (dictionaryBranch) => {
+
+
+			// Function calls itself when matching sequences of words are found
+			var passTrieObj = {
+				match: trieObjects.match,
+				dictionary: dictionaryBranch
+			}
+			peelTrie( trieObjects, insert, sort )
+
+
+
+			// When matching (functional) expressions are found () … [!!!]
+			// … expecting replacements for some expressions
+
+
+
+			// 
+
+
+
+		})
+
+
+	})
+}
+
+
+
+		letters += letter
+		keepAsString = 
+
+
+		( typeof trieObj === 'object' 	forEach( letterByLetter (= [ "w", "o", "r", "k" ]), (letter)
+
+		&& trieObj[ letters ] ) ? 
+			intoTrie( null, ["d", "k"], appendObj )
+		:
+			( !letters.length ) ? 
+
+		_.each( trieObjects.dictionary, (dictionaryBranch) => {
+
+
+		}
+		
+		keepAsString = buildTrie( flattenMatchingConditions( […] ) )
+
+const buildTrie = ( expressions
+/*			(= [ "word", "work" ])
+		||	(= { "word": dataToAppend } */ ) => {
+
+
+	expressions = expressions.sort() // Inefficient (traverses the tree twice)
+	forEach( expressions, (expr) => {
+
+		expr.split("")
+
+		/*
+		… step 1: letterByLetter( expr["word"] ) = [ "w", "o", "r", "d" ]
+		… step 2: letterByLetter( expr["work"] ) = [ "w", "o", "r", "k" ]
+		*/
+		
+	})
+}
+/*
+
+// — 
+// — 
+//
+
+*/
+
+
+
+
+// const matchExpressions = peelTrie
+
+const matchExpressions = (string, conditionsTrie) => {
 
 	var focus, inFocus = {},
 		mapTokens = {},
@@ -23,46 +190,68 @@ function matchExpressions(string, conditionsTrie){
 
 
 
-//
-// Functional characters / phrases to import into "matchExpressions", "buildTrie_from[Aa-Zz]+"
-// … an extensible set
-//
-const matchingConditions = {
-	regexpSubset: {
-		"\n": withSuffix,
-		"\r\n": noSuffix,
-		"\s": ["\n", "\r\n"]
-	},
-	_suffixList: ["*", "+"],
-	_bufferLength: null
-}
-const noSuffix = 0, const withSuffix = 1
-
-
-
 
 //
 //	Expect an object, where "key" is expression and further "value" object is appended data 
 // (eg. parser matching conditions for the , tokenizer scoop definitions,  
 //
-function buildTrie_fromObject(	expressions,
-								matchingConditions = matchingConditions, 
-								abTest = 'a' ){
+function buildTrie__appendData(
+	expressionsObj, trie,
+	matchingConditions = Expressions_std, 
+	abTest = 'a' ){
 
 
-	var bufferLength = matchingConditions['_bufferLength']
+	var currentWordPart,
+		currentSubTrie = {},	// Decompose trie (eg. onion peels)
+		bufferLength = matchingConditions['_bufferLength']
 	// Parser need be aware of any undivided stream of 1) expressions of conditions or 2) words or phrases (of common and special characters) coming in, which may be longer than the maximum singular expression
 
-	if(typeof expressions === 'object'){
+	if(	typeof expressionsObj === 'object'){ 
+		// _.forEach might involve avoiding errors with empty/incompatible objects [!!!]
 
-		for( var i = 0, l = expressions.length ; i < l ; i++ ){
+		// Loop through provided expressions …
+		_.forEach( expressionObj, (expression) => {
 
-			var expression = expressions[i],
-				letters = (abTest == 'a') ? expression.split("") : null
+			// Essentially the same as … (might deserve an AB test [!!!])
+			/*
+				for( var i = 0, l = expressions.length ; i < l ; i++ ){
+				var expression = expressions[i],
+			*/
 
-			for( var j = 0 ; j < expression.length ; j++ ){
 
-				var letter = (abTest == 'a') ? expression.charAt(j) : letters[j]
+			for( var i = 0 ; i < expression.length ; i++ ){
+
+				var letters = (abTest == 'a') ? expression.split("") : null,
+					letter = (abTest == 'a') ? expression.charAt(i) : letters[i],
+
+					currentWordPart += letter
+
+
+				if( i == 0 ){
+
+					currentSubTrie = (typeof trie[letter] !== 'undefined') ? trie[letter] : null
+
+				} else {
+
+					// … find the longest match within current subTrie
+					if(typeof currentSubTrie[ currentWordPart ] !== 'undefined'){
+
+						currentSubTrie = currentSubTrie[ currentWordPart ]
+						currentWordPart = ""
+					}
+				}
+
+				// Create new Trie (sub)structure
+				if( currentSubTrie == null ){
+					currentSubTrie[letter] = { }
+				}
+			}
+
+		})
+
+		return trie
+		
+
 
 				/*
 
@@ -70,6 +259,11 @@ function buildTrie_fromObject(	expressions,
 
 				*/
 				
+
+				// Get value from tree
+
+				
+
 			}
 		}
 
@@ -83,16 +277,99 @@ function buildTrie_fromObject(	expressions,
 //
 /*
 
-Contains abTest variable, where 'a' is a scenario, presupposed by implementation author
+# About Trie and possible character combinations in one word …
+— [InternationalAlphabet_withNationalVariations.length] ^ []
+— Density of words within a stream of characters (interlaced, converging and diverging words)
+	is in a reverse-reciprocal relationship with 
+
+
+# Contains abTest variable, where 'a' is a scenario, presupposed by implementation author
 
 a) expression (aka. string) is divided into an array of single characters
-
 b) a number of characters are read from string directly (perhaps sliced away to reduce load)
-
 … both cases, a buffer is there to keep track of defined subset of regex-alike matching conditions, applied in each case (eg. subset of RegExp, etc)
 
 */
 //
+
+
+
+  /////////////////////////////////////
+//  From: github.com/jeresig/trie-js  //
+  ////////////////////////////////////
+
+
+function optimize( cur ) {
+	var num = 0, last;
+
+	for ( var node in cur ) {
+		if ( typeof cur[ node ] === "object" ) {
+			var ret = optimize( cur[ node ] );
+
+			if ( ret ) {
+				delete cur[ node ];
+				cur[ node + ret.name ] = ret.value;
+				node = node + ret.name;
+			}
+		}
+
+		last = node;
+		num++;
+	}
+
+	if ( num === 1 ) {
+		return { name: last, value: cur[ last ] };
+	}
+}
+
+function suffixes( cur, end ) {
+	var hasObject = false, key = "";
+
+	for ( var node in cur ) {
+		if ( typeof cur[ node ] === "object" ) {
+			hasObject = true;
+
+			var ret = suffixes( cur[ node ], end );
+
+			if ( ret ) {
+				cur[ node ] = ret;
+			}
+		}
+
+		key += "," + node;
+	}
+
+	if ( !hasObject ) {
+		if ( end[ key ] ) {
+			end[ key ].count++;
+
+		} else {
+			end[ key ] = { obj: cur, count: 1 };
+		}
+
+		return key;
+	}
+}
+
+function finishSuffixes( cur, keepEnd, end ) {
+	for ( var node in cur ) {
+		var val = cur[ node ];
+
+		if ( typeof val === "object" ) {
+			finishSuffixes( val, keepEnd, end );
+
+		} else if ( typeof val === "string" ) {
+			cur[ node ] = keepEnd[ val ] || end[ val ].obj;
+		}
+	}
+}
+
+  //                                //
+//   \\ github.com/jeresig/trie-js    //
+  //                                //
+
+
+
 
 
 
@@ -102,8 +379,8 @@ b) a number of characters are read from string directly (perhaps sliced away to 
 // … and calculates bufferLength, if necessary
 ///
 function pickExpressions(	expressionList, 
-								select = {}, 
-								bufferLength = expressionList_minBufferLength ){
+							select = {}, 
+							bufferLength = expressionList_minBufferLength ){
 
 	//
 	// Get intersection of "expressionList" and "select" objects
@@ -118,7 +395,8 @@ function pickExpressions(	expressionList,
 	//
 	if(typeof expressionList['_bufferLength'] === 'number'){
 
-_bufferLength	}
+		bufferLength = expressionList['_bufferLength']
+	}
 
 	if(typeof bufferLength !== 'number' && typeof expressionList['_bufferLength'] !== 'number'){
 
@@ -168,7 +446,7 @@ function minBufferLength_calculate(expressionList){
 	})
 
 
-	return key_maxLen + suffix_maxLen
+	return expr_maxLen + suffix_maxLen
 }
 
 

@@ -1,6 +1,6 @@
 
 import React from 'react'
-import { Scenarios, Pattern, Optional } from './index'
+import { Scenarios, Pattern, Optional } from '../logic'
 
 
 //

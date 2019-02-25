@@ -22,8 +22,9 @@ Reconsidering the style of defining expression's conditions, scoop and mapping d
 //   » npmjs.com/package/triejs
 
 
-import React from 'react';
-const Reconciler = require('react-reconciler');
+import React from 'react'
+import Reconciler from 'react-reconciler'
+import CustomParser from './parserReactWrapper'
 
 
 /*
