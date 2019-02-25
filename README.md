@@ -263,7 +263,7 @@ An example of a structured document, which is parsed to JSON format from a file 
 
 		16:15 ~ 18:30: [messy] Consolidating React (XML) and JSON datatypes with Trie expression parsing function (in conceptualization) @Pritličje
 
-		18:40: Drafting a walkthrough in README.md
+		18:40 - 19:00: Drafting a walkthrough in README.md
 ```
 
 
