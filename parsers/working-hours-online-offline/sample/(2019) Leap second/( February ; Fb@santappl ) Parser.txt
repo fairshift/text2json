@@ -29,3 +29,9 @@ text2json parser component
 		16:15 ~ 18:30: [messy] Consolidating React (XML) and JSON datatypes with Trie expression parsing function (in conceptualization) @Pritličje
 
 		18:40 - 19:00: Drafting a walkthrough in README.md
+
+		16:20 ~ 17:00 26.*: Commenting a customParser rendering component (its flow and possible positioning of custom parser within text2json package container — as a wrapper or a container)
+
+		18:00 - 18:30: *
+
+		19:30 - … [!!!] *: Generating a script which finds rhymes in a Facebook JSON archive
