@@ -142,8 +142,8 @@ const buildTrie = ( expressions
 		||	(= { "word": dataToAppend } */ ) => {
 
 
-	expressions = expressions.sort() // Inefficient (traverses the tree twice)
-	forEach( expressions, (expr) => {
+	expressions = expressions.sort() 	// Inefficient (traverses twice 
+	forEach( expressions, (expr) => {	// the array of expression objects)
 
 		expr.split("")
 
