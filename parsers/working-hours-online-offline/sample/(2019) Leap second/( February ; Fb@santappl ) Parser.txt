@@ -32,9 +32,20 @@ text2json parser component
 
 		16:20 ~ 17:00 26.*: Commenting a customParser rendering component (its flow and possible positioning of custom parser within text2json package container — as a wrapper or a container)
 
-		18:00 - 18:30: *
+		18:00 - 18:30 *: *
 
 		19:30 - … [!!!] *: Generating a script which finds rhymes in a Facebook JSON archive
+
+		18:30 - 19:00 3/3/'19: Rearranging file structure of main parser package
+
+		* 4.3.*: Documenting converging standard expressions (Regex & alike, which are replaced to reduce amount of expressions parser handles in one call)
+
+		6:15 - 6:30 5.*: Exporting "To-do" statements during work (marked with !…, ?…, ¿…)
+
+
+
+--------
+
 
 
 		~8:00 28.2.

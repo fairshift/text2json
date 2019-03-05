@@ -1,0 +1,76 @@
+# Plan — To-do list
+… die Methode: Recording what has to be done, script by script
+
+
+
+## ./index
+
+
+## ./parser.runtime
+
+
+## ./parser.ReactWrapper
+
+
+## ./parser.processFlow
+
+
+
+---
+
+
+
+## ./fn.expressions
+
+
+## ./fn.validation
+
+
+## ./fn.util
+
+
+## ./fn.tokenization
+
+
+---
+
+
+## ./expressions/orderedList
+
+
+## ./schema.signature
+
+
+## ./logic/
+
+
+## ./expressions/
+
+
+
+## ./translations/
+
+
+
+---
+
+
+
+## ./parsers
+
+
+## ./modules/
+
+
+## ./expressions/heading
+
+
+## ./expressions/orderedList
+
+
+
+---
+
+
+
+## ./

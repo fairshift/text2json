@@ -12,10 +12,14 @@ import { escapeExpression as e } from '../util' // [!!!] function not existing y
 const orderedList = (props) => {
 
 
-	const numberedListItemSupposition = (input, processorObj) => {
+	const numberedListItem_supposition = (input, db) => {
 
-		end = 1
-		for (i = input.first ; i < end ; i++){
+		var previousListItem = db.get('tokens')
+								.find({ byKey: value }) // [!!!]
+								.value()
+
+		end = (previousListItem) ? previousListItem : 1
+		for (i = input.first ; i <= end ; i++){
 
 			if( matchingExpression ){
 
@@ -35,8 +39,8 @@ const orderedList = (props) => {
 		{ __trieChain: {
 			"[0-9]+\s*": {
 				__id: "{{1}}",
-				__expr: "numberedListItem",
-				__fn: ["numberedListItemSupposition", numberedListItemSupposition],
+				__expr: "ListItem",
+				__fn: ["numberedListItem", numberedListItem],
 				__fnArgs: { 
 					get: "tokens.index",
 					find: {
