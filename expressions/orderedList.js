@@ -16,16 +16,43 @@ import { escapeExpression as e } from '../util' // function unexistent here yet 
 const orderedList = (props) => {
 
 
+	// Compatible blocks in which this expression can appear
+	var within = {
+		std: ["Paragraph", ""],
+		parserName: [""],
+		parserName_2: [""]
+	}
+	// … Is extensible
+	if(_.isObject(props.within))
+		within = _.merge(within, props.within)
+
+
 	var numberedItem = {
 		expr: "numberedItem",
 		match: (input, db) => {
 
-			var previousListItem = db.get('tokens')
-									.find({ expr: "numberedListItem" }) // [!!!]
-									.last()
-									.value()
+			var previousListItem = db
+				.get('tokens')
+				.filter({ expr, block } => 
+					expr == 'numberedItem' && 
+					block == (''))
+				.recent(1)
+				.value()
 
-			end = (previousListItem) ? previousListItem : 1
+
+			// Does the previous list item somehow share the same block?
+			//
+			// Conditions must be met (higher priority first):
+			// — there is an ascending order of numbers with no gaps
+
+			var previousListItem = db
+				.get('tokens.cache')
+				.find({ expr: "numberedItem", blocks })
+				.recent(1)
+				.value()
+
+
+			end = (previousListItem) ? previousListItem.index : 1
 			for (i = input.first ; i <= end ; i++){
 
 				if( matchingExpression ){

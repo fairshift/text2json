@@ -44,7 +44,7 @@ text2json parser component
 
 		14:00 - 15:44 8.*: Working in './db.js', './parser.runtime.js' and with 'orderedList' block/expression
 
-
+		16:50 - 18:00 *: Working around _.filter function limitations, understanding custom sorting function (to reduce amound of times an array is looped through at a later point)
 
 --------
 
