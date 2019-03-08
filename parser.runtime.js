@@ -14,11 +14,12 @@
 //
 
 
+
 import _ from 'lodash'
 
 
-const exampleTrie = {
-	"wor": {
+const exampleDictionaryTrie = {
+	"landmine": {
 		"d": { 
 			$: 0,
 			"ing": { $: 0 }
@@ -35,132 +36,132 @@ const exampleTrie = {
 
 
 
-
-/*
-intoTrie( trieObj, expressions = [ "word", "work",  ], setIndex: boolean, appendObj, 
-			keepAsString = buildTrie( flattenMatchingConditions( […] ) )
-
-
-	expressions.sort()
-
-	forEach( expresssions, (expr)
-
-		
-		… step 1: letterByLetter( expr["word"] ) = [ "w", "o", "r", "d" ]
-		… step 2: letterByLetter( expr["work"] ) = [ "w", "o", "r", "k" ]
-		
-
-		forEach( letterByLetter (= [ "w", "o", "r", "k" ]), (letter)
-
-			letters += letter
-			keepAsString = 
-
-
-			( typeof trieObj === 'object' 	forEach( letterByLetter (= [ "w", "o", "r", "k" ]), (letter)
-
-			&& trieObj[ letters ] ) ? 
-				intoTrie( null, ["d", "k"], appendObj )
-			:
-				( !letters.length ) ? 
-
-
-		)
-	)
-)*/
-
-
-
 /*
 
-//
-// Trie object stores
-// — optimization of storage space: parts of words or full words where there's no divergences
-// — 
-// — 
-//
+
+Build a list of examples to demonstrate use:
+— 
+
+
+This implementation is supplemented by another layer,
+which further evaluates matching results …
+— if relative distances match
+…
+
+
+With the following assertions, that: …
+
+— in JavaScript there's no difference if object key is
+in "brackets" or not in brackets
+
+… it can be concluded from example parser trie that:
+
+— a string is an expression when it contains 
+	an object key ("expressions", "expr" or "e") which contains an array
+(of bindings to expression and block evaluation functions)
+— an object key which contains more than one expression will return 
+	pattern recurrence count for whole sequence
+
 
 */
+const egParserTrie = {
 
-
-//
-// A recurring function, placed into context of an extensible parser
-// … Trie input arguments: trieObject.match, .dictionary, .expressions
-//
-const matchExpressions = peelTrie__fn__expr = ( trieObjects, insert = false, sort = true ) => {
-
-	_.each( trieObjects.match, (expressionBranch) => {
-
-		_.each( trieObjects.dictionary, (dictionaryBranch) => {
-
-
-			// Function calls itself when matching sequences of words are found
-			var passTrieObj = {
-				match: trieObjects.match,
-				dictionary: dictionaryBranch
+	// "[\s.*\s]*": { // This pattern is not supported by Regex
+	Paragraph: {
+		e: [ { ParserName: blockFnBinding } ],
+		s: true,
+		"#leapgesture": {
+			e: [ { HashtagParser: expressionFnBinding } ],
+			"\s.*\s": {
+				"#[Aa-Zz]{3,}": {
+					scoop: true
+				}
 			}
-			peelTrie( trieObjects, insert, sort )
-
-
-
-			// When matching (functional) expressions are found () … [!!!]
-			// … expecting replacements for some expressions
-
-
-
-			// 
-
-
-
-		})
-
-
-	})
-}
-
-
-
-		letters += letter
-		keepAsString = 
-
-
-		( typeof trieObj === 'object' 	forEach( letterByLetter (= [ "w", "o", "r", "k" ]), (letter)
-
-		&& trieObj[ letters ] ) ? 
-			intoTrie( null, ["d", "k"], appendObj )
-		:
-			( !letters.length ) ? 
-
-		_.each( trieObjects.dictionary, (dictionaryBranch) => {
-
-
+		},
+		"#siebenlinden": {
+			e: [ { hashtagParser: expressionFnBinding } ],
+			"(?=obst|fruit)": {
+				".*": {
+					"[AÄ]pfel": { $: 0 }
+				}
+			},
+			"[AÄ]pfel": {
+				".*": {
+					"(?=obst|fruit)"
+				}
+			}
 		}
-		
-		keepAsString = buildTrie( flattenMatchingConditions( […] ) )
+	}
 
-const buildTrie = ( expressions
-/*			(= [ "word", "work" ])
-		||	(= { "word": dataToAppend } */ ) => {
+	"SOF": {
+		e: [
+			{	DictionaryExpression: ExpressionFnBinding, scoop: 0 }
+		],
+		"\s": {
+			"[Aa-Zz]*": {
+				"\n*": {
+					$: ['DictionaryExpression']
+				},
+				"\n": {
+					…OnionRightOn
+				}
+			}
+		},
+		"[Aa-Zz]*": {
+			$: 0,
+			"ing": { 
+				$: 0
+			}
+		}
+	},
 
-
-	expressions = expressions.sort() 	// Inefficient (traverses twice 
-	forEach( expressions, (expr) => {	// the array of expression objects)
-
-		expr.split("")
-
-		/*
-		… step 1: letterByLetter( expr["word"] ) = [ "w", "o", "r", "d" ]
-		… step 2: letterByLetter( expr["work"] ) = [ "w", "o", "r", "k" ]
-		*/
-		
-	})
+	"\s": {
+		".*": {
+			regex: 0, // Is previous expression Regex? 0: Both yes and no
+			"Fine": {
+				caseSensitive: true,
+				$: [
+					{ DictionaryExpression: ExpressionFnBinding }
+				]
+			}
+		},
+		"(": {
+			".*": {
+				".*": {
+					".": {
+						$: [
+							{ DateExpression: ExpressionFnBinding }
+						]
+					},
+					"/": {
+						"[0-9]+": {
+							
+						},
+						$: [
+							{ 
+								DateExpression: ExpressionFnBinding,
+								Args: {
+									type: "ISO 8601", // American date format
+									required: []
+								},
+								scoop: true // if false: condition without scoop
+							}
+						]
+					}
+				}
+			}
+		}
+	}
 }
-/*
+// This implementation requires expressions to be kept in whole
+//(without optimizing tree by creating mid-string branches)
 
-// — 
-// — 
-//
 
-*/
+
+const exampleContent = {
+	text: "White rabbit jumps a landmine, which is calibrated to a weight of a larger rock …\r\nTo what end does this statement serve?",
+	dictionary: { "expression": { inTrie_dataCanBeAppended: true }, "expressions": { sth_defined: true } }
+}
 
 
 
@@ -204,7 +205,13 @@ function buildTrie__appendData(
 	var currentWordPart,
 		currentSubTrie = {},	// Decompose trie (eg. onion peels)
 		bufferLength = matchingConditions['_bufferLength']
-	// Parser need be aware of any undivided stream of 1) expressions of conditions or 2) words or phrases (of common and special characters) coming in, which may be longer than the maximum singular expression
+
+
+	// Parser need be aware of any undivided stream of …
+	// 	1) expressions of conditions or 
+	// 	2) words or phrases (of common and special characters) coming in,
+	//		which may be longer than the maximum singular expression
+
 
 	if(	typeof expressionsObj === 'object'){ 
 		// _.forEach might involve avoiding errors with empty/incompatible objects [!!!]
@@ -457,52 +464,14 @@ function minBufferLength_calculate(expressionList){
 	////////////////
 
 
-
-
-// Nothing fixed here
-const exampleContent = {
-	text: "White rabbit jumps a landmine, which is calibrated to a weight of a larger rock …\r\nTo what end does this statement serve?",
-	dictionary: { "expression": { inTrie_dataCanBeAppended: true }, "expressions": { sth_defined: true } }
-}
+// More in "./parser.runtime.offloaded.js"
 
 
 
 
-/* 
 
-Part of github.com/jeresig/trie-js implementation
-
-*/
-function buildTrie_triejs_package(){
-
-	var txt = require("fs").readFileSync("dict/string.txt", "utf8"),
-		expressions = txt.replace(/\n/g, "").split(" ").sort(),
-		trie = {},
-		end = {},
-		keepEnd = {},
-		endings = [ 0 ];
-
-	// Build a simple Trie structure
-	for ( var i = 0, l = expressions.length; i < l; i++ ) {
-		var expression = expressions[i], letters = expression.split(""), cur = trie;
-
-		for ( var j = 0; j < letters.length; j++ ) {
-			var letter = letters[j], pos = cur[ letter ];
-
-			if ( pos == null ) {
-				cur = cur[ letter ] = j === letters.length - 1 ? 0 : {};
-
-			} else if ( pos === 0 ) {
-				cur = cur[ letter ] = { $: 0 };
-
-			} else {
-				cur = cur[ letter ];
-			}
-		}
-	}
-
-	return cur
-}
+// Example: XML to JSON with use of Regex:
+// https://stackoverflow.com/questions/15675352/regex-convert-xml-to-json 
 
 
 

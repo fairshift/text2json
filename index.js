@@ -15,7 +15,7 @@ import {
   replaceKeys } from './util'
 
 import _ from 'lodash'
-import lowdb from 'lowdb' // simplistic database (lodash enabled)
+import { initDB } from './db' // simplistic database (lodash enabled)
 
 
 
@@ -33,32 +33,9 @@ to map to schema
 
 
 // Parser object, exposing database and top-level functions
-const parser = (args, dbAdapter = "Memory", dbSource = null, parsers = parserModules) => {
+const parser = (args, parsers = parserModules, dbAdapter = "Memory", dbSource = null) => {
 
-  // lowdb initialization
-  switch (dbAdapter) {
-
-    case "Memory":
-      var Memory = require('lowdb/adapters/Memory')
-      dbAdapter = new Memory()
-      break
-
-    case "LocalStorage": // Browser
-      var LocalStorage = require('lowdb/adapters/LocalStorage')
-      dbAdapter = new LocalStorage(dbSource)
-      break
-
-    case "FileAsync": // Server-side
-      var FileAsync = require('lowdb/adapters/FileAsync')
-      dbAdapter = new FileAsync(dbSource)
-      break
-  
-    default:
-      break
-  }
-
-  db = lowdb( dbAdapter )
-  db.defaults({ tokens: [], context: {} }).write()
+  var db = initDB()
 
   initExpressions()
 

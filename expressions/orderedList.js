@@ -1,10 +1,14 @@
 
 
 import React from 'react'
-import { Scenario, MatchOneOf as OneOf, ExpressionChain as Chain, Trie, Scoop } from '../logic' // Logical operators
+import { // Logical operators — now building a necessary set (with usecases)
+	Scenario, MatchOneOf as OneOf, 
+	ExpressionChain as Chain, Trie,
+	ExpressionJSON as ExprJS,
+	Scoop } from '../logic' 
 import { SOF, EOF } from '../blocks' // Layout blocks
 
-import { escapeExpression as e } from '../util' // [!!!] function not existing yet
+import { escapeExpression as e } from '../util' // function unexistent here yet [!!!]
 
 
 
@@ -12,55 +16,52 @@ import { escapeExpression as e } from '../util' // [!!!] function not existing y
 const orderedList = (props) => {
 
 
-	const numberedListItem_supposition = (input, db) => {
+	var numberedItem = {
+		expr: "numberedItem",
+		match: (input, db) => {
 
-		var previousListItem = db.get('tokens')
-								.find({ byKey: value }) // [!!!]
-								.value()
+			var previousListItem = db.get('tokens')
+									.find({ expr: "numberedListItem" }) // [!!!]
+									.last()
+									.value()
 
-		end = (previousListItem) ? previousListItem : 1
-		for (i = input.first ; i <= end ; i++){
+			end = (previousListItem) ? previousListItem : 1
+			for (i = input.first ; i <= end ; i++){
 
-			if( matchingExpression ){
+				if( matchingExpression ){
 
-				end++
+					end++
+				}
 			}
-		}
 
-		return { i }
-	}
-
-
-	const expressions = {
-		// "SOF",đ
-		{ __trieChain: {
-			".*": 0
-		} },
-		{ __trieChain: {
+			return { i }
+		},
+		trie: {
+			".*": 0,
 			"[0-9]+\s*": {
 				__id: "{{1}}",
 				__expr: "ListItem",
 				__fn: ["numberedListItem", numberedListItem],
-				__fnArgs: { 
-					get: "tokens.index",
-					find: {
-						any: [
-							{ key: {{value}} },
-						],
-						all: [
-							{ key: {{regex}} },
-							// _.filter(result, obj => /^[a-zA-Z]/.test(obj.name));
-						]
+					__fnArgs: { 
+						get: "tokens.index",
+						find: {
+							any: [
+								{ key: {{value}} },
+							],
+							all: [
+								{ key: {{regex}} },
+								// _.filter(result, obj => /^[a-zA-Z]/.test(obj.name));
+							]
+						}
 					}
-				}
-			},
-			"[Aa-Zz]+\s*": {
-				__id: "{{1}}",
-				__expr: "alphabeticalListItem",
-			}
-		} },
-		// "EOF",
-		__suffixList: [".", ")", " )"],
+				},
+				"[Aa-Zz]+\s*": {
+					__id: "{{1}}",
+					__expr: "alphabeticalListItem",
+				},
+				// "EOF",
+			__suffixList: [".", ")", " )"],
+		}
 	}
 
 
@@ -68,9 +69,13 @@ const orderedList = (props) => {
 		return (
 
 			<Scenario>
-				<ExpressionChain src="{this.expressions}" >
-					<Incomplete ...props />
-				</ExpressionChain>
+				<ExprJS from="{this.numberedItem}" />
+			</Scenario>
+
+			<Scenario>
+				<Scoop>
+
+				</Scoop>
 			</Scenario>
 
 			<Scenario>

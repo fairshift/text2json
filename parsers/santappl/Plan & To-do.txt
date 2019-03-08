@@ -3,6 +3,28 @@
 
 
 
+
+# ./expressions/datetime.js
+— How to get ISO standard dates into this scheme? With "regex-trie" npm package and an implementation of the standard with Regex?
+— 
+
+
+# ./parser.runtime.js
+— With a few solid examples
+— addToTrie function: a list of expressions or sequences is added to a trie (taking into account distinction among words and expressions)
+
+
+# ./db.js
+— A sample default dataset of 'tokens' is placed there (with relations)
+— Basic DB functions (such as a list of recent entries)
+
+
+
+
+
+
+
+
 ## ./index
 
 

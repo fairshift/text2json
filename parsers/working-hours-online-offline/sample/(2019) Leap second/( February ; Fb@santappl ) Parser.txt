@@ -42,6 +42,8 @@ text2json parser component
 
 		6:15 - 6:30 5.*: Exporting "To-do" statements during work (marked with !…, ?…, ¿…)
 
+		14:00 - 15:44 8.*: Working in './db.js', './parser.runtime.js' and with 'orderedList' block/expression
+
 
 
 --------
