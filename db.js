@@ -56,26 +56,36 @@ export const initDB = (dbAdapter = "Memory", dbSource = null) => {
 const testDatasets = {
 	tokens: [
 		{
-			id: 1,
-			block: "Section",
-			parser: null
+			_id_: 1,
+			_block_: "Document",
+			_a_: 0,
+			_z_: 240
 		},
 		{
-			id: 1,
-			block: "Paragraph",
-			ref: 1
+			_id_: 2, // [By which shortcut did this symbol land in here? » ¯id_: 2]
+			_block_: "Section",
+			_a_: 12,
+			_b_: 89,
+			_L_: 1
 		},
 		{
-			id: 3,
-			block: "orderedList",
-			type: "numbered",
-			ref: 2
+			_id_: 3,
+			_block_: "Paragraph",
+			_ref_: 1,
+			_L_: 2
 		},
 		{
-			id: 4,
-			expr: "numberedItem",
-			ref: 3,
-			val: "White rabbit jumps a landmine, which is calibrated to a weight of a larger rock …\r\nTo what end does this statement serve?"
+			_id_: 4,
+			_block_: "orderedList",
+			_ref_: 2,
+			_L_: 3
+		},
+		{
+			_id_: 5,
+			_expr_: "numberedItem",
+			_ref_: 3,
+			_val_: "White rabbit jumps a landmine, which is calibrated to a weight of a larger rock …\r\nTo what end does this statement serve?"
+			_L_: 4
 		}
 	]
 }

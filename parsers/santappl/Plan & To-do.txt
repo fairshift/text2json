@@ -3,6 +3,15 @@
 
 
 
+# Functions overview
+— Packing tokens from a flat into a tree structure (by a JSON schema or otherwise)
+— Symbols used by an expression or block are declared in the component or its subparts » requires a function currently called "extendSymbols" (in './expressions/orderedList')
+— Buffer for expression/block matching runtime script is adjusted from within expressions/blocks, too (for example, if the longest expression is "12456. ", an item in a numbered ordered list, then the buffer length should be at least 8 characters for this expression to be recognized)
+
+
+# ./index
+— dbFlush() function will during development time contain an example data structure
+
 
 # ./expressions/datetime.js
 — How to get ISO standard dates into this scheme? With "regex-trie" npm package and an implementation of the standard with Regex?

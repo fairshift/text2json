@@ -1,12 +1,15 @@
 
 
 import React from 'react'
+
+
 import { // Logical operators — now building a necessary set (with usecases)
 	Scenario, MatchOneOf as OneOf, 
 	ExpressionChain as Chain, Trie,
-	ExpressionJSON as ExprJS,
-	Scoop } from '../logic' 
-import { SOF, EOF } from '../blocks' // Layout blocks
+	ExpressionNativeJS as Expr,
+	Scoop } from '../logic'
+
+import { Headline as H, Paragraph as P } from '../blocks' // Layout blocks
 
 import { escapeExpression as e } from '../util' // function unexistent here yet [!!!]
 
@@ -15,28 +18,67 @@ import { escapeExpression as e } from '../util' // function unexistent here yet 
 
 const orderedList = (props) => {
 
+	// Sym
+	var symbols = {
+		opening: {
+			"-": [text2json"], "—", "—"]
+		}
+	}
 
-	// Compatible blocks in which this expression can appear
-	var within = {
-		std: ["Paragraph", ""],
-		parserName: [""],
-		parserName_2: [""]
+
+	//
+	// Content blocks in which this expression can appear
+	//(even when not explicitly declared)
+	//
+	var compatible = { 
+		in: { // Needless to declare: "Document.*"
+			text2json: ["Section", "Paragraph"],
+			parserName: [""],
+			parserName_2: [""]
+		},
+		NumberedItem: {
+			in: {
+				text2json: ["Section"],
+				parserName: [""]
+			},
+			parserName: [""]
+		},
+		AlphabeticalItem: {
+			in: {
+				text2json: ["Document"],
+			}
+		}
 	}
 	// … Is extensible
-	if(_.isObject(props.within))
-		within = _.merge(within, props.within)
+	if(_.isObject(props.in))
+		compatible.in = _.merge(compatible.in, props.in)
 
 
-	var numberedItem = {
+	var NumberedItem = {
 		expr: "numberedItem",
-		match: (input, db) => {
+		symbols: {
+			opening: {
+				"[0-9]+\.\s": ["md", "text2json"]
+				"[0-9]+\s{0,1}\)\s+": ["text2json"]
+				"[0-9]+\s+": ["text2json"]
+			}
+		},
+		match: get (input, db) => {
 
 			var previousListItem = db
 				.get('tokens')
-				.filter({ expr, block } => 
-					expr == 'numberedItem' && 
-					block == (''))
-				.recent(1)
+				.query({
+					expr: this.expr,
+					with: compatible,
+					// When retrieving token data …
+					ref: 123,						// — shares one of the same containers
+					treeDepth: 123, 		// — is on the  same level as previous token
+					treeSearchLimit: 3,	// — will not traverse the tokens tree for more than N levels
+					parser: null,
+					// Sorting results — same as shorthand { recent: 1 }
+					sort: "desc",
+					limit: 1
+				})
 				.value()
 
 
@@ -58,70 +100,64 @@ const orderedList = (props) => {
 				if( matchingExpression ){
 
 					end++
+
+					db.get('parser.runtime').setBufferLen(this.expr) // [!!!] Pass expression/block token ID
 				}
 			}
 
+			db.get('parser.runtime').resetBufferLen(this.expr) // [!!!] Pass expression/block token ID
+
 			return { i }
 		},
-		trie: {
-			".*": 0,
-			"[0-9]+\s*": {
-				__id: "{{1}}",
-				__expr: "ListItem",
-				__fn: ["numberedListItem", numberedListItem],
-					__fnArgs: { 
-						get: "tokens.index",
-						find: {
-							any: [
-								{ key: {{value}} },
-							],
-							all: [
-								{ key: {{regex}} },
-								// _.filter(result, obj => /^[a-zA-Z]/.test(obj.name));
-							]
-						}
-					}
-				},
-				"[Aa-Zz]+\s*": {
-					__id: "{{1}}",
-					__expr: "alphabeticalListItem",
-				},
-				// "EOF",
-			__suffixList: [".", ")", " )"],
-		}
+		trie: { }
 	}
+	// … Is extensible
+	if(_.isObject(props.NumberedItem.symbols))
+		NumberedItem.symbols = extendSymbols(NumberedItem.symbols, props.symbols)
 
 
 	render(){
 		return (
 
-			<Scenario>
-				<ExprJS from="{this.numberedItem}" />
-			</Scenario>
+			<OrderedList componentLang="en">
 
-			<Scenario>
 				<Scoop>
 
-				</Scoop>
-			</Scenario>
+					<H />
+					<P />
 
-			<Scenario>
-				<Scoop>
-					<OneOf>
+					<OneOf resolve="auto">
+						<Scenario>
+							<Expr with="{this.NumberedItem}">
+								{children}
+{ /*
 
-						<Chain>
-							<Headline />
-							<Paragraph />
-						</Chain>
+	Expressions which are repeated should	not overload the 
+	Trie parser structure	with recurrence. Rather, they should be	
+	separately listed in a non-parsable category.
+	
+								<Scenario>
+									{children}
+								</Scenario>
+								<Scenario>
+									{children}
+								</Scenario>
+*/ }
+							</Expr>
+						</Scenario>
 
-						<Headline />
-
-						<Paragraph />
-
+						<Scenario>
+							<Expr with="{this.AlphabeticalItem}">
+								{children}
+							</Expr>
+						</Scenario>
 					</OneOf>
-				</Scoop>
-			</Scenario>
 
+				</Scoop>
+
+			</OrderedList>
 		)
 	}
 }
+
+

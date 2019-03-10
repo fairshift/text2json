@@ -14,7 +14,7 @@ import {
   fileExists, getDirs, getDirectories,
   replaceKeys } from './util'
 
-import _ from 'lodash'
+import _ from 'lodash' // Should be replaced until production use (a large library)
 import { initDB } from './db' // simplistic database (lodash enabled)
 
 
@@ -42,8 +42,20 @@ const parser = (args, parsers = parserModules, dbAdapter = "Memory", dbSource = 
   return {
     init: initExpressions,
     db: db,
-    dbFlush: () => {
-      db.set('tokens': [], 'context': {})
+    dbFlush: () => { // [!!!] Ein dataset steht hier zur Zeit
+      db.set(
+        'context': {
+          'keyId': { id: "Hola", tokens: [] }
+        },
+        'documents': [
+          { id: "Beispiel", tokens: [] }
+        ],
+        'jsonMap': {
+          'collection/table': {
+            dbType: ["noSql", "SQL"], // [!!!]
+            
+          }
+        })
         .write()
     },
     parseText: parseText,

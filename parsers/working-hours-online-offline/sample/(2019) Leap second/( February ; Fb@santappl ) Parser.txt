@@ -46,6 +46,10 @@ text2json parser component
 
 		16:50 - 18:00 *: Working around _.filter function limitations, understanding custom sorting function (to reduce amound of times an array is looped through at a later point)
 
+		18:45 - 19:20 *: *
+
+		16:00 - 18:03 10.*: Reworking parser's internal token database in './index.js' and './expressions/orderedList.js' ; Shaping an Expression/Block JSON object ; Redesigning database (in case a custom JS sorting function wraps other functionalities, for efficiency) ; To separately list expressions, which are recurring, but not in the top level of Trie structure
+
 --------
 
 
