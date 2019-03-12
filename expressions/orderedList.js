@@ -1,5 +1,7 @@
 
 
+
+
 import React from 'react'
 
 
@@ -21,7 +23,9 @@ const orderedList = (props) => {
 	// Sym
 	var symbols = {
 		opening: {
-			"-": [text2json"], "—", "—"]
+			"-": ["text2json"],
+			"—": ["text2json"],
+			"—": ["text2json	"]
 		}
 	}
 
@@ -45,7 +49,7 @@ const orderedList = (props) => {
 		},
 		AlphabeticalItem: {
 			in: {
-				text2json: ["Document"],
+				text2json: ["Document"]
 			}
 		}
 	}
@@ -58,23 +62,23 @@ const orderedList = (props) => {
 		expr: "numberedItem",
 		symbols: {
 			opening: {
-				"[0-9]+\.\s": ["md", "text2json"]
-				"[0-9]+\s{0,1}\)\s+": ["text2json"]
+				"[0-9]+\.\s": ["md", "text2json"],
+				"[0-9]+\s{0,1}\)\s+": ["text2json"],
 				"[0-9]+\s+": ["text2json"]
 			}
 		},
-		match: get (input, db) => {
+		get match(input, db){
 
 			var previousListItem = db
 				.get('tokens')
-				.query({
+				.queryTx({	// … 
 					expr: this.expr,
+					parser: null,
 					with: compatible,
 					// When retrieving token data …
-					ref: 123,						// — shares one of the same containers
-					treeDepth: 123, 		// — is on the  same level as previous token
-					treeSearchLimit: 3,	// — will not traverse the tokens tree for more than N levels
-					parser: null,
+					ref: 123,				// — shares one of the same containers
+					treeDepth_current: 123, // — is on the same level as previous token
+					treeDepth_search: 3,		// — will traverse tree of tokens N levels
 					// Sorting results — same as shorthand { recent: 1 }
 					sort: "desc",
 					limit: 1
@@ -82,34 +86,35 @@ const orderedList = (props) => {
 				.value()
 
 
-			// Does the previous list item somehow share the same block?
-			//
-			// Conditions must be met (higher priority first):
-			// — there is an ascending order of numbers with no gaps
+				// Does the previous list item somehow share the same block?
+				//
+				// Conditions must be met (higher priority first):
+				// — there is an ascending order of numbers with no gaps
 
-			var previousListItem = db
-				.get('tokens.cache')
-				.find({ expr: "numberedItem", blocks })
-				.recent(1)
-				.value()
+				var previousListItem = db
+					.get('tokens.cache')
+					.find({ expr: "numberedItem", blocks })
+					.recent(1)
+					.value()
 
 
-			end = (previousListItem) ? previousListItem.index : 1
-			for (i = input.first ; i <= end ; i++){
+				end = (previousListItem) ? previousListItem.index : 1
+				for (i = input.first ; i <= end ; i++){
 
-				if( matchingExpression ){
+					if( matchingExpression ){
 
-					end++
+						end++
 
-					db.get('parser.runtime').setBufferLen(this.expr) // [!!!] Pass expression/block token ID
+						db.get('parser.runtime').setBufferLen(this.expr) // [!!!] Pass expression/block token ID
+					}
 				}
-			}
 
-			db.get('parser.runtime').resetBufferLen(this.expr) // [!!!] Pass expression/block token ID
+				db.get('parser.runtime').resetBufferLen(this.expr) // [!!!] Pass expression/block token ID
 
-			return { i }
-		},
-		trie: { }
+				return { i }
+			},
+			trie: {  }
+		}
 	}
 	// … Is extensible
 	if(_.isObject(props.NumberedItem.symbols))

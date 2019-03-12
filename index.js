@@ -1,9 +1,27 @@
 
-export default parser
+
+//
+// Parsers usually function in multiple phases:
+
+// — a parser tree is compiled somewhere in the process
+//   to facilitate efficient pattern matching
+// — a sequence of inputs is analyzed for matching expressions,
+//   where some inputs are extracted and possibly transformed
+//   and then translated to a list of tokens
+//  (= standardized data nodes of different types)
+// — tokens are rendered to another data structure type (eg. HTML or JSON)
+
+
+
+export default parser                 // Package is not functionable 
+                                      //(with one parser using the partial tx2json function)
 export {
   parser,                             // main parser wrapping function
   initExpressions,                    // a subset of expressions to parse client-side
-  parseText, parseFile, parseFolder   // lower level functions
+  parseText, parseFile, parseFolder,  // lower level functions
+
+  chainParsers                        // Use to chain several parser packages
+                                      //(priority: './parsers/g-rhimes')
 }
 
 
@@ -19,21 +37,21 @@ import { initDB } from './db' // simplistic database (lodash enabled)
 
 
 
+//
+// The first functionable function will be tx2json, which enables some of the following:
+// — maps tokens to a declared schema (json-schema ; NoSQL or SQL compatible)
+// — validates data with declared schema
+// … delivers results with a possible list of operations yet to be concluded
+//  (user input ; backend)
+const tx2json = (parserExecutables) => {
 
-// Objects, derived from parsing process, further on passing through mapping functions
-/*const defaultState = {
-  object: null,       // one specific object, supplied by parser() function, which loops through objectsMap
-  objectsMap: null,   // objects   objectsMap: null,   // objects to map to schema
-to map to schema
-  context: null,      // contexts available in string.js: application context (index.js), filesystem(.js)
-  config: null        // parser configuration
-}*/
-// const parserArgs_schema = { caption: '', text: '', diff = '' }
-
-
+  parserExecutables.forEach((parserName, obj) => {
+    obj.fn
+  })
+}
 
 // Parser object, exposing database and top-level functions
-const parser = (args, parsers = parserModules, dbAdapter = "Memory", dbSource = null) => {
+const text2json = (args, parsers = parserModules, dbAdapter = "Memory", dbSource = null) => {
 
   var db = initDB()
 

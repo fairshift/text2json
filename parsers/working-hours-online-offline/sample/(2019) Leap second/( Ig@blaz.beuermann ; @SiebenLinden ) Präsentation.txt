@@ -1,0 +1,51 @@
+
+
+export const Profil extends React.PureComponent {
+
+	const profilBild = "
+
+
+
+
+
+
+
+
+
+
+	"
+
+	render(){
+		return (
+			<Gastarbeiter vollName="Blaž Beuermann" kommtAus="Ljubljana, Slowenien">
+				<ColabMöglichkeiten data="{this.suchtColab}">
+				<WortenUndGesten>
+
+
+					Etwas …
+					—
+
+
+				</Worten>
+				<Interessen>
+
+					So zu sagen, übrigens mein Arbeit steht in der Nähe von meiner Freizeit, kann Ich mit diesen Kategorien erklären …
+
+					# Professionel
+					— 
+
+					# Hobbi
+					— Singen für einen gute Grund (z.B. auf äktivistischer Festivitäte)
+
+				</Interessen>
+			</Gastarbeiter>
+		)
+	}
+
+	const suchtColab = [
+		{ },
+		{ },
+		{ }
+	]
+}
+
