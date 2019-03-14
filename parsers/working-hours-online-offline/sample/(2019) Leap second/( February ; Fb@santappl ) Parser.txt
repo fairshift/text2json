@@ -50,6 +50,12 @@ text2json parser component
 
 		16:00 - 18:03 10.*: Reworking parser's internal token database in './index.js' and './expressions/orderedList.js' ; Shaping an Expression/Block JSON object ; Redesigning database (in case a custom JS sorting function wraps other functionalities, for efficiency) ; To separately list expressions, which are recurring, but not in the top level of Trie structure
 
+		12:00 - 13:30 12.*: Rhymes LiederHolen: Creating a script, which loops through Facebook archive, extracing a histogram of keywords (+ creating an index) and using Diff-Match-Patch to let user map rhymes
+
+		19:00 - 22:00 12.*: * ; Creating a wrapper function, which can take in any given parser (meaningfully) and return inputs with some added value
+
+		10:00 - 13:07 14.*: * ; »simpl-schema« package as a substitute for »JSON schema« to validate outputs ; Documentation and cleaning up code in './index.js'
+
 --------
 
 

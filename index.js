@@ -12,54 +12,179 @@
 // — tokens are rendered to another data structure type (eg. HTML or JSON)
 
 
+export default text2json  // Package is not functionable 
+                          //(with one parser using the partial tx2json function)
 
-export default parser                 // Package is not functionable 
-                                      //(with one parser using the partial tx2json function)
 export {
-  parser,                             // main parser wrapping function
-  initExpressions,                    // a subset of expressions to parse client-side
-  parseText, parseFile, parseFolder,  // lower level functions
+  // Use for client-side efficiency gains
+  initExpressions,  // Parser-invoking expressions 
+                    // to match in-browser or in-app
 
-  chainParsers                        // Use to chain several parser packages
-                                      //(priority: './parsers/g-rhimes')
+    // Main process containers
+    text2json,  // Parsing from a given format to validated JSON-encoded data
+    tx2json,    // Transforms tokens to a NoSql/SQL compatible schema
+
+      // Lower level functions, which are chained by the above
+      parseText, parseFile,
+      parseFolder, 
+      chainParsers            // Use to chain several parser packages
+                              //(priority: './parsers/g-rhimes')
+
+  //
+  // Validation and efficiency wrapper
+  // … which can take in outputs of external third-party components
+  //
+  tyt,  // Microtime checkpoint and efficiency metrics configuration
+  ty,   // Parsing process outputs 
 }
 
 
 
 import parse from './parsingFlow'
-import { 
-  parserModules, getExpressions_parserInit, allowLocalFolders,
-  fileExists, getDirs, getDirectories,
-  replaceKeys } from './util'
+import { queryTx } from '-/db.tokens' /
 
-import _ from 'lodash' // Should be replaced until production use (a large library)
-import { initDB } from './db' // simplistic database (lodash enabled)
 
+import { initDB } from './db' // a light-weight database
+import _ from 'lodash'        //(a wrapper for looping through arrays)
+import { parserModules, allowLocalFolders } from './util'
+// …
+import shortid from 'shortid'
+import hashids from 'hashids'
+
+
+
+
+
+
+///////////////// Validation and/or efficiency measuring wrapper
+//                … functions with external/third-party solutions, too
+
+
+// Stores
+const ty = ( tyt, metricsData, schemaValidation = null)
+
+// ^
+// ^ Mapping to schema (text2json ; tx2json)
+// ^ Parsing text (text2json) 
+// ^
+
+// Take your time (run this at start of your input parsing process)
+const tyt = ( microtime = '(stackoverflow.com/questions/11725691/how-to-get-a-microtime-in-node-js)',
+              metricsSchema = {
+                /*
+
+                Efficiency metrics based on reported categories:
+                — number of characters parsed
+                — rows and loops
+
+                … In development:
+                — does storing object/array key names make sense
+                  for inputs from third-party parsers?
+
+                */
+              }) => {
+
+  /*
+
+    … Some database operations (= session, itd) …
+
+  */
+
+  return {
+    id: new Hashids(shortid.generate)
+            .encode(1, 2, 3), // Hashids can encode a small amount of data
+    subscribed: metricsSchema // Could be omitted with use of sessions
+  }
+}
+
+//
+/////////////////
+
+
+
+
+// Full-process parser object, exposing top-level and database functions
+const text2json = (args, parsers = parserModules, storageType = "Memory", dbSource = null) => {
+
+  var db = withTokenQueries( initDB(storageType) )
+
+  initExpressions()
+    parseText: parseText,     // Main process
+    parseFile: parseFile,     // ^ to context
+    parseFolder: parseFolder, // ^ to context
+
+    ty: ty,
+
+    db: db
+
+  return {
+    init: initExpressions, // Match before parser runtime
+    tyt: tyt, // Take your time (checkpoint when parsing begins)
+
+    parseText: parseText,     // Main process
+    parseFile: parseFile,     // ^ to context
+    parseFolder: parseFolder, // ^ to context
+
+    ty: ty,   // Schema validation and efficiency measurements
+
+    db: db    // Database wrapper object
+  }
+}
 
 
 //
-// The first functionable function will be tx2json, which enables some of the following:
+// Now working on »tx2json« function, enabling some of the following:
 // — maps tokens to a declared schema (json-schema ; NoSQL or SQL compatible)
 // — validates data with declared schema
 // … delivers results with a possible list of operations yet to be concluded
 //  (user input ; backend)
-const tx2json = (parserExecutables) => {
+//
+const tx2json = (tokenList, storageType = "Memory") => {
 
-  parserExecutables.forEach((parserName, obj) => {
-    obj.fn
-  })
+  var db = withTokenQueries( 
+    initDB(storageType, {
+
+      tokens: tokenList
+
+    }) 
+  )
+
+  // parserExecutables.forEach((parserName, obj) => { obj.fn: null })
+  return {
+    tyt: tyt,
+    // … a mapping process is to be drafted here
+    ty: ty,
+
+    db: db
+  }
 }
 
-// Parser object, exposing database and top-level functions
-const text2json = (args, parsers = parserModules, dbAdapter = "Memory", dbSource = null) => {
 
-  var db = initDB()
+//
+// Database queries, used by parsing, tokenizing and mapping processes
+// … and brief descriptions of inputs to their function calls
+//
 
-  initExpressions()
+const withTokenQueries = (db) => {
 
-  return {
-    init: initExpressions,
-    db: db,
+  db._.mixin({ // Queries, which extend »lowdb« package
+
+
+    // …
+    queryTx: queryTx(tokens, args),
+
+
+    // …
+    recent: function(array, limit = 1, orderBy = ['id'], order = 'desc') {
+
+      console.log(array)
+      array = _.orderBy(array, orderBy, order)
+
+      return (limit == 1) ? _.head(array) : _.slice(array, 0, limit)
+    },
+
+
+    // …
     dbFlush: () => { // [!!!] Ein dataset steht hier zur Zeit
       db.set(
         'context': {
@@ -73,16 +198,21 @@ const text2json = (args, parsers = parserModules, dbAdapter = "Memory", dbSource
             dbType: ["noSql", "SQL"], // [!!!]
             
           }
-        })
-        .write()
-    },
-    parseText: parseText,
-    parseFile: parseFile,
-    parseFolder: parseFolder
-  }
+      })
+      .write()
+    }
+
+
+  })
+
+  return db
 }
 
 
+//
+// Client-side parser Trie of expressions to match
+// … in a given document and it's surrounding context
+//
 const initExpressions = (args = {}, parserModules = parserModules, config = ) => {
   
   // Set arguments
