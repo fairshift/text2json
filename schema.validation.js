@@ -7,7 +7,7 @@ export { validate, passThroughRegex }
 import ajv from 'ajv' // Fast JSON schema validation package
 // 19,197,152 weekly downloads on npmjs.com/ajv
 
-import simpl from 'simple-schema' // 
+import simpl from 'simpl-schema' // 
 
 
 

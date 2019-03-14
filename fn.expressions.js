@@ -58,7 +58,7 @@ const expressionWrapper = ( expressionFn, args_fromExpression = [] ) => {
 		// … would copy-paste it, if that functioned for the purpose of wrapping (doesn't)
   		return function( args_runtime = [] ){
 
-			var argsArray = _.merge(args_fromExpression, args_fromParser args_runtime)
+			var argsArray = _.merge(args_fromExpression, args_fromParser, args_runtime)
 
 	  		return (evaluateArgs(argsArray)) ?
 	  				expressionFn( args_fromExpression, args_fromParser, args_runtime ) :

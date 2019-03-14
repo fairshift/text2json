@@ -41,7 +41,7 @@ const runtime_stdExpressions = {
 }
 const self = "__NO_REPLACE"
 const noSuffix = "__NO_SUFFIX"
-const withSuffix = "__WITH_SUFFIX",
+const withSuffix = "__WITH_SUFFIX"
 
 
 // Side of the variable (name or value),
@@ -50,5 +50,5 @@ const withSuffix = "__WITH_SUFFIX",
 // 		the preceding left-side value (= variable name) is matched 
 // 		and right-side (variable value) is replacing matched value
 
-	const __synonymPrevails: "__SYNONYM_RIGHT",
+	const __synonymPrevails: "__SYNONYM_RIGHT"
 //	const __synonymPrevails: "__SYNONYM_LEFT"

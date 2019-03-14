@@ -1,5 +1,11 @@
 
 
+export { queryTx }
+
+import _ from 'lodash'
+
+
+
 //
 // Schema: Normalized flat array of token objects
 //				(needs to be provided for any )
@@ -13,10 +19,11 @@ const flatArraySchema = {
 	// Relational parameter
 	ref__key: "ref",
 	ref__transformKey: () => {},
+
 }
 
 
-export const queryTx = function(tokens, args, flatArraySchema = null) {
+const queryTx = function(tokens, args, flatArraySchema = null) {
 
 	args = (args) ? args : {
 		_expr_: "", 		// Expression/block component name

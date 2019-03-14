@@ -94,7 +94,7 @@ const Y_Category = (input) => {
     4: "^([0-9]+) (?:\-|\-|\—) (.*) *$",    // [year] [- , - , —] [category], ...
 
   // 2015: Collaborating, Prototyping, Testing
-    5: "^([0-9]+): (.*) *$/gm"              // [year]: [category]
+    5: "^([0-9]+): (.*) *$/gm",              // [year]: [category]
 
   // Conceptualizing: 2013, 2014
     5: "^([0-9]+): (.*) *$/gm"              // [year]: [category]

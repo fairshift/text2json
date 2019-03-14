@@ -108,7 +108,7 @@ const tokenize = {
   }
 }
 
-const map: = {
+const map = {
   'gesture': {
     // schema: 'gesture', // schema with same name may be omitted
 

@@ -1,15 +1,18 @@
 
+import _ from 'lodash'
 
 
-// Validation functions and integrations
+// Additional validation functions and integrations (that aren't native to JSON schema)
 
 const passThroughRegex = (string, regexArray, returnBeforeEmpty = true) => {
   
+
   if( _.isArray(regexArray) && string.length ){
+
 
     var result = string;
 
-    forEach(regexArray, (rule) => {
+    regexArray.forEach((rule) => {
       var temp = result.Match(rule);
 
       if(temp){
@@ -21,6 +24,7 @@ const passThroughRegex = (string, regexArray, returnBeforeEmpty = true) => {
     
     return result;
   }
+
 
   return null;
 }

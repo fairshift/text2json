@@ -1,0 +1,6 @@
+tx2json
+
+	Documentation
+
+	Parser functionalities
+		~15:00 ~ 21:00 14.3.2019 @SiebenLinden: Creating a wrapper function, which can take in any given parser (meaningfully) and return inputs with some added value (schema and checksum validation ; efficiency metrics) ; Removing mistakes in code (enough for the wrapper functions to run)

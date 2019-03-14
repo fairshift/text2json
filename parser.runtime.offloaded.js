@@ -51,6 +51,7 @@ intoTrie( trieObj, expressions = [ "word", "work",  ], setIndex: boolean, append
 // A recurring function, placed into context of an extensible parser
 // … Trie input arguments: trieObject.match, .dictionary, .expressions
 //
+/*
 const matchExpressions = peelTrie__fn__expr = ( trieObjects, insert = false, sort = true ) => {
 
 	_.each( trieObjects.match, (expressionBranch) => {
@@ -103,8 +104,8 @@ const matchExpressions = peelTrie__fn__expr = ( trieObjects, insert = false, sor
 		keepAsString = buildTrie( flattenMatchingConditions( […] ) )
 
 const buildTrie = ( expressions
-/*			(= [ "word", "work" ])
-		||	(= { "word": dataToAppend } */ ) => {
+//			(= [ "word", "work" ])
+//		||	(= { "word": dataToAppend }  ) => {
 
 
 	expressions = expressions.sort() 	// Inefficient (traverses twice 
@@ -112,18 +113,13 @@ const buildTrie = ( expressions
 
 		expr.split("")
 
-		/*
-		… step 1: letterByLetter( expr["word"] ) = [ "w", "o", "r", "d" ]
-		… step 2: letterByLetter( expr["work"] ) = [ "w", "o", "r", "k" ]
-		*/
+		//
+		// … step 1: letterByLetter( expr["word"] ) = [ "w", "o", "r", "d" ]
+		// … step 2: letterByLetter( expr["work"] ) = [ "w", "o", "r", "k" ]
+		//
 		
 	})
 }
-/*
-
-// — 
-// — 
-//
 
 */
 

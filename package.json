@@ -4,19 +4,21 @@
   "version": "0.0.1",
   "private": true,
   "dependencies": {
-    "markdown-it": "8.4.2",
-    "lodash": "*",
-    "lowdb": "*",
+    "ajv": "*",
+    "audio-extensions": "*",
     "diff_match_patch": "*",
+    "fs": "0.0.1-security",
     "hashids": "*",
     "jsonld": "*",
-    "ajv": "*",
+    "lodash": "*",
+    "lowdb": "*",
+    "markdown-it": "^8.4.2",
     "react-intl": "*",
-    "audio-extensions": "*",
-    "video-extensions": "*",
-    "shortid": "*",
-    "triejs": "*",
     "regexgen": "*",
-    "unicode-trie": "*"
+    "shortid": "*",
+    "simpl-schema": "^1.5.5",
+    "triejs": "*",
+    "unicode-trie": "*",
+    "video-extensions": "*"
   }
 }

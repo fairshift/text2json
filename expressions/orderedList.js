@@ -16,6 +16,18 @@ import { Headline as H, Paragraph as P } from '../blocks' // Layout blocks
 import { escapeExpression as e } from '../util' // function unexistent here yet [!!!]
 
 
+/*
+const exampleContent = /
+
+	# Überschrift (aha!)
+
+	Here is etwas
+	1. Erste
+	2. Zweite
+	3. …
+
+/;
+*/
 
 
 const orderedList = (props) => {
@@ -119,7 +131,6 @@ const orderedList = (props) => {
 	// … Is extensible
 	if(_.isObject(props.NumberedItem.symbols))
 		NumberedItem.symbols = extendSymbols(NumberedItem.symbols, props.symbols)
-
 
 	render(){
 		return (

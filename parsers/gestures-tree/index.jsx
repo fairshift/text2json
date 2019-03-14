@@ -79,12 +79,12 @@ const ExpressionsMap = (props) => {
 
 
 // React.js components always have first character capitalized
-const CustomParser_RootStructure = {
-	invoke: 	null
-	match: 		null
-	invoke: 	null
-	tokenize: 	null
-	map: 		null
+const CustomParser_RootStructure = { 
+	invoke: 	null,
+	match: 		null,
+	invoke: 	null,
+	tokenize: 	null,
+	map: 		null,
 	config: 	null
 }
 

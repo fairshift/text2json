@@ -14,7 +14,7 @@ export {
   removeMarginalOccurence,
 
   // Array / object utility fns
-  structExpressions_byLanguage
+  structExpressions_byLanguage,
   replaceKeys,
 
   // Fileystem functions (sync / async)
@@ -27,6 +27,7 @@ export {
 // jsonplus: '{{ key1 }} {{ key2 }}' ; 'firstKey.secondKey[thirdKey].fourthKey' ; '@self.key'
 // json-expand: '{{ key }}' ; '{{ firstKey.secondKey }}'
 // hookney: '${self:firstKey.secondKey}'
+
 
 // Async file read/write adapters (used by lowdb package)
 import fs from 'graceful-fs'
@@ -45,7 +46,7 @@ const fn_readFile = pify(fs.readFile);
 const fn_writeFile = pify(steno.writeFile);
 
 // Async readFile function taken from lowdb package
-const function readFile(source) {
+const readFile = function(source) {
 
   // fs.exists is deprecated but not fs.existsSync
   if (fs.existsSync(source)) {

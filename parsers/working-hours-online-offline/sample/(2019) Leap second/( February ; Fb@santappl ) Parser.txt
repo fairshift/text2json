@@ -56,6 +56,8 @@ text2json parser component
 
 		10:00 - 13:07 14.*: * ; »simpl-schema« package as a substitute for »JSON schema« to validate outputs ; Documentation and cleaning up code in './index.js'
 
+
+
 --------
 
 

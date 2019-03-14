@@ -25,10 +25,8 @@ const orderedList = (props) => {
 
 	const expressions = {
 		// "SOF",đ
-		{ __trieChain: {
-			".*": 
-		} },
-		{ __trieChain: {
+		__trieChain: { // [!!!] revisit this pattern
+			".*": { $: 0 },
 			"[0-9]+\s*": {
 				__id: "{{1}}",
 				__expr: "numberedListItem",

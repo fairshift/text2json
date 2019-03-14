@@ -88,7 +88,7 @@ export const parseFbData = (folder, trieObj) => {
   	// Input source in processing
     //(now designing with two datasets from facebook-blablaz.zip and facebook.com-santappl.zip)
   	//
-  	switch contentType {
+  	switch (contentType) {
 
   		case "messages":
 
@@ -132,14 +132,17 @@ export const parseFbData = (folder, trieObj) => {
           }
 
         };
-  			break
+  			break;
 
   		case "photos_and_videos":
 
   			// Map images
   			// … expect a user-generated meta.json file
   			readFile("parsers.json");
-  			break
+  			break;
+
+      default:
+        break;
 
   	}
   })

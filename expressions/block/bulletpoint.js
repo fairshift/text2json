@@ -80,8 +80,8 @@ const BulletPoints = (args) => {
       createObjects: [
         { regex: new RegExp('/^\((.*)\) (.*) *$/gmi') },
         {
-          'parseTree': {o} // type, limit, structure pointer, sequential condition
-        }
+          'parseTree': {} // type, limit, structure pointer, sequential condition
+        },
         { tree: {
           left: 2,
           right: 2,

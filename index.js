@@ -27,26 +27,27 @@ export {
       // Lower level functions, which are chained by the above
       parseText, parseFile,
       parseFolder, 
-      chainParsers            // Use to chain several parser packages
-                              //(priority: './parsers/g-rhimes')
 
   //
   // Validation and efficiency wrapper
   // … which can take in outputs of external third-party components
   //
   tyt,  // Microtime checkpoint and efficiency metrics configuration
-  ty,   // Parsing process outputs 
+  ty    // Parsing process outputs
+        //(priority: './parsers/g-rhymes')
+
+        // chainParsers // [???]     
 }
 
 
 
-import parse from './parsingFlow'
-import { queryTx } from '-/db.tokens' /
+import parse from './parser.processFlow'
+import { queryTx } from './db.tokens'
 
 
 import { initDB } from './db' // a light-weight database
 import _ from 'lodash'        //(a wrapper for looping through arrays)
-import { parserModules, allowLocalFolders } from './util'
+import { parserModules, allowLocalFolders } from './fn.util'
 // …
 import shortid from 'shortid'
 import hashids from 'hashids'
@@ -54,19 +55,9 @@ import hashids from 'hashids'
 
 
 
+//// Validation and/or efficiency measuring wrapper ///
+// … functions with external/third-party solutions, too
 
-
-///////////////// Validation and/or efficiency measuring wrapper
-//                … functions with external/third-party solutions, too
-
-
-// Stores
-const ty = ( tyt, metricsData, schemaValidation = null)
-
-// ^
-// ^ Mapping to schema (text2json ; tx2json)
-// ^ Parsing text (text2json) 
-// ^
 
 // Take your time (run this at start of your input parsing process)
 const tyt = ( microtime = '(stackoverflow.com/questions/11725691/how-to-get-a-microtime-in-node-js)',
@@ -96,11 +87,46 @@ const tyt = ( microtime = '(stackoverflow.com/questions/11725691/how-to-get-a-mi
     subscribed: metricsSchema // Could be omitted with use of sessions
   }
 }
+//    … function above wraps the parsing process below …
+//     (or an external/third-party parsing process)
 
-//
-/////////////////
+
+// ▼
+// ▼  Mapping to schema (text2json ; tx2json)
+// ▼  Parsing text (text2json) 
+// ▼
 
 
+//    … until it is unwrapped with the following function …
+const ty = ( tyt, metricsData, outputs = null, validation = {
+
+  // The following three are interchangeable
+  notarize: false,
+  exportChecksums: false,
+  exportHashes: false,
+
+  // Validate outputs by schema
+  jsonSchema: null,   // …: 1) {"key.to.output.data": "http://path.to/schema.json"} 
+                      //    2) "./schema.json" (when outputs array is validated with one schema)
+
+  simpleSchema: null, // …: {"key.to.output.data": simpleSchema}
+
+}) => {
+
+  /*
+  
+  Operations:
+  — calculate metrics
+  — validate by schema
+
+  */
+
+  return null
+}
+
+
+
+/////////////////////////////////////////////////////////////////////////
 
 
 // Full-process parser object, exposing top-level and database functions
@@ -109,13 +135,6 @@ const text2json = (args, parsers = parserModules, storageType = "Memory", dbSour
   var db = withTokenQueries( initDB(storageType) )
 
   initExpressions()
-    parseText: parseText,     // Main process
-    parseFile: parseFile,     // ^ to context
-    parseFolder: parseFolder, // ^ to context
-
-    ty: ty,
-
-    db: db
 
   return {
     init: initExpressions, // Match before parser runtime
@@ -160,10 +179,15 @@ const tx2json = (tokenList, storageType = "Memory") => {
 }
 
 
+
+//////////////////////////////////////////////////////////////////////
+
+
 //
 // Database queries, used by parsing, tokenizing and mapping processes
 // … and brief descriptions of inputs to their function calls
 //
+
 
 const withTokenQueries = (db) => {
 
@@ -209,14 +233,18 @@ const withTokenQueries = (db) => {
 }
 
 
+
+/////////////////////////////////////////////////////
+
+
 //
 // Client-side parser Trie of expressions to match
 // … in a given document and it's surrounding context
 //
-const initExpressions = (args = {}, parserModules = parserModules, config = ) => {
+const initExpressions = (select = {}, parserModules = parserModules, config = null) => {
   
-  // Set arguments
-  defaultArgs = {
+
+  argsSchema = {
     select: {
       categories: null,
       parsers: null,
@@ -225,7 +253,8 @@ const initExpressions = (args = {}, parserModules = parserModules, config = ) =>
     config: null
   }
 
-  args = _.merge(defaultArgs, args)
+
+  args = _.merge(argsSchema, args)
 
 
   // Set function variables
@@ -234,13 +263,13 @@ const initExpressions = (args = {}, parserModules = parserModules, config = ) =>
       result = []             // output
   
 
-  switch (parse)
+  switch (parse) {}
 
-  forEach(parsers, (parserName) => {
+    forEach(parsers, (parserName) => {
 
-     expressionHeader = {
-        parser: parser,
-        category: category
+      expressionHeader = {
+          parser: parser,
+          category: category
       };
 
     expr = _.map( getExpressions_parserInit(parserName), (key, object) => {
@@ -259,7 +288,7 @@ const initExpressions = (args = {}, parserModules = parserModules, config = ) =>
         default: // Language key or expression
 
           // Language key (ISO) or * (global)
-          if(  ){
+          if( '!!!' == '???' ){
 
             if(typeof args.select.languages !== 'undefined'){
 

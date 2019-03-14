@@ -7,7 +7,7 @@ import lowdb from 'lowdb'
 
 export const initDB = (	dbAdapter = "Memory", 
 												args = {
-													dbSource = null,
+													dbSource: null,
 													defaults: { 
 												  	tokens: testDatasets.tokens, 
 												  	context: {}
@@ -38,7 +38,7 @@ export const initDB = (	dbAdapter = "Memory",
   }
 
 
-  db = lowdb( dbAdapter )
+  var db = lowdb( dbAdapter )
 
   db.defaults( args.defaults ).write()
 
@@ -78,7 +78,7 @@ const testDatasets = {
 			_id_: 5,
 			_expr_: "numberedItem",
 			_ref_: 3,
-			_val_: "White rabbit jumps a landmine, which is calibrated to a weight of a larger rock …\r\nTo what end does this statement serve?"
+			_val_: "White rabbit jumps a landmine, which is calibrated to a weight of a larger rock …\r\nTo what end does this statement serve?",
 			_L_: 4
 		}
 	]

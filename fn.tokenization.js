@@ -2,7 +2,7 @@
 import { replaceKeys, removeMarginalOccurence } from 'util'
 
 import { Paragraphs, Colon, DateTime, Comment } from 'expressions'
-import { BulletPoints } from 'expressions.bulletpoints'
+import { BulletPoints } from './expressions/bulletpoint'
 
 
 
