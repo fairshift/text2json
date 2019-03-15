@@ -17,7 +17,7 @@ import { escapeExpression as e } from '../util' // function unexistent here yet 
 
 
 /*
-const exampleContent = /
+const exampleContent: "
 
 	# Überschrift (aha!)
 
@@ -26,52 +26,48 @@ const exampleContent = /
 	2. Zweite
 	3. …
 
-/;
+"
 */
 
 
-const orderedList = (props) => {
-
-	// Sym
-	var symbols = {
-		opening: {
-			"-": ["text2json"],
-			"—": ["text2json"],
-			"—": ["text2json	"]
-		}
-	}
+export default function orderedList (props) {
 
 
 	//
 	// Content blocks in which this expression can appear
 	//(even when not explicitly declared)
 	//
-	var compatible = { 
+	this.compatible = { 
 		in: { // Needless to declare: "Document.*"
 			text2json: ["Section", "Paragraph"],
 			parserName: [""],
 			parserName_2: [""]
 		},
-		NumberedItem: {
-			in: {
-				text2json: ["Section"],
-				parserName: [""]
-			},
-			parserName: [""]
+		contains: {
+			parserName: ["Expressions", "Blocks"]
 		},
-		AlphabeticalItem: {
-			in: {
-				text2json: ["Document"]
-			}
+		with: { // Both wrapped "in" or "contains"
+			parserName: ["Expr", "Block"]
+		},
+		not: {
+			parserName: ["Expr", "Block"]
 		}
 	}
-	// … Is extensible
+	// … Is extensible 			[!!! ; consider implementing a ]
 	if(_.isObject(props.in))
 		compatible.in = _.merge(compatible.in, props.in)
 
 
-	var NumberedItem = {
+	this.symbols = {}
+
+
+	this.NumberedItem = {
 		expr: "numberedItem",
+		compatible: {
+			in: { ...compatible },
+			contains: { ...compatible },
+			ruleOut: { ...compatible }
+		},
 		symbols: {
 			opening: {
 				"[0-9]+\.\s": ["md", "text2json"],
@@ -79,79 +75,87 @@ const orderedList = (props) => {
 				"[0-9]+\s+": ["text2json"]
 			}
 		},
-		get match(input, db){
+		match: (input, el, db) => {
 
-			var previousListItem = db
+
+			// Does the previous list item somehow share the same block?
+			//
+			// Conditions must be met (descending by priority — higher priority first):
+			// — at least two items with an ascending order of numbers exist at same indentation
+			// — no elements with a lower depth from tree root exist in between two items
+			//	(ie.: left in tree ~ with a smaller indentation)
+			var previousListItem
+
+
+			// 1) run a query (when expression doesn't issue temporary tokens)
+			previousListItem = db
 				.get('tokens')
 				.queryTx({	// … 
-					expr: this.expr,
+					expr: el.expr,
 					parser: null,
 					with: compatible,
 					// When retrieving token data …
 					ref: 123,				// — shares one of the same containers
 					treeDepth_current: 123, // — is on the same level as previous token
 					treeDepth_search: 3,		// — will traverse tree of tokens N levels
-					// Sorting results — same as shorthand { recent: 1 }
+					// Sorting results
 					sort: "desc",
-					limit: 1
+					limit: 1,
+					recent: 1 // shorthand for the above two parameters
 				})
 				.value()
 
-
-				// Does the previous list item somehow share the same block?
-				//
-				// Conditions must be met (higher priority first):
-				// — there is an ascending order of numbers with no gaps
-
-				var previousListItem = db
-					.get('tokens.cache')
-					.find({ expr: "numberedItem", blocks })
-					.recent(1)
-					.value()
+			// 2) or check cache (when expression)
+			previousListItem = db
+				.get('tokens.cache')
+				.find({ expr: el.expr, blocks: '!!!' }) // … matching IDs
+				.recent(1)
+				.value()
 
 
-				end = (previousListItem) ? previousListItem.index : 1
-				for (i = input.first ; i <= end ; i++){
+			end = (previousListItem) ? previousListItem.index : 1
+			for (i = input.first ; i <= end ; i++){
 
-					if( matchingExpression ){
+				if( matchingExpression ){
 
-						end++
+					end++
 
-						db.get('parser.runtime').setBufferLen(this.expr) // [!!!] Pass expression/block token ID
-					}
+					db.get('parser.runtime').setBufferLen(this.expr) // [!!!] Pass expression/block token ID
 				}
+			}
 
-				db.get('parser.runtime').resetBufferLen(this.expr) // [!!!] Pass expression/block token ID
+			db.get('parser.runtime').resetBufferLen(this.expr) // [!!!] Pass expression/block token ID
 
-				return { i }
-			},
-			trie: {  }
-		}
+
+			return { i }
+
+		},
+		trie: {  }
 	}
 	// … Is extensible
 	if(_.isObject(props.NumberedItem.symbols))
 		NumberedItem.symbols = extendSymbols(NumberedItem.symbols, props.symbols)
 
-	render(){
-		return (
 
-			<OrderedList componentLang="en">
+	return (
 
-				<Scoop>
+		<OrderedList componentLang="en">
 
-					<H />
-					<P />
+			<Scoop>
 
-					<OneOf resolve="auto">
-						<Scenario>
-							<Expr with="{this.NumberedItem}">
-								{children}
+				<H />
+				<P />
+
+				<OneOf resolve="auto">
+					<Scenario>
+						<Expr with="{this.NumberedItem}">
+							{children}
 { /*
 
 	Expressions which are repeated should	not overload the 
 	Trie parser structure	with recurrence. Rather, they should be	
 	separately listed in a non-parsable category.
-	
+
 								<Scenario>
 									{children}
 								</Scenario>
@@ -159,21 +163,20 @@ const orderedList = (props) => {
 									{children}
 								</Scenario>
 */ }
-							</Expr>
-						</Scenario>
+						</Expr>
+					</Scenario>
 
-						<Scenario>
-							<Expr with="{this.AlphabeticalItem}">
-								{children}
-							</Expr>
-						</Scenario>
-					</OneOf>
+					<Scenario>
+						<Expr with="{this.AlphabeticalItem}">
+							{children}
+						</Expr>
+					</Scenario>
+				</OneOf>
 
-				</Scoop>
+			</Scoop>
 
-			</OrderedList>
-		)
-	}
+		</OrderedList>
+	)
 }
 
 

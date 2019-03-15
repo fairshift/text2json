@@ -10,7 +10,7 @@
   		"type": "object",
   		"properties": {
   			"id__temporary": { "type": "string" },
-  			"username": { "type": "string" },
+  			"username": { "type": "string" }
   		}
   	},
   	"event": {

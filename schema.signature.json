@@ -13,7 +13,7 @@
           "type": "object",
           "properties": {
             "agentId": { "type": "string" },
-            "agentType": { "type": "string" },
+            "agentType": { "type": "string" }
           }
         },
         "timestamp__properties": {
@@ -50,6 +50,6 @@
         }
       },
       "required": ["createdBy", "timestamp"]
-    },
+    }
  	}
 }

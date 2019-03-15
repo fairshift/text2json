@@ -34,6 +34,22 @@ Common functionalities (with token database access)
 	afterTokenizing rules:  		<-
 		afterTokenizing__document,
 		arterTokenizing__ …
+
+
+
+Find methods in a block/expression class
+
+  function getMethods(obj)
+  {
+      var res = [];
+      for(var m in obj) {
+          if(typeof obj[m] == "function") {
+              res.push(m)
+          }
+      }
+      return res;
+  }
+
 */
 
 

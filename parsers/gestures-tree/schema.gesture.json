@@ -4,64 +4,61 @@
 
   "title": "Gesture",
   "description": "One gesture in a list of gestures returned",
-  "type": "array",
-
+  "type": "object",
+  
+  "properties": {
+    "id__temporary": { "type": "string" },
+    "gesture": {
+      "type": "string",
+      "minLength": 3
+    },
+    "additionalProperties": "[!!!] revisit",
+    "user": {
+  		"title": "Referenced list of usernames (normalized)",
+      "description": "https://stackoverflow.com/questions/35545812/how-do-i-do-a-nested-list-array-of-schema-references-in-json-schema",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id__temporary": { "type": "string" }
+        },
+        "additionalProperties": {
+          "$ref": "#/users"
+        }
+      },
+      "minItems": 0,
+      "uniqueItems": true
+    },
+    "event": {
+      "title": "Referenced list of events (normalized)",
+      "type": "array",
+      "items": {
+        "type": "object",
         "properties": {
           "id__temporary": { "type": "string" },
-          "gesture": {
-            "type": "string",
-            "minLength": 3
-          },
-          "additionalProperties": "!!! revisit",
-          "user": {
-        		"title": "Referenced list of usernames (normalized)",
-            "description": "https://stackoverflow.com/questions/35545812/how-do-i-do-a-nested-list-array-of-schema-references-in-json-schema",
-            "type": "array",
-            "items": {
-              "type": "object",
-              "properties": {
-                "id__temporary": { "type": "string" }
-              },
-              "additionalProperties": {
-                "$ref": "#/users"
-              }
-            },
-            "minItems": 0,
-            "uniqueItems": true
-          },
-          "event": {
-            "title": "Referenced list of events (normalized)",
-            "type": "array",
-            "items": {
-              "type": "object",
-              "properties": {
-                "id__temporary": { "type": "string" },
-                "timestamp": { "type": "number" }
-              },
-              "additionalProperties" : {
-                "$ref" : "#/events"
-              }
-            },
-            "minItems": 0,
-            "uniqueItems": true
-          },
-          "place": {
-            "title": "Referenced list of places (normalized)",
-            "type": "array",
-            "items": {
-              "type": "object",
-              "properties": {
-                "id__temporary": { "type": "string" }
-              },
-              "additionalProperties" : {
-                "$ref" : "#/events"
-              }
-            },
-            "minItems": 0,
-            "uniqueItems": true
-          }
+          "timestamp": { "type": "number" }
+        },
+        "additionalProperties" : {
+          "$ref" : "#/events"
         }
-		  }
-	  }
- 	}
+      },
+      "minItems": 0,
+      "uniqueItems": true
+    },
+    "place": {
+      "title": "Referenced list of places (normalized)",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id__temporary": { "type": "string" }
+        },
+        "additionalProperties" : {
+          "$ref" : "#/events"
+        }
+      },
+      "minItems": 0,
+      "uniqueItems": true
+    }
+  }
 }

@@ -100,12 +100,15 @@ const tyt = ( microtime = '(stackoverflow.com/questions/11725691/how-to-get-a-mi
 //    … until it is unwrapped with the following function …
 const ty = ( tyt, metricsData, outputs = null, validation = {
 
-  // The following three are interchangeable
+  // The following three are interchangeable (and also omittable)
   notarize: false,
   exportChecksums: false,
   exportHashes: false,
+  // … instead of »false« add arguments to enable any, none or all of checksum algorithms:
+  //  ["md5", "sha1", "sha256", "crc", …]
 
-  // Validate outputs by schema
+
+  // Validate outputs by schema — declared in one of the two following ways
   jsonSchema: null,   // …: 1) {"key.to.output.data": "http://path.to/schema.json"} 
                       //    2) "./schema.json" (when outputs array is validated with one schema)
 
@@ -118,6 +121,7 @@ const ty = ( tyt, metricsData, outputs = null, validation = {
   Operations:
   — calculate metrics
   — validate by schema
+  — calculate checksums
 
   */
 

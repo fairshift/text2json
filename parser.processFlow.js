@@ -1,3 +1,5 @@
+// # The more detailed code disposition ( > index.js ),
+//	 feeding compiled expressions Trie to parserRuntime.js
 
 
 import _ from 'lodash'
@@ -7,7 +9,7 @@ import md from 'markdown-it'
 export default parseText
 export {
 	
-	// Parsing process
+	// Parsing process: for parseText and mapTokensToSchema
 	parseText,
 	mapTokensToSchema,
 
@@ -22,6 +24,8 @@ export {
 
 	*/
 }
+
+
 
 
 const parsingFlow_steps = {
@@ -88,10 +92,22 @@ const parsingFlow_steps = {
 	]
 };
 
+
+// Maybe a replacement for the following function
+const assembleParserTrie = (parserList) => {
+
+	return null
+}
+
+
+// [!!!]
 const parseText = (args = {
-		db: null,
-		config: null
-	}, db) => {
+	db: null,
+	config: null
+}) => {
+
+
+	// var reserved = ['parserConfig', 'createContext', 'createObjects'];
 
 
 	// Check if input was supplied: caption, text, …	(!!! diff ???)
@@ -100,35 +116,43 @@ const parseText = (args = {
 	}
 
 
-	// var reserved = ['parserConfig', 'createContext', 'createObjects'];
-
-
+	//
+	// Redefine this part to align with:
+	// — Parser Trie programmatic expressions structure
+	//
+	//
   try {
 
   	if(	typeof parserName !== 'undefined' &&
   			typeof parserMappings !== 'undefined' ){
 
-	    schema = require('./'+parserName)(parserMappings)
+	    var schema = require('./'+parserName)(parserMappings),
+	   			context
 
 	   	context.ext = _.map(schema.receiveContext, function(key, value){
 
-	   		if(typeof args[key] !== 'undefined'){
+   		if(typeof args[key] !== 'undefined'){
 
-	   			var obj = {}
-	   			obj[key] = args[key];
-	   			return obj
-	   		}
-	    });
+   			var obj = {}
+   			obj[key] = args[key];
+   			return obj
+   		}
 
-	}  
+	   });
 
-// This process can be understood in context of document flow — decomposed to paragraphs or others units of expression
-//
-// Persistent data sets should be informingreceivePropsFromParser functions: 
-// - mapObjects (collections & objects to parse)
-// - jsonDataObject (dataset to return)
-// - databaseTasks (list of tasks to perform in wider application container, outside of text2json package)
-//
+		}
+
+
+		//
+		// This process can be understood in context of document flow
+		//(decomposed to defined units of expression — eg. paragraphs)
+		//
+		// Persistent data sets should be informing receivePropsFromParser functions: 
+		// - mapObjects (collections & objects to parse)
+		// - jsonDataObject (dataset to return)
+		// - databaseTasks (list of tasks to perform in wider application container, outside of text2json package)
+		//
+
 
   } catch(ex){
   	return null

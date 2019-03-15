@@ -1,5 +1,12 @@
+// [!!!] Contents of this file may be reshaped or repositioned
+
+
+export { Article_std }
+
 
 import { Scenarios, Pattern, Optional } from '../logic'
+import React from 'react'
+
 
 //
 // Playing with a standard form of structuring content
