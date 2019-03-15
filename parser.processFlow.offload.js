@@ -1,5 +1,8 @@
 
 
+import _ from 'lodash'
+
+
 //
 // From (./parser.processFlow.offload.js)(parseText)
 //
@@ -50,7 +53,11 @@ export const createArrayOfObjects = (collection, object, config, context, object
 
 	_.map(object, (key, arr) => {
 
-		var obj = {};
+		var obj = {},
+			cache = {},	// [!!!] from DB object
+			// Dummy objects …
+			toRender,
+			step
 
 
 	  switch (key) {

@@ -1,8 +1,9 @@
 
-import { replaceKeys, removeMarginalOccurence } from 'util'
+// [!!!]
+//import { Paragraphs, Colon, DateTime, Comment } from './expressions'
+import { BulletPoints } from './expressions/block/bulletpoint'
 
-import { Paragraphs, Colon, DateTime, Comment } from 'expressions'
-import { BulletPoints } from './expressions/bulletpoint'
+import { replaceKeys, removeMarginalOccurence } from './fn.util'
 
 
 
@@ -22,32 +23,33 @@ export {
 }
 
 // Default token types/expressions
-const expressions = { 
-  p: Paragraphs,
-  ul: BulletPoints,
-  colon: Colon,
-  t: DateTime,
-  comment: Comment
+const expressions = {  // [!!!] Replace dummy variable values with expressions
+  p: "Paragraphs",
+  ul: "BulletPoints",
+  colon: "Colon",
+  t: "DateTime",
+  comment: "Comment"
 }
 
 
 
 // Document flow — top level function
-
 const tokenizeStr = ( string, customBindings = {}, db ) => {
 
-  bindings = replaceKeys(expressions, customBindings)
+  var bindings = replaceKeys(expressions, customBindings)
 
-  forEach(bindings, (fn) => {
+  bindings.forEach((fn) => {
 
     db.get('tokens')
     .push({ id: 1, title: 'lowdb is awesome'})
     .write()
   })
 
+  var tokens = [] // [!!!]
+
   // Informed by... ["beer", "Grimes - Genesis", "Brief glimpse into a game; reference @JeKe"]
   tokens = _.sort(tokens, [
-    (o) => {
+    (o, element) => { // [!!!]
 
       // How the document is structured...
       /*
@@ -78,7 +80,8 @@ const delimitingFlat = ( args ) => {
       delimiters = args.delimiters,
       returnBoolean = args.returnBoolean,
 
-      round = 0,
+      round = 0, // Round
+      r,         
       buffer = [],
 
       results = [];
@@ -95,28 +98,29 @@ const delimitingFlat = ( args ) => {
       buffer['pre'] = input.split(delimiter[0])
       buffer['post'] = input.split(delimiter[1])
 
-      buffer 
+      // buffer … [!!!]
     }
 
-    r++;
+    r++; // Describe …
 
-    for ( i = 1; i <= linebreaks; i++ ){
-      delimiters[key] += value;
+    for ( var i = 1, linebreaks; i <= linebreaks; i++ ){
+      // delimiters[key_delimiter] += delimiter; // [!!!]
     }
 
     input = removeMarginalOccurence( input, delimiters[key] );
 
     if( returnBoolean == true ){
+      /*
       if( input.indexOf( delimiters[key] )){
 
         buffer[ delimiters[key] ] = true;
       }
-
+      */
     } else {
 
       if( r == 1 ){
 
-        results = input.split( delimiters[key] );
+        // results = input.split( delimiters[key] ); // [!!!]
 
       } else {
 

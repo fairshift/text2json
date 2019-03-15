@@ -5,6 +5,8 @@
 ## In development now
 	 //////////////////
 	 — Clearing up errors and warnings (to an extent)
+	 	» replace occurences of "import fs from …" with require()
+	 	» npm install react-reconciler
 
 
 
@@ -56,6 +58,48 @@
 
 ### ./index
 — dbFlush() function will during development time contain an example data structure
+— initExpressions(): keep it in index.js « because of showcasing: optimizing the client-side loading of full parser packages (async) ; merging of parser configurations from various sources, building a parserTrie of expressions ; data transfer layer ; etc
+
+
+### ./parser.markdown-it
+— review implementation possibilities (it isn't something one would enjoy reading, yet it does its job)
+
+
+### ./fn.expressions
+— expression_initExtensions …
+
+
+### ./expressions/block/*
+— reconsider placement of expressions and blocks (some might be placed with an insufficient accuracy, eg.: line, dictionary, …)
+
+
+### ./expressions/block/dictionary.js
+— reconsider location of file
+— update description and work on functions
+
+
+### ./expressions/block/line.js
+— reconsider location of file and its 
+
+
+### ./parsers/gestures-tree/index.jsx
+— errors because of order of export, comment and import (issued error states that imports should happen at the beginning of file — does this hold true for .js files also, because there's no errors with some of the files with this usepattern)
+
+
+### ./fn.util.js
+— revisit requireModule() and replaceKeys() (is the former necessary at all?)
+
+
+### ./fn.tokenization.js
+— revisit and reassess: tokenizeStr()
+	… connect with source of tokens in "db" object ; what about the _.sort functions? ; dynamic list of expressions
+— delimitingFlat(): describe some of the variables ; revisit
+… foremost: tokenization file should encompass functions which combine expressions evaluated in ./parser.runtime with additional received props (JSON outputs of ./parser.ReactWrapper)
+
+
+### ./schema.validation.js
+— implement: simplSchema validation ; loop through supplied input schemas (functions inputs)
+
 
 
 ### ./parser.runtime.js
@@ -67,6 +111,7 @@
 … To-do:
 — currently there's an array of condensed steps (which serves no purpose in current code disposition)… what to do about it?
 — refactor parseText() to assembleParserTrie()
+… and review ./parser.processFlow.offload to refactor parts ito workflow
 
 
 ### ./db.js

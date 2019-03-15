@@ -61,7 +61,7 @@ export const BulletPoints = [
 */
 
 
-const BulletPoints = (args) => {
+export const BulletPoints = (args) => {
 
   let argsSchema = {
     expectedData: null,
@@ -92,7 +92,6 @@ const BulletPoints = (args) => {
     }
 
   }
-}
 
 
 /*

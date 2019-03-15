@@ -1,11 +1,12 @@
 
-
+// [!!!]
 export {
-  Expressions_std, noSuffix, withSuffix, // A set of expressions (some RegExp clones)
+  //Expressions_std, noSuffix, withSuffix, // A set of expressions (some RegExp clones)
 
   // From './util.js'
-  expression_registerExtensions,
+  // expression_registerExtensions,
   expressionWrapper,
+//expression_initExtensions,
   evaluateArgs, 
   generateTokenId,
 }
@@ -109,7 +110,8 @@ const expression_initExtensions = (expressionFn, args_fromExtensions) => {
 	}
 
 
-	// Resolve additional shortcut scenarios
+	// Resolve additional shortcut scenarios [!!!]
+  /*
     _.map(exprExtensionObj, (shortcutKey, args) => {
 
     	if(typeof args !== 'object'){
@@ -118,7 +120,7 @@ const expression_initExtensions = (expressionFn, args_fromExtensions) => {
 
       	wrappedExpr[ shortcutKey ] = expressionWrapper( expressionFn, args )
     })
-
+  */
 
   	return wrappedExpr;
 }
@@ -133,8 +135,8 @@ const evaluateArgs = (args, requiredByMode = { match: [], test: [], expectedPara
   // Two sources of arguments:
   // — input to function
   // — defined by function itself
-  var mandatory = []
-  errObj = {}
+  var mandatory = [],
+      errObj = {}
 
 
   // Expression route: "expectedParams" (to gather a list of expected arguments)
@@ -198,6 +200,6 @@ const generateTokenId = (documentId, parserAbbr, parserPckgVersion, exprAbbr, se
     shortid.seed(
       documentId+": "+
       parserAbbr+'.'+parserPckgVersion+'.'+
-      expressionAbbr+'('+JSON.stringify(nonDefaultParams)+')'+'['+sequentialNum+']'
+      exprAbbr+'('+JSON.stringify(nonDefaultParams)+')'+'['+sequentialNum+']'
     )
 }

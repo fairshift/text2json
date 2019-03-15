@@ -4,6 +4,7 @@
 export { Article_std }
 
 
+import { Heading } from '../heading'
 import { Scenarios, Pattern, Optional } from '../logic'
 import React from 'react'
 

@@ -1,13 +1,15 @@
-import { expressionArgs_schema } from 'expressions'
-
-
 /*
 
-  Functionable types (test or split)
+  Functionable types (test or split) [!!!]
 
 */
 
 export { DictionaryMatch }
+
+
+import { expressionArgs_schema } from '../../fn.expressions'
+
+import _ from 'lodash'
 
 
 const DictionaryMatch = (args, schema = expressionArgs_schema) => {

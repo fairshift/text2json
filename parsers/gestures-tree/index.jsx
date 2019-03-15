@@ -22,9 +22,11 @@ Reconsidering the style of defining expression's conditions, scoop and mapping d
 //   » npmjs.com/package/triejs
 
 
+import { Scenario } from ',,/../logic'
+import { CustomParser } from '../../parser.ReactWrapper.js'
+
 import React from 'react'
 import Reconciler from 'react-reconciler'
-import CustomParser from './parserReactWrapper'
 
 
 /*
@@ -49,15 +51,19 @@ const ExpressionsMap = (props) => {
 	return (
 		<CustomParser>
 			…
-			<ScenarioRoute {...props} >
+			<Scenario {...props} >
 				…
-			</ScenarioRoute>
-			<ScenarioRoute {...props} >
+			</Scenario>
+			<Scenario {...props} >
 				…
-			</ScenarioRoute>
+			</Scenario>
 			…
 		</CustomParser>
+		{/*
+			<ScenarioRoute> was renamed (conceptual consideration)
+		*/}
 	)
+}
 }
 
 

@@ -47,10 +47,12 @@ import { queryTx } from './db.tokens'
 
 import { initDB } from './db' // a light-weight database
 import _ from 'lodash'        //(a wrapper for looping through arrays)
-import { parserModules, allowLocalFolders } from './fn.util'
+import { 
+  parserModules, allowLocalFolders, 
+  structExpressions_byLanguage } from './fn.util'
 // …
 import shortid from 'shortid'
-import hashids from 'hashids'
+import Hashids from 'hashids'
 
 
 
@@ -193,13 +195,13 @@ const tx2json = (tokenList, storageType = "Memory") => {
 //
 
 
-const withTokenQueries = (db) => {
+const withTokenQueries = (args, db) => {
 
   db._.mixin({ // Queries, which extend »lowdb« package
 
 
     // …
-    queryTx: queryTx(tokens, args),
+    queryTx: queryTx,
 
 
     // …
@@ -245,71 +247,69 @@ const withTokenQueries = (db) => {
 // Client-side parser Trie of expressions to match
 // … in a given document and it's surrounding context
 //
-const initExpressions = (select = {}, parserModules = parserModules, config = null) => {
+const initExpressions = (select = {
+  select: {
+    categories: null,
+    parsers: null,
+    languages: null
+  },
+  config: null
+}, parserModules = parserModules, config = null) => {
   
-
-  argsSchema = {
-    select: {
-      categories: null,
-      parsers: null,
-      languages: null
-    },
-    config: null
-  }
-
-
-  args = _.merge(argsSchema, args)
-
 
   // Set function variables
   var parsers = {},           // active parser modules
       expressionHeader = {},  // process
-      result = []             // output
+      result = [],            // output
+      invokeExpressions
   
 
-  switch (parse) {}
+  parsers.forEach((category, parser) => {
 
-    forEach(parsers, (parserName) => {
+    expressionHeader = {
+        parser: parser.name,
+        category: category
+    };
 
-      expressionHeader = {
-          parser: parser,
-          category: category
-      };
 
-    expr = _.map( getExpressions_parserInit(parserName), (key, object) => {
+    // var expr = _.map( getExpressions_parserInit(parserName), (key, object) => {
+    var parserConfig = [],  // [!!!]
+        expressions = [],   // [!!!] build Trie structure
+        invokeExpressions
 
-      switch (key) {
 
-        case ( // Config params
-          'nearby' // , …
-        ):
+    switch (parserName) {
 
-          if(!parserConfig[parserName]){
-            parserConfig[parserName].push({ key: expressions })
+      case ( // Config params
+        'nearby' // , …
+      ):
+
+        if(!parser['config']){
+          parserConfig[parserName].push({ key: expressions })
+        }
+        return
+
+      default: // Language key or expression
+
+        // Language key (ISO) or * (global)
+        if( '!!!' == '???' ){
+
+          if(typeof select.languages !== 'undefined'){
+
+            invokeExpressions = structExpressions_byLanguage( invokeExpressions,  )
+
+          } else {
+
+            invokeExpressions = structExpressions_byLanguage( invokeExpressions, key, object, expressionHeader )
           }
-          return
 
-        default: // Language key or expression
+        // Catch invalid parameters
+        } else { return null }
 
-          // Language key (ISO) or * (global)
-          if( '!!!' == '???' ){
+        return null
+    }
+  }
 
-            if(typeof args.select.languages !== 'undefined'){
-
-              invokeExpressions = structExpressions_byLanguage( invokeExpressions,  )
-
-            } else {
-
-              invokeExpressions = structExpressions_byLanguage( invokeExpressions, key, object, exprHeader )
-            }
-
-          // Catch invalid parameters
-          } else { return null }
-
-          return null
-      }
-    })
-  })
 
   return null
 }
@@ -401,9 +401,9 @@ Test maths: {'¹n': 3, '²n': 4, '³n': 5, '⁴n': 6} ‹ [²n, ³n, ⁴n]: aver
 
 const parseText = (categoryName, parserName, args = parserArgs_schema) => {
 
-  if( typeof parserList[ categoryName ] !== 'undefined' ){
-    if( typeof parserList[ categorName ][ parserName ] !== 'undefined' )
-      return parser( categoryName, parserName, args );
+  if( typeof parserModules[ categoryName ] !== 'undefined' ){
+    if( typeof parserModules[ categorName ][ parserName ] !== 'undefined' )
+      //return parser( categoryName, parserName, args ); [!!!]
   }
 
   return false

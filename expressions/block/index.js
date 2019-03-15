@@ -12,9 +12,11 @@ export {
   DictionaryMatch,
 
   // Standard sets of symbols
+  /*
   std_dashSymbols,
   std_bulletPoints,
-  std_monthsCaseInsensitive,
+  std_monthsCaseInsensitive
+  */
 }
 
 
@@ -28,6 +30,7 @@ import SemiColon from './semicolon'
 import Comment from './comment'
 import DictionaryMatch from './dictionary'
 import DateTime from './datetime'
+import Line from './line'
 
 
 

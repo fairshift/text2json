@@ -1,6 +1,6 @@
 
 
-export { validate, passThroughRegex }
+export { validateSchema, jsonSchema_validate, simplSchema_validate }
 
 
 

@@ -6,3 +6,5 @@ tx2json
 		~15:00 ~ 21:00 14.3.2019 @SiebenLinden: Creating a wrapper function, which can take in any given parser (meaningfully) and return inputs with some added value (schema and checksum validation ; efficiency metrics) ; Removing mistakes in code (enough for the wrapper functions to run)
 
 		11:00 ~ 13:00 15.* @SiebenLinden: Removing mistakes in code (enough for the "tyt" & "ty" wrapper functions to run) ; Preparing errors output in './parsers/santappl/Plan & To-do [debug] …'
+
+		11:00 - 13:00, 13:30 ~ 17:30, 18:30 - 20:00, 23:00 - 00:50 16.* @SiebenLinden: Removing mistakes in code (enough for the "tyt" & "ty" wrapper functions to run) ;  './parsers/santappl/Plan & To-do.txt' with a task list ;

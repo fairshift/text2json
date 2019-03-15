@@ -151,24 +151,28 @@ ERROR in ./src/common/text2json/expressions/layouts.jsx
   Line 28:  'React' must be in scope when using JSX  react/react-in-jsx-scope
   Line 28:  'Heading' is not defined                 react/jsx-no-undef
   Line 29:  'React' must be in scope when using JSX  react/react-in-jsx-scope
+OK
 
 
 
 ERROR in ./src/common/text2json/parsers/gestures-tree/filesystem.js
 
   Line 18:  'ExtensionType' is not defined  no-undef
+OK
 
 
 
 ERROR in ./src/common/text2json/expressions/block/dictionary.js
 
   Line 19:  '_' is not defined  no-undef
+OK
 
 
 
 ERROR in ./src/common/text2json/expressions/block/line.js
 
   Line 1:  'line' is not defined  no-undef
+OK
 
 
 
@@ -179,6 +183,7 @@ ERROR in ./src/common/text2json/parsers/gestures-tree/index.jsx
   Line 27:  Import in body of module; reorder to top  import/first
   Line 52:  'ScenarioRoute' is not defined            react/jsx-no-undef
   Line 55:  'ScenarioRoute' is not defined            react/jsx-no-undef
+OK
 
 
 
@@ -195,7 +200,7 @@ ERROR in ./src/common/text2json/fn.util.js
   Line 124:  'args' is not defined                     no-undef
   Line 125:  'args' is not defined                     no-undef
   Line 129:  'args' is not defined                     no-undef
-
+OK: [component, Hashids, _, ] [!!!]
 
 
 ERROR in ./src/common/text2json/fn.tokenization.js
@@ -221,6 +226,7 @@ ERROR in ./src/common/text2json/fn.tokenization.js
   Line 119:  'key' is not defined         no-undef
   Line 123:  'i' is not defined           no-undef
   Line 126:  'i' is not defined           no-undef
+OK [!!! ; revisit]
 
 
 
@@ -231,6 +237,7 @@ ERROR in ./src/common/text2json/schema.validation.js
   Line 7:   Import in body of module; reorder to top  import/first
   Line 10:  Import in body of module; reorder to top  import/first
   Line 23:  'Ajv' is not defined                      no-undef
+OK [!!! ; revisit: ]
 
 
 
@@ -271,6 +278,7 @@ ERROR in ./src/common/text2json/index.js
   Line 401:  'parserList' is not defined                    no-undef
   Line 401:  'categorName' is not defined                   no-undef
   Line 402:  'parser' is not defined                        no-undef
+OK
 
 
 
@@ -290,6 +298,7 @@ ERROR in ./src/common/text2json/fn.expressions.js
   Line 150:  'errObj' is not defined                         no-undef
   Line 150:  'errObj' is not defined                         no-undef
   Line 185:  'expressionAbbr' is not defined                 no-undef
+OK
 
 
 
@@ -310,6 +319,7 @@ ERROR in ./src/common/text2json/parser.processFlow.offload.js
   Line 71:   'step' is not defined      no-undef
   Line 86:   '_' is not defined         no-undef
   Line 117:  '_' is not defined         no-undef
+OK
 
 
 
@@ -327,6 +337,7 @@ ERROR in ./src/common/text2json/expressions/block/index.js
   Line 28:  Import in body of module; reorder to top    import/first
   Line 29:  Import in body of module; reorder to top    import/first
   Line 30:  Import in body of module; reorder to top    import/first
+OK
 
 
 
@@ -340,6 +351,7 @@ ERROR in ./src/common/text2json/expressions/block/heading.js
 
   Line 6:   Import in body of module; reorder to top    import/first
   Line 49:  'expression_initExtensions' is not defined  no-undef
+OK
 
 
 
@@ -347,48 +359,56 @@ ERROR in ./src/common/text2json/expressions/heading.js
 
   Line 6:   Import in body of module; reorder to top    import/first
   Line 49:  'expression_initExtensions' is not defined  no-undef
+OK
 
 
 
 ERROR in ./src/common/text2json/parser.markdown-it.js
 
   Line 6:  'md' is not defined  no-undef
+OK
 
 
 
 ERROR in ./src/common/text2json/expressions/block/heading.js
 Module not found: Error: Can't resolve '../expressions' in '/home/blaz/DevOps/Projects/Frontend server [react-ssr]/src/common/text2json/expressions/block'
  @ ./src/common/text2json/expressions/block/heading.js 5:0-58
+OK
 
 
 
 ERROR in ./src/common/text2json/parsers/gestures-tree/filesystem.js
 Module not found: Error: Can't resolve '../types' in '/home/blaz/DevOps/Projects/Frontend server [react-ssr]/src/common/text2json/parsers/gestures-tree'
  @ ./src/common/text2json/parsers/gestures-tree/filesystem.js 2:0-102 15:29-39 18:39-47 18:64-74 18:116-133 18:167-181 18:199-209
+OK
 
 
 
 ERROR in ./src/common/text2json/fn.tokenization.js
 Module not found: Error: Can't resolve './expressions/bulletpoint' in '/home/blaz/DevOps/Projects/Frontend server [react-ssr]/src/common/text2json'
  @ ./src/common/text2json/fn.tokenization.js 5:0-57 22:6-18
+OK
 
 
 
 ERROR in ./src/common/text2json/parsers/gestures-tree/index.jsx
 Module not found: Error: Can't resolve './parserReactWrapper' in '/home/blaz/DevOps/Projects/Frontend server [react-ssr]/src/common/text2json/parsers/gestures-tree'
  @ ./src/common/text2json/parsers/gestures-tree/index.jsx 30:0-48 51:2-14
+OK
 
 
 
 ERROR in ./src/common/text2json/fn.tokenization.js
 Module not found: Error: Can't resolve 'expressions' in '/home/blaz/DevOps/Projects/Frontend server [react-ssr]/src/common/text2json'
  @ ./src/common/text2json/fn.tokenization.js 4:0-67 21:5-15 23:9-14 24:5-13 25:11-18
+OK
 
 
 
 ERROR in ./src/common/text2json/expressions/block/dictionary.js
 Module not found: Error: Can't resolve 'expressions' in '/home/blaz/DevOps/Projects/Frontend server [react-ssr]/src/common/text2json/expressions/block'
  @ ./src/common/text2json/expressions/block/dictionary.js 1:0-52 12:83-104
+OK
 
 
 

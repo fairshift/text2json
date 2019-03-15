@@ -34,7 +34,9 @@ import fs from 'graceful-fs'
 import pify from 'pify'   // read
 import steno from 'steno' // write
 
-import hashids from 'hashids' // !!! ???
+import _ from 'lodash'
+
+import Hashids from 'hashids' // !!! ???
 
 import { path, join } from 'path'
 const { readdir, stat } = require('fs').promises
@@ -94,8 +96,8 @@ const structExpressions_byLanguage = ( object, language, expression, exprHeader 
 }
 
 
-
-const requireModule = (path, variable = null) => {
+// [!!!]
+const requireModule = (path, component, variable = null) => {
 
   try {
 
@@ -120,8 +122,11 @@ const generateId_hashids = (string, salt = [1,2,3]) => {
 
 // Where to plug in validation functions (???)
 const replaceKeys = (state, replace) => {
+
+  var args = [] // [!!!]
+
   _.each(state, (key, value) => {
-    if(!args[key]){
+    if(typeof args[key] === 'undefined'){
       args[key] = value
     }
   })

@@ -1,4 +1,5 @@
 
+import md from 'markdown-it'
 import { markdownItConfig } from './config.markdown-it.js'
 
 

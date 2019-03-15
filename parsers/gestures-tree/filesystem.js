@@ -1,7 +1,16 @@
 
-import { DateTime, GMapsAddressMatch, LanguageISO639, StringType, FileExtensionType } from '../types'
+
+// [!!!]
+//import { DateTime, GMapsAddressMatch, LanguageISO639, StringType, FileExtensionType } from '../../expressions'
 
 
+// Dummy variables …
+const DateTime = {}
+const StringType = {}
+const GMapsAddressMatch = {}
+const LanguageISO639 = {}
+const FileExtensionType = {}
+//
 
 
 export const expressions = {
@@ -15,7 +24,7 @@ export const expressions = {
     */
 
     { 'filename': { regex: new RegExp('/^\((.*\) (.*) *$/gm') },
-      'filename.2': { 'title': StringType, required: true, strip: [ExtensionType] },
+      'filename.2': { 'title': StringType, required: true, strip: [FileExtensionType] },
       'filename.1': {
         delimiters: 'filename',
         tokenize: [
