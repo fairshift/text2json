@@ -1,0 +1,39 @@
+{
+  "$schema": "http://json-schema.org/draft-06/schema#",
+  "@context": "https://schema.org/docs/tree.jsonld",
+  "title": "Dictionary schema for 'gestures-tree' package",
+  "type": "object",
+  "properties": {
+  	"trie": {
+  		"title": "Dictionary Trie of words and programmatic expressions",
+  		"description": "Dictionary stored in an optimized trie structure",
+  		"type": "object",
+  		"properties": {
+  			"id__temporary": { "type": "string" },
+  			"username": { "type": "string" }
+  		}
+  	},
+  	"trie_expr_unit": {
+  		"title": "A unit of programmatic, codified in a schema",
+  		"description": "",
+  		"type": "object",
+  		"properties": {
+  			"exprName": { "type": "string" }
+  		}
+  	},
+  	"index": {
+  		"title": "…",
+  		"description": "…",
+  		"properties": {
+  			"pointers": {
+  				"type": "array",
+  				"list": {
+  					"oneOf": {
+
+  					}
+  				}
+  			}
+  		}
+  	}
+  }
+}

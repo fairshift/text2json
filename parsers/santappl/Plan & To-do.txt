@@ -4,9 +4,10 @@
 
 ## In development now
 	 //////////////////
-	 — Clearing up errors and warnings (to an extent)
-	 	» replace occurences of "import fs from …" with require()
-	 	» npm install react-reconciler
+
+### Clearing up errors and warnings (to an extent)
+— "import fs from …" with require() doesn't resolve error issued on missing fs module
+— npm install react-reconciler
 
 
 
@@ -59,6 +60,7 @@
 ### ./index
 — dbFlush() function will during development time contain an example data structure
 — initExpressions(): keep it in index.js « because of showcasing: optimizing the client-side loading of full parser packages (async) ; merging of parser configurations from various sources, building a parserTrie of expressions ; data transfer layer ; etc
+… keep in mind: various sources of inputs should be accessible by a relative hierarchical model (ie. tree) as well as by a declared type data source
 
 
 ### ./parser.markdown-it

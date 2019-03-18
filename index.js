@@ -191,7 +191,7 @@ const tx2json = (tokenList, storageType = "Memory") => {
 
 //
 // Database queries, used by parsing, tokenizing and mapping processes
-// … and brief descriptions of inputs to their function calls
+// … and brief descriptions of inputs to their function caalls
 //
 
 
@@ -214,26 +214,32 @@ const withTokenQueries = (args, db) => {
     },
 
 
-    // …
+    // Ein Beispiel Schema (normaliziert ¿/+e/+s? )
     dbFlush: () => { // [!!!] Ein dataset steht hier zur Zeit
       db.set(
+      'expr-cache': [ // Recurring elementary expressions
+        {},
+        {}
+      ],
+      'session-id': {
         'context': {
-          'keyId': { id: "Hola", tokens: [] }
+          'keyId': { id: "Hola", exprTrie: [] }
         },
         'documents': [
-          { id: "Beispiel", tokens: [] }
+          { id: "Beispiel", exprTrie: [] }
         ],
         'jsonMap': {
-          'collection/table': {
+          '${collection/table}': {
             dbType: ["noSql", "SQL"], // [!!!]
-            
           }
+        }
       })
       .write()
     }
-
-
   })
+  //
+  // Optimization
+  // — 
 
   return db
 }
@@ -307,9 +313,10 @@ const initExpressions = (select = {
         } else { return null }
 
         return null
-    }
-  }
 
+      break;
+    }
+  })
 
   return null
 }
@@ -403,7 +410,7 @@ const parseText = (categoryName, parserName, args = parserArgs_schema) => {
 
   if( typeof parserModules[ categoryName ] !== 'undefined' ){
     if( typeof parserModules[ categorName ][ parserName ] !== 'undefined' )
-      //return parser( categoryName, parserName, args ); [!!!]
+      return null //parser( categoryName, parserName, args ); [!!!]
   }
 
   return false

@@ -157,14 +157,14 @@ export const LiederHolen = (documents, meta, db) => {
   documents.forEach((document) => {
 
     var WortschatzMöglichkeiten = [],
-        wort, previousSpace = 0
+        Wort, previousSpace = 0
 
     while ((WortschatzMöglichkeiten = RegExp(/\s/g).exec(document)) !== null) {
 
-      wort = document.substr(previousSpace, WortschatzMöglichkeiten.lastIndex)
+      Wort = document.substr(previousSpace, WortschatzMöglichkeiten.lastIndex)
       previousSpace = WortschatzMöglichkeiten.lastIndex
 
-      WortschatzMöglichkeiten.forEach((wort) => {
+      WortschatzMöglichkeiten.forEach((Wort) => {
 
         var results = {}
         var RegexMap = {
@@ -187,18 +187,21 @@ export const LiederHolen = (documents, meta, db) => {
           }
         }
 
-        var gefunden = {}
+        var gefunden = {}, temp = []
         RegexMap.forEach((side, map) => {
 
-          pattern.forEach((key, pattern) => {
+          map.forEach((patternName, expr) => {
 
-            var currentLength = wort.length
-            var result = pattern.exec(wort)
+            var currentLength = Wort.length
+            var result = expr.exec(Wort)
 
-            if(result.length != wort.length){
-              
+            if(result.length != Wort.length){
+
+              temp[patternName] = side // (side == 'l') ? 'left' : 'right'
+              gefunden = _.merge(gefunden, temp)
             }
           })
+
         })
       })
     }

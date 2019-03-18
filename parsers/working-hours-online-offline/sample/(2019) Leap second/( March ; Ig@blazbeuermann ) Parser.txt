@@ -7,4 +7,6 @@ tx2json
 
 		11:00 ~ 13:00 15.* @SiebenLinden: Removing mistakes in code (enough for the "tyt" & "ty" wrapper functions to run) ; Preparing errors output in './parsers/santappl/Plan & To-do [debug] …'
 
-		11:00 - 13:00, 13:30 ~ 17:30, 18:30 - 20:00, 23:00 - 00:50 16.* @SiebenLinden: Removing mistakes in code (enough for the "tyt" & "ty" wrapper functions to run) ;  './parsers/santappl/Plan & To-do.txt' with a task list ;
+		10:00 - 13:00, 13:30 ~ 17:30, 18:30 - 20:00, 23:00 - 00:50 16.* @SiebenLinden: Removing mistakes in code (enough for the "tyt" & "ty" wrapper functions to run) ;  './parsers/santappl/Plan & To-do.txt' with a task list ; Doing a small check with equipment and people online on YouTube, from my caravan :)
+
+		11:17 - 12:25, … 18.* @Magdeburg - @Berlin: Sketching visualization of a use-case with a global initiative (paper drawing) ; Preparing 'gesture-tree' parser Dictionary expression schema

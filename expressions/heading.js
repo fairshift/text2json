@@ -3,7 +3,7 @@ export default HeadingWithExtension
 export { Heading }
 
 
-import { exprExtend, expression_initExtensions, evaluateArgs } from '../fn.expressions'
+import { exprExtend, evaluateArgs } from '../expressions'
 
 
 const Heading = (args) => {
