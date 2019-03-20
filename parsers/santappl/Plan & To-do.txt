@@ -8,6 +8,7 @@
 ### Clearing up errors and warnings (to an extent)
 — "import fs from …" with require() doesn't resolve error issued on missing fs module
 — npm install react-reconciler
+— refactoring './index.js': add getFilesInDir() function
 
 
 
@@ -60,6 +61,7 @@
 ### ./index
 — dbFlush() function will during development time contain an example data structure
 — initExpressions(): keep it in index.js « because of showcasing: optimizing the client-side loading of full parser packages (async) ; merging of parser configurations from various sources, building a parserTrie of expressions ; data transfer layer ; etc
+— toContext() to receive a review upon potential consolidation of database object accessibility (in context of "one source of truth" components such as Redux)
 … keep in mind: various sources of inputs should be accessible by a relative hierarchical model (ie. tree) as well as by a declared type data source
 
 
@@ -69,18 +71,24 @@
 
 ### ./fn.expressions
 — expression_initExtensions …
+- asd
+·
+·
+·
+-
+—
 
 
-### ./expressions/block/*
+### ./expressions/*
 — reconsider placement of expressions and blocks (some might be placed with an insufficient accuracy, eg.: line, dictionary, …)
 
 
-### ./expressions/block/dictionary.js
+### ./expressions/dictionary.js
 — reconsider location of file
 — update description and work on functions
 
 
-### ./expressions/block/line.js
+### ./expressions/line.js
 — reconsider location of file and its 
 
 
@@ -106,7 +114,7 @@
 
 ### ./parser.runtime.js
 … with a few solid examples (possibly from Germany)
-— addToTrie function: a list of expressions or sequences is added to a trie (taking into account distinction between "words" and "expressions/blocks" as two seperate categories)
+— addToTrie function: a list of expressions or sequences is added to a trie (taking into account distinction between "words" and "expressions & blocks (of thereof)" as two seperate categories)
 
 
 ### ./parser.processFlow

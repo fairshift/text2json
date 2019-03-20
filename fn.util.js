@@ -30,7 +30,7 @@ export {
 
 
 // Async file read/write adapters (used by lowdb package)
-import fs from 'graceful-fs'
+import gracefulFs from 'graceful-fs'
 import pify from 'pify'   // read
 import steno from 'steno' // write
 
@@ -51,7 +51,7 @@ const fn_writeFile = pify(steno.writeFile);
 const readFile = function(source) {
 
   // fs.exists is deprecated but not fs.existsSync
-  if (fs.existsSync(source)) {
+  if (cracefulFs.existsSync(source)) {
     // Read file
     return fn_readFile(source, 'utf-8').then(function (data) {
       return data
@@ -97,7 +97,7 @@ const structExpressions_byLanguage = ( object, language, expression, exprHeader 
 
 
 // [!!!]
-const requireModule = (path, component, variable = null) => {
+const requireModule = (path = "", component = "", variable = null) => {
 
   try {
 
@@ -189,13 +189,13 @@ const escapeExpression = (input) => {
 
 // Async getDirs function
 const getDirs = function(rootDir, cb) { 
-  fs.readdir(rootDir, function(err, files) { 
+  gracefulFs.readdir(rootDir, function(err, files) { 
       var dirs = []; 
       for (var index = 0; index < files.length; ++index) { 
           var file = files[index]; 
         if (file[0] !== '.') { 
           var filePath = rootDir + '/' + file; 
-          fs.stat(filePath, function(err, stat) {
+          gracefulFs.stat(filePath, function(err, stat) {
             if (stat.isDirectory()) { 
               dirs.push(this.file); 
             } 
@@ -220,7 +220,7 @@ const getDirectories = async path => {
 }
 
 const fileExists = (path) => {
-  return fs.existsSync(path)
+  return gracefulFs.existsSync(path)
 }
 
 

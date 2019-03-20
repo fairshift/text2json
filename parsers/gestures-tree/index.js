@@ -115,7 +115,7 @@ const tokenize = {
 const map = {
   'gesture': {
     // schema: 'gesture', // schema with same name may be omitted
-
+    
   }
 }
 
@@ -134,8 +134,8 @@ const config = {
     plugins: [ "markdown-it" ]
   },
 
-  expressions: { // Expression default definitions
-    trim: 'auto' // otherwise use .trim() on output in 'js' objects, and __trim on keys left to parser
+  expressions: {  // Expression default definitions
+    trim: 'auto', // otherwise use .trim() on output in 'js' objects, and __trim on keys left to parser
     caseSensitive: false,
     nearby: { 
       flat: [-1, 1],

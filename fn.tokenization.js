@@ -1,10 +1,11 @@
 
 // [!!!]
 //import { Paragraphs, Colon, DateTime, Comment } from './expressions'
-import { BulletPoints } from './expressions/block/bulletpoint'
+import { BulletpointList } from './expressions/UnorderedList'
 
 import { replaceKeys, removeMarginalOccurence } from './fn.util'
 
+import _ from 'lodash'
 
 
 /*
@@ -73,6 +74,7 @@ const tokenizeStr = ( string, customBindings = {}, db ) => {
 }
 
 
+// [!!!] Revisit code
 // Delimiting by breaking input into a flat array
 const delimitingFlat = ( args ) => {
 
@@ -107,7 +109,7 @@ const delimitingFlat = ( args ) => {
       // delimiters[key_delimiter] += delimiter; // [!!!]
     }
 
-    input = removeMarginalOccurence( input, delimiters[key] );
+    input = removeMarginalOccurence( input, delimiters[key_delimiter] );
 
     if( returnBoolean == true ){
       /*
@@ -130,7 +132,7 @@ const delimitingFlat = ( args ) => {
           i++;
           if(element.length){
 
-            buffer.push( element.split( delimiters[delimiter] )); // chemistry & physics
+            buffer.push( element.split( delimiters[key] )); // chemistry & physics
           }
         });
 

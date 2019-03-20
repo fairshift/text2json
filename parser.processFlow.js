@@ -123,23 +123,22 @@ const parseText = (args = {
 	//
   try {
 
-  	if(	typeof parserName !== 'undefined' &&
-  			typeof parserMappings !== 'undefined' ){
+  	if(	typeof args.parserName !== 'undefined' &&
+  			typeof args.parserMappings !== 'undefined' ){
 
 	    var schema = require('./'+parserName)(parserMappings),
 	   			context
 
 	   	context.ext = _.map(schema.receiveContext, function(key, value){
 
-   		if(typeof args[key] !== 'undefined'){
+	   		if(typeof args[key] !== 'undefined'){
 
-   			var obj = {}
-   			obj[key] = args[key];
-   			return obj
-   		}
+	   			var obj = {}
+	   			obj[key] = value;
+	   			return obj
+	   		}
 
-	   });
-
+	   	});
 		}
 
 

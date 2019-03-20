@@ -131,7 +131,7 @@ export const parseFbData = (folder, trieObj) => {
             })
           }
 
-        };
+        })
   			break;
 
   		case "photos_and_videos":

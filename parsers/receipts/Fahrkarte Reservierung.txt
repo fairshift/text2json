@@ -1,0 +1,106 @@
+Fahrkarte/Reservierung
+Ni vračila ni zamenjave!/Keine Umbuchung oder Erstattung!
+
+26.02 22:10 Wien Hauptbahnhof -> Berlin HBF 27.02 09:16
+Vlak/Zug 00456 CNI Vagon/Wagen 256 Sedež/Sitzpl. 66
+
+Vagon z oddelki/arteilwagen
+1 Okno/Fenster
+Nekadilec/Nichtraucher
+
+1 SparNight(65)
+
+Eur **29,00
+
+Nr.3051586
+3051586
+
+812540207761
+
+Ljubljana 509.MOZ
+09.01.2019 17:44
+
+---
+
+Fahrkarte/Reservierung
+Ni vračila ni zamenjave!/Keine Umbuchung oder Erstattung!
+
+26.02 15:45 Ljubljana -> Wien Hauptbahnhof 27.02 22:02
+Vlak/Zug 00150 EC Vagon/Wagen 409 Sedež/Sitzpl. 106
+
+Vagon z oddelki/arteilwagen
+1 Okno/Fenster
+Nekadilec/Nichtraucher
+
+1 SparNight(65)
+
+Eur **29,00
+
+Nr.3051587
+3051587
+
+792540210442
+
+Ljubljana 509.MOZ
+09.01.2019 17:45
+
+[Sž206 ; 26.02.19 0150]
+
+---
+
+Einfache Fahrt
+Zum Fahrtantritt am: 19.03.19
+
+DB
+CIV 1080
+
+Flexpreis
+1 Erwachsener
+¿Kl./KI.?2
+
+City-Nutzung
+19.03.19
+
+IC/EC
+von Berlin+City (Berlin Hbf)
+nach Salzwedel
+
+Via: BGS*BWK*BSP*WUD*SDL
+
+STORNO KOSTENFREI
+BIS 1 TAG VOR 1.GEltungstag
+
+Das ist Grün
+100% Ökostrom im DB Fernverkehr.
+
+MwSt D: ***38,00 19,00% = ****6,07
+19.03.19
+06:03
+
+EUR***38,00
+Barzahlung
+
+[7907 ; 19.03.6 39021]
+
+---
+
+PVGS MDA
+
+Bödenstedter Weg 18a
+29410 Salzwedel
+Tel. 03901 30 40 30
+www.pvgs-salzswedel.de
+
+Einzelfahrt Erw. 0001
+Nawea-Tarif
+
+von 	0001	Saw Zog
+bis 	0402	Poppau Ort
+über: Kuhfelde
+Linie 0300	Fahrt 521
+von TP 0001 bis TP 0043
+M1402 V3034 G6268
+
+PS8
+4.80EUR
+Di,19.03.19 12:59 Uhr

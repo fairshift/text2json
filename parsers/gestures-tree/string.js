@@ -41,7 +41,8 @@ export const parserMappings = {
 
 ////////////////////////////////////////
 
-  var splice = {},
+  var object = args.input,
+      splice = {},
       result = {},
       regex = RegExp('/^.*[(.*)](.*) *$/gm'),
       name;
@@ -65,7 +66,6 @@ export const parserMappings = {
 
   return {
     result: result,
-    state: args
   }
 
 ////////////////////////////////////////

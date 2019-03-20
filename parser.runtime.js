@@ -27,8 +27,7 @@ const exampleDictionaryTrie = {
 		"k": {
 			$: 0,
 			"ing": { 
-				$: 0,
-				""
+				$: 0
 			}
 		}
 	}

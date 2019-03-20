@@ -1,0 +1,9 @@
+
+# Features in priority (= clusters of functionalities)
+— Wrapper functions (tyt & ty)
+— Expressions with priority:
+	Line, Sentence, Paragraph, Heading, …
+	… possibly best to resolve with "markdown-it" package (without the nicer XML parser codification ; temporarily?), also because of tyt & ty compatibility with external parsers (at stage of tokenizing)
+— Parsers with priority: 
+	Article with MarkDown (abbr.: md), ValuesRhizome, G-Rhymes
+	… with: json-schema
